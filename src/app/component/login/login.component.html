@@ -1,0 +1,113 @@
+<app-header></app-header>
+<body>
+  <div class="container" id="container">
+    <div class="form-container register-container">
+      <form #registerForm="ngForm">
+        <h1>Register here</h1>
+        <div class="form-control">
+          <input [(ngModel)]="userRegister.username" name="username" (focus)="registerForm.form.markAllAsTouched" (input)="changeUserName()" type="text" id="username" placeholder="User name" required/>
+          <small class="text-danger" *ngIf="usernameError.length > 2" id="username-error">{{ usernameError }}</small>
+    `         
+          <!-- <span></span> -->
+        </div>
+        <div class="form-control">
+          <input [(ngModel)]="userRegister.fullname" name="full-name" type="text" id="full-name"  placeholder="Full name" required />
+          <small id="full-name-error"class="text-danger" *ngIf="fullnameError.length > 2">{{ fullnameError }}</small>
+          <!-- <span></span> -->
+        </div>
+        <div class="form-control">
+          <input [(ngModel)]="userRegister.email" name="email" type="email" id="email" placeholder="Email" required />
+          <small id="email-error"class="text-danger" *ngIf="emailError.length > 2" >{{ emailError }}</small>
+          <!-- <span></span> -->
+        </div>
+        <div class="form-control">
+          <input [(ngModel)]="userRegister.password" name="password" type="password" id="password" placeholder="Password" />
+          <small id="password-error" *ngIf="passwordError.length > 1">{{passwordError}}</small>
+          <!-- <span></span> -->
+        </div>
+        <div class="form-control">
+          <input [(ngModel)]="userRegister.retypepassword" name="confirm-password" type="password" id="confirm-password" placeholder="Confirm password" required/>
+          <small id="confirm-password-error" *ngIf="confirmPasswordError.length > 1">{{confirmPasswordError}}</small>
+          <!-- <span></span> -->
+        </div>
+        <button (click)="register()" type="submit" value="submit">Register</button>
+        <span>or use your account</span>
+        <div class="social-container">
+          <a href="#" class="social"
+            ><i class="fa-brands fa-facebook-f"></i
+          ></a>
+          <a href="#" class="social"><i class="fa-brands fa-google"></i></a>
+          <a href="#" class="social"><i class="fa-brands fa-tiktok"></i></a>
+        </div>
+      </form>
+    </div>
+    
+
+    <div class="form-container login-container">
+      <form #loginForm="ngForm" class="form-lg" method="post">
+        <h1>Login here.</h1>
+        <div class="form-control2">
+          <input [(ngModel)]="this.userLogin.username" name="username" type="text" class="email-2" placeholder="User Name" />
+          <small *ngIf="this.usernameLoginError.length > 1" class="email-error-2">{{ this.usernameLoginError }}</small>
+          <span></span>
+        </div>
+        <div class="form-control2">
+          <input [(ngModel)]="this.userLogin.password" name="password" type="password" class="password-2" placeholder="Password" />
+          <small *ngIf="this.passwordLoginError.length > 1" class="password-error-2">{{ this.passwordLoginError }}</small>
+          <span></span>
+        </div>
+
+        <div class="content">
+          <div class="checkbox">
+            <input type="checkbox" name="checkbox" id="checkbox" />
+            <label for="">Remember me</label>
+          </div>
+          <div class="pass-link">
+            <a href="#">Forgot password</a>
+          </div>
+        </div>
+        <button (click)="this.login()" type="submit" value="submit">Login</button>
+        <span>Or use your account</span>
+        <div class="social-container">
+          <a href="#" class="social"
+            ><i class="fa-brands fa-facebook-f"></i
+          ></a>
+          <a href="#" class="social"><i class="fa-brands fa-google"></i></a>
+          <a href="#" class="social"><i class="fa-brands fa-tiktok"></i></a>
+        </div>
+      </form>
+    </div>
+
+    <div class="overlay-container">
+      <div class="overlay">
+        <div class="overlay-panel overlay-left">
+          <h1 class="title">
+            Hello <br />
+            friends
+          </h1>
+          <p>If you have an account, login here and have fun</p>
+          <button class="ghost" id="login">
+            Login
+            <i class="fa-solid fa-arrow-left"></i>
+          </button>
+        </div>
+
+        <div class="overlay-panel overlay-right">
+          <h1 class="title">
+            Start your <br />
+            journey now
+          </h1>
+          <p>
+            If you don'n have an account yet, join us and start your journey
+          </p>
+          <button class="ghost" id="register">
+            Register
+            <i class="fa-solid fa-arrow-right"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+</body>
+<app-footer></app-footer>
