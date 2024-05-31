@@ -1,3 +1,20 @@
-.movie-description{
-    color: rgb(184, 189, 214);
-}
+.footer {
+    background-color: #333; /* Màu nền cho footer */
+    color: #fff; /* Màu chữ cho footer */
+    padding: 20px 0; /* Khoảng cách giữa các phần tử trong footer */
+  }
+  
+  .social-icons a {
+    color: #fff; /* Màu chữ cho các biểu tượng mạng xã hội */
+    font-size: 24px; /* Kích thước chữ cho các biểu tượng mạng xã hội */
+    margin-right: 10px; /* Khoảng cách giữa các biểu tượng mạng xã hội */
+  }
+  
+  .text-end {
+    text-align: end; /* Căn lề phải cho các phần tử */
+  }
+  
+  .movie-description p {
+    margin-bottom: 0; /* Xóa khoảng cách dưới của các đoạn văn bản */
+  }
+  

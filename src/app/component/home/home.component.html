@@ -1,224 +1,138 @@
+<!-- <div class="container"> -->
+<div class="container">
+  <div class="intro-section">
+    <div class="search-box">
+      <input type="text" name="" id="" class="form-control search-input" placeholder="Tìm kiếm phim">
+      <select name="" id="" class="form-control movie-category">
+        <option selected disabled>Thể loại phim</option>
+        <option value="">Hành động</option>
+        <option value="">Tình cảm</option>
+        <option value="">Kinh dị</option>
+      </select>
+    </div>
+  </div>
 
+  <div class="row">
+    <h4 class="text-center" style="color: white;"><small>**- </small>PHIM ĐANG CHIẾU <small> -**</small></h4>
+    <div class="col-lg-3 col-md-6" *ngFor="let movie of movies">
+      <div class="movie-items">
+        <button (click)="fetchData(movie.id, movie.status)" type="button" class="btn" data-toggle="modal"
+          data-target="#exampleModal">
+          <img src="{{ movie.image }}" alt="Movie image" class="movie-image">
+        </button>
+        <h3 class="movie-name">{{ movie.title }}</h3>
+        <p class="movie-description">{{ movie.description }}</p>
+        <div class="movie-action">
+          <p> <button type="button" (click)="buyTicket(movie.id)" class="btn btn-success btn-buy">
+              <i class="fa-solid fa-ticket"></i> Buy ticket
+            </button>
+            <button (click)="fetchData(movie.id, movie.status)" type="button" class="btn btn-primary btn-detail"
+              data-toggle="modal" data-target="#exampleModal">
+              <i class="fa-solid fa-circle-exclamation"> </i>
+            </button>
+          </p>
+        </div>
 
-<style>
-     .intro-section{
-        text-align: center;
-        color: white;
-        padding: 20px;
-    }
-    .search-box{
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin-bottom: 20px;
-    }
-    
+      </div>
+    </div>
+  </div>
+</div>
 
-    .search-input{
-        width: 300px;
-        background-color: rgb(19, 23, 42);
-        margin-right: 10px;
-        border-color: rgba(255, 255, 255, 1); 
-        color: white;
-    }
-    .form-control{
-        
-        background-color: transparent;
-        color: white;
-    }
-
-    .form-control::placeholder{
-        color: rgba(255, 255, 255, 0.5);
-    }
-    /* .movie-category{
-        width: 200px;
-        color: black;
-    }
-
-    .movie-items{
-        background-color: rgb(19, 23, 42);
-        border: 1px solid rgb(35, 39, 61);
-        border-radius: 20px;
-        padding: 20px;
-        margin-bottom: 10px;
-    }
-    .movie-image{
-        width: 100%;
-        height: auto;
-        margin-bottom: 10px;
-    }
-    .movie-name{
-        color: white;
-    }
-    .movie-description{
-        color: rgb(184, 189, 214);
-    }
-    .movie-action{
-        display: flex;
-        justify-content: center;
-        margin-top: 20px;
-    } */
-    .movie-items {
-    /* Đảm bảo phần tử có kích thước cố định */
-    width: 100%;
-    height: auto;
-    margin-bottom: 20px;
-    padding: 10px;
-    background-color: #222;
-    border-radius: 10px;
-    color: white;
-    text-align: center;
-}
-
-.movie-image {
-    width: 100%;
-    height: auto;
-    border-radius: 5px;
-}
-
-.movie-name {
-    /* Giới hạn độ dài của tiêu đề */
-    display: block;
-    width: 100%;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    margin-top: 10px;
-    font-size: 18px;
-    font-weight: bold;
-}
-
-.movie-description {
-    font-size: 14px;
-    color: #ccc;
-    margin: 10px 0;
-    display: block;
-    width: 100%;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    margin-top: 10px;
-    
-    
-}
-
-
-
-.movie-action .btn-buy {
-    background-color: green;
-    width: 50%;
-}
-.movie-action .btn-detail {
-    background-color: transparent;
-    margin-left: 10px;
-    width: 15%;
-}
-.modal-content{
-    background-color: #0D0E14;
-}
-/* styles.css */
-.modal-content {
-  background-color: #0D0E14;
-}
-
-.modal-header {
-  border-bottom: 1px solid #444;
-}
-
-.modal-footer {
-  border-top: 1px solid #444;
-}
-
-.text-green {
-  color: green;
-}
-
-.img-fluid {
-  max-width: 100%;
-  height: auto;
-}
-
-/* .btn-buy {
-  background-color: green;
-  color: white;
-  margin-top: 10px;
-} */
-
-.list-unstyled li {
-  margin-bottom: 10px;
-}
-
-</style>
+<hr style="color: white; height: 5px;">
 
 <div class="container">
-    <app-header></app-header>
-    <div class="intro-section">
-        <h1>Đây là trang home</h1>
-        <!-- <p>Trang này hiển thị danh sách các sản phẩm, kèm ảnh</p>
-        <p>Các bạn có thể chọn xem sản phẩm và mua hàng tại đây</p> -->
-    </div>
-    <!--Đoạn này có 1 ô searchbox bên trái, 1 combobox bên phải-->
-    <div class="search-box">
-        <input type="text" name="" id="" class="form-control search-input" placeholder="Tìm kiếm phim">
-        <select name="" id="" class="form-control movie-category">
-            <option selected disabled>Thể loại phim</option>
-            <option value="">Hành động</option>
-            <option value="">Tình cảm</option>
-            <option value="">Kinh dị</option>
-        </select>
-    </div>
-
-    <div class="row" >
-        <h3 class="text-center" style="color: white;">PHIM ĐANG CHIẾU</h3>
-        <div class="col-lg-3 col-md-6" *ngFor="let movie of movies">
-            <div class="movie-items" >
-                <button (click)="fetchData(movie.id, movie.status)" type="button" class="btn" data-toggle="modal" data-target="#exampleModal">
-                    <img src="{{ movie.image }}" alt="Movie image" class="movie-image"> 
-                  </button>
-                
-                <h3 class="movie-name">{{ movie.title }}</h3>
-                <p class="movie-description">{{ movie.description }}</p>
-                <div class="movie-action">
-                    <p><button class="btn btn-success btn-buy"><i class="fa-solid fa-ticket"></i>
-                    Buy ticket</button>
-                        <button (click)="fetchData(movie.id, movie.status)" type="button" class="btn btn-primary btn-detail" data-toggle="modal" data-target="#exampleModal">
-                            <i class="fa-solid fa-circle-exclamation"> </i>
-                          </button>
-                </p>
-                </div>
-                
-            </div>
+  <div class="row">
+    <h3 class="text-center text-white">-BÁN TRƯỚC VÉ-</h3>
+    <div class="col-lg-3 col-md-6" *ngFor="let movieUpcoming of moviesUpcoming">
+      <div class="movie-items">
+        <button (click)="fetchData(movieUpcoming.id, movieUpcoming.status)" type="button" class="btn"
+          data-toggle="modal" data-target="#exampleModal">
+          <img src="{{ movieUpcoming  .image }}" alt="Movie image" class="movie-image">
+        </button>
+        <h3 class="movie-name">{{ movieUpcoming.title }}</h3>
+        <p class="movie-description">{{ movieUpcoming.description }}</p>
+        <div class="movie-action">
+          <p>
+            <!-- <button type="button" (click)="buyTicket(movieUpcoming.id)" class="btn btn-success btn-buy">
+              <i class="fa-solid fa-ticket"></i> Buy ticket
+            </button> -->
+            <button (click)="fetchData(movieUpcoming.id, movieUpcoming.status)" type="button"
+              class="btn btn-primary btn-detail" data-toggle="modal" data-target="#exampleModal">
+              <i class="fa-solid fa-circle-exclamation"> </i>
+            </button>
+          </p>
         </div>
-    
-        <hr style="color: white;">
-        <h3 class="text-center text-white">PHIM SẮP CHIẾU</h3>
-        <hr style="color: white;">
-        <h3 class="text-center text-white">Sự kiện</h3>
-       <h1>
-         <p>{{ message }}</p>
-       </h1>
-       
+      </div>
     </div>
-    <!-- home.component.html -->
+  </div>
+</div>
+
+<hr style="color: white; height: 5px;">
+
+<div class="container">
+  <div class="row">
+    <h3 class="text-center text-white">-PHIM SẮP CHIẾU-</h3>
+    <div class="col-lg-3 col-md-6" *ngFor="let movieUpcoming of moviesUpcoming">
+      <div class="movie-items">
+        <button (click)="fetchData(movieUpcoming.id, movieUpcoming.status)" type="button" class="btn"
+          data-toggle="modal" data-target="#exampleModal">
+          <img src="{{ movieUpcoming  .image }}" alt="Movie image" class="movie-image">
+        </button>
+        <h3 class="movie-name">{{ movieUpcoming.title }}</h3>
+        <p class="movie-description">{{ movieUpcoming.description }}</p>
+        <div class="movie-action">
+          <p>
+            <!-- <button type="button" (click)="buyTicket(movieUpcoming.id)" class="btn btn-success btn-buy">
+              <i class="fa-solid fa-ticket"></i> Buy ticket
+            </button> -->
+            <button (click)="fetchData(movieUpcoming.id, movieUpcoming.status)" type="button"
+              class="btn btn-primary btn-detail" data-toggle="modal" data-target="#exampleModal">
+              <i class="fa-solid fa-circle-exclamation"> </i>
+            </button>
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<hr style="color: white; height: 5px;">
+
+<div class="container">
+  <div class="row">
+    <h3 class="text-center text-white">-Sự kiện-</h3>
+    <h1>
+      <p>{{ message }}</p>
+    </h1>
+  </div>
+</div>
+
+
+<!-- home.component.html -->
 
 
 <!--Modal detail movie-->
 <div *ngIf="movieDetail != null">
   <!-- Modal -->
-<div class="modal fade custom-modal" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal fade custom-modal" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title text-green" id="exampleModalLabel" style="color: #60BA45;">{{ movieDetail.title }}</h5>
+          <h5 class="modal-title text-green" id="exampleModalLabel" style="color: #60BA45;">{{ movieDetail.title }}
+          </h5>
         </div>
         <div class="modal-body">
           <div class="row">
             <div class="col-md-4">
               <img [src]="movieDetail.image" alt="{{ movieDetail.title }}" class="img-fluid rounded">
               <p>
-                 <button class="btn btn-success btn-buy mt-2" style="background-color: green;"><i class="fa-solid fa-ticket"></i> Buy Ticket</button>
-              <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal2" style="margin-top: 9.9px; ">Xem trailer<i class="fa-solid fa-play"></i></button>
-              
+                <button class="btn btn-success btn-buy mt-2" style="background-color: green;"><i
+                    class="fa-solid fa-ticket"></i> Buy Ticket</button>
+                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal2"
+                  style="margin-top: 9.9px; ">Xem trailer<i class="fa-solid fa-play"></i></button>
               </p>
             </div>
             <div class="col-md-8 text-white">
@@ -235,14 +149,15 @@
             </div>
           </div>
         </div>
-        
+
       </div>
     </div>
   </div>
+  <!--/modal detailmovie-->
 
-
-  <!--moda-->
-  <div class="modal fade custom-modal" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel2" aria-hidden="true">
+  <!--Modal trailer movie-->
+  <div class="modal fade custom-modal" id="exampleModal2" tabindex="-1" role="dialog"
+    aria-labelledby="exampleModalLabel2" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
       <div class="modal-content">
         <div class="modal-header">
@@ -251,7 +166,11 @@
         <div class="modal-body">
           <div class="row">
             <div class="col-md-12">
-              <iframe width="100%" height="400" src="https://www.youtube" frameborder="0" allowfullscreen></iframe>
+              <iframe id="videoTrailer" width="100%" height="420" src="https://www.youtube.com/embed/XiLH95J4_-Q"
+              title="MÈO MẬP MANG 10 MẠNG | TRAILER LỒNG TIẾNG| Khởi chiếu: 26.04.2024" frameborder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            
             </div>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true"> <i class="fa-solid fa-arrow-left"></i>Quay lại</span>
@@ -261,6 +180,8 @@
       </div>
     </div>
   </div>
-  
-    <app-footer></app-footer>
 </div>
+
+
+<!--/ modal trailer movie-->
+<!-- </div> -->

@@ -1,17 +1,21 @@
 
 import { Routes } from '@angular/router';
 import { HomeComponent } from './component/home/home.component';
-import { FooterComponent } from './component/footer/footer.component';
-import { HeaderComponent } from './component/header/header.component';
 import { LoginComponent } from './component/login/login.component';
+import { MovieManagerComponent } from './component-admin/movie-manager/movie-manager.component';
+import { ScreensComponent } from './screens/screens.component';
+import { TheaterComponent } from './component/theater/theater.component';
+import { TicketingComponent } from './component/ticketing/ticketing.component';
 
 
 export const routes: Routes = [
     {path: '', component: LoginComponent}, 
     {path: 'home', component: HomeComponent},
-    {path: 'footer', component: FooterComponent},
-    {path: 'header', component: HeaderComponent},
+    {path: 'theater', component: TheaterComponent},
     {path: 'login-or-register', component: LoginComponent},
+    {path: 'movie-manager', component: MovieManagerComponent},
+    {path: 'screen/:movieid/:screenid/:showtimeid', component: ScreensComponent},
+    {path: 'booking/:movieid', component: TicketingComponent},
     {path: '**', redirectTo: 'home'}
 
 ];

@@ -1,0 +1,48 @@
+<h1 class="text-center text-white">Create new movie</h1>
+<form class="p-5">
+    <div class="form-group">
+        <label class="text-white" for="title">Title</label>
+        <input [(ngModel)]="this.movieNew.title" type="text" name="title" id="title" class="form-control">
+    </div>
+    <div class="form-group">
+        <label class="text-white" for="descriptions">Descriptions</label>
+        <input [(ngModel)]="this.movieNew.descriptions" type="text" name="description" id="descriptions" class="form-control">
+    </div>
+    <div class="form-group">
+        <label class="text-white" for="duration">Duration</label>
+        <input [(ngModel)]="this.movieNew.duration" type="number" name="duration" id="duration" class="form-control">
+    </div>
+    <div class="form-group">
+        <label class="text-white" for="releasedate">Release Date</label>
+        <input [(ngModel)]="this.movieNew.releasedate" type="date" name="releasedate" id="releasedate" class="form-control">
+    </div>
+    <div class="form-group">
+        <label class="text-white" for="genre">Genre</label>
+        <input [(ngModel)]="this.movieNew.genre" type="text" name="genre" id="genre" class="form-control">
+    </div>
+    <div class="form-group">
+        <label class="text-white" for="language">Language</label>
+        <input [(ngModel)]="this.movieNew.language" type="text" name="language" id="language" class="form-control">
+    </div>
+    <div class="form-group">
+        <label class="text-white" for="performers">Performers</label>
+        <input [(ngModel)]="this.movieNew.performers" type="text" name="performers" id="performers" class="form-control">
+    </div>
+    <div class="form-group">
+        <label class="text-white" for="director">Director</label>
+        <input [(ngModel)]="this.movieNew.director" type="text" name="director" id="director" class="form-control">
+    </div>
+    <div class="form-group">
+        <label class="text-white" for="trailer">Trailer</label>
+        <input [(ngModel)]="this.movieNew.trailer" type="text" name="trailer" id="trailer" class="form-control">
+    </div>
+    <div class="form-group">
+        <label class="text-white" for="status">Status</label>
+        <input [(ngModel)]="this.movieNew.status" type="text" name="status" id="status" class="form-control">
+    </div>
+    <div class="form-group">
+        <label class="text-white" for="file">File</label>
+        <input type="file" name="file" (change)="hehe($event)" class="form-control-file">
+    </div>
+    <button type="submit" (click)="createNewMovie()" class="btn btn-success">CREATE</button>
+</form>

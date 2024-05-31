@@ -6,6 +6,7 @@ import { FormsModule, NgForm } from '@angular/forms';
 import { UserService } from '../../service/user.service';
 import { CommonModule } from '@angular/common';
 import { UserLogin } from '../../request-model/user/user-login';
+import { NotificationService } from '../../service/notification.service';
 
 @Component({
   selector: 'app-login',
@@ -17,6 +18,15 @@ import { UserLogin } from '../../request-model/user/user-login';
 export class LoginComponent implements OnInit {
 
   @ViewChild('registerForm') registerForm!: NgForm;
+  constructor(
+    private renderer: Renderer2
+    ,private userService: UserService
+    ) { }
+
+  ngOnInit(): void {
+
+    this.loadScript('assets/loginjs.js');
+  }
 
 
   /**Hàm đăng ký tài khoản */
@@ -33,10 +43,23 @@ export class LoginComponent implements OnInit {
   passwordError: string = '';
   fullnameError: string = '';
   validateRegister(): boolean {
+    const regex = /^[a-zA-Z0-9]+$/;
+
     if (!this.userRegister.username.trim() || this.userRegister.username.trim().length < 3 || this.userRegister.username.length > 100) {
       this.usernameError = 'User name từ 3 - 100 ký tự!';
       return false;
     }
+
+    if (this.userRegister.username.includes(' ')) {
+      this.usernameError = 'Username không được chứa dấu cách.';
+      return false;
+    }
+
+    if (!regex.test(this.userRegister.username)) {
+      this.usernameError ='Username không được chứa ký tự đặc biệt.';
+      return false;
+    }
+
     this.usernameError = '';
     if (this.userRegister.fullname.length < 3 || this.userRegister.fullname.length > 100) {
       this.fullnameError = 'Full name từ 3 - 100 ký tự!';
@@ -145,15 +168,6 @@ export class LoginComponent implements OnInit {
   }
 
 
-  constructor(
-    private renderer: Renderer2,
-    private userService: UserService
-    ) { }
-
-  ngOnInit(): void {
-
-    this.loadScript('assets/loginjs.js');
-  }
 
   loadScript(src: string): void {
     const script = this.renderer.createElement('script');

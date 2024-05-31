@@ -1,5 +1,9 @@
 <nav class="navbar  navbar-expand-lg navbar-light bg-dark">
    <div class="container">
+    <div>
+      <span *ngIf="user">{{ user.username }}</span>
+      <span *ngIf="!user">Chưa đăng nhập</span>
+    </div>
         <a href="#" class="navbar-brand">
           NTP-TICKET
         </a>
@@ -18,9 +22,9 @@
             <a href="#" class="nav-link ">Thông báo</a>
           </li>
           <li class="nav-item">
-            <a href="#" class="nav-link ">
+            <a href="screen" class="nav-link ">
               <i class="fas fa-shopping-cart icon"></i>
-              Giỏ hàng
+              Phòng chiếu
             </a>
           </li>
           <li class="nav-item">
@@ -37,12 +41,13 @@
                 Dropdown
               </a>
               <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
-                <li><a class="dropdown-item" href="#">Action</a></li>
-                <li><a class="dropdown-item" href="#">Another action</a></li>
+                <li><a class="dropdown-item" href="theater">Hệ thống rạp chiếu</a></li>
+                <li><a class="dropdown-item" href="#">Lịch chiếu PHIM</a></li>
                 <li><a class="dropdown-item" href="#">Something else here</a></li>
               </ul>
             </li>
           </ul>
+         
         </div>
       </div>
       

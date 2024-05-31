@@ -1,0 +1,30 @@
+
+<div class="container">
+    <div class="row">
+        <h3 class="text-center" style="color: white;">Hệ thống rạp</h3>
+        <div class="col-lg-3 col-md-6" *ngFor="let theater of theaters">
+          <div class="theater-items">
+            <!-- <button (click)="fetchData(movie.id, movie.status)" type="button" class="btn" data-toggle="modal"
+              data-target="#exampleModal">
+              <img src="{{ movie.image }}" alt="Movie image" class="movie-image">
+            </button> -->
+  
+            <h3 class="theater">{{ theater.name}}</h3>
+            <p class="theater">{{ theater.description }}</p>
+            <div class="theater-action">
+              <p>
+                <button (click)="fetchData(theater.id)" type="button" class="btn btn-primary btn-detail"
+                  data-toggle="modal" data-target="#exampleModal">
+                  <i class="fa-solid fa-circle-exclamation"> Thông tin chi tiết</i>
+                </button>
+              </p>
+            </div>
+  
+          </div>
+        </div>
+</div>
+
+
+
+
+<button (click)="test()">test</button>

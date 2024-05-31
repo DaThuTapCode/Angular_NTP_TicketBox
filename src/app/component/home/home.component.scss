@@ -1,0 +1,121 @@
+
+  .intro-section {
+    text-align: center;
+    color: white;
+    padding: 20px;
+  }
+
+  .search-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+
+
+  .search-input {
+    width: 300px;
+    background-color: rgb(19, 23, 42);
+    margin-right: 10px;
+    border-color: rgba(255, 255, 255, 1);
+    color: white;
+  }
+
+  .form-control {
+
+    background-color: transparent;
+    color: white;
+  }
+
+  .form-control::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+  }
+
+ 
+  .movie-items {
+    /* Đảm bảo phần tử có kích thước cố định */
+    width: 100%;
+    height: auto;
+    margin-bottom: 20px;
+    padding: 10px;
+    background-color: #222;
+    border-radius: 10px;
+    color: white;
+    text-align: center;
+  }
+
+  .movie-image {
+    width: 100%;
+    height: auto;
+    border-radius: 5px;
+  }
+
+  .movie-name {
+    /* Giới hạn độ dài của tiêu đề */
+    display: block;
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-top: 10px;
+    font-size: 18px;
+    font-weight: bold;
+  }
+
+  .movie-description {
+    font-size: 14px;
+    color: #ccc;
+    margin: 10px 0;
+    display: block;
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-top: 10px;
+
+
+  }
+
+
+
+  .movie-action .btn-buy {
+    background-color: green;
+    width: 50%;
+  }
+
+  .movie-action .btn-detail {
+    background-color: transparent;
+    margin-left: 10px;
+    width: 15%;
+  }
+
+  .modal-content {
+    background-color: #0D0E14;
+  }
+
+  /* styles.css */
+  .modal-content {
+    background-color: #0D0E14;
+  }
+
+  .modal-header {
+    border-bottom: 1px solid #444;
+  }
+
+  .modal-footer {
+    border-top: 1px solid #444;
+  }
+
+  .text-green {
+    color: green;
+  }
+
+  .img-fluid {
+    max-width: 100%;
+    height: auto;
+  }
+
+
+  .list-unstyled li {
+    margin-bottom: 10px;
+  }

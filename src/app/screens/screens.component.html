@@ -1,0 +1,11 @@
+<!-- seat-booking.component.html -->
+<div class="screen">Màn hình</div>
+<div class="seats">
+  <div *ngFor="let row of seats" class="row">
+    <div *ngFor="let seat of row" 
+         [ngClass]="seat.status" 
+         (click)="toggleSeat(seat)">
+    </div>
+  </div>
+</div>
+<button (click)="bookSeats()">Đặt ghế</button>

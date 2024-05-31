@@ -1,4 +1,7 @@
 export class Movie {
+    push(movieD: Movie | null) {
+      throw new Error('Method not implemented.');
+    }
     id!: number;
     title!: string;
     description!: string;

@@ -1,0 +1,43 @@
+/* seat-booking.component.css */
+.screen {
+  background-color: #ccc;
+  height: 50px;
+  margin: 20px 0;
+  text-align: center;
+  line-height: 50px;
+  font-weight: bold;
+}
+
+.seats {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.row {
+  display: flex;
+}
+
+.row div {
+  width: 30px;
+  height: 30px;
+  margin: 5px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.available {
+  background-color: #fff;
+  border: 1px solid #ccc;
+}
+
+.selected {
+  background-color: #6c757d;
+  border: 1px solid #6c757d;
+}
+
+.booked {
+  background-color: #007bff;
+  border: 1px solid #007bff;
+  cursor: not-allowed;
+}
