@@ -9,4 +9,8 @@ import { Component } from '@angular/core';
 })
 export class FooterComponent {
 
+  urlFacebook: string = 'https://www.facebook.com/nt.phu.5686';
+  urlGithub: string = 'https://github.com/DaThuTapCode';
+  urlIns: string = 'https://www.instagram.com/nphu_139/';
+
 }

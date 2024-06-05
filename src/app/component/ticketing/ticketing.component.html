@@ -1,6 +1,6 @@
 <div class="container">
   <h1 class="text-center text-white mt-5">Chọn thời gian và địa điểm</h1>
-  <hr style="color: green; height: 5px;">
+  <hr style="color: #72BE42; height: 5px;">
   <div class="row">
     <div class="col-md-4">
       <mat-form-field appearance="fill">
@@ -11,8 +11,8 @@
       </mat-form-field>
     </div>
     <div class="col-md-8">
-      <h3 class="text-success">Danh sách rạp có suất chiếu</h3>
-      <div class="text-white" *ngIf="theaterNames.length === 0">*Không có suất chiếu nào cho hôm nay</div>
+      <h3  class="color-green">Danh sách rạp có suất chiếu</h3>
+      <div class="text-name-theater" *ngIf="theaterNames.length === 0">*Không có suất chiếu nào cho hôm nay</div>
       <div *ngFor="let theaterName of theaterNames">
         <h4 class="text-center text-white">{{ theaterName }}</h4>
         <table class="table table-sm table-dark">

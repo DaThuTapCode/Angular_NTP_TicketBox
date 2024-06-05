@@ -1,0 +1,59 @@
+
+.screen {
+    // background-color: #ccc;
+    color: white;
+    height: 1px;
+    margin: 20px  auto 100px;
+    text-align: center;
+    line-height: 50px;
+    font-weight: bold;
+    border: 3px solid green;
+    border: 3px solid green($color: #000000) ;
+    position: relative;
+    box-shadow: 0 0 20px 5px rgba(0, 128, 0, 0.5);
+  
+  }
+  
+  .seat-row {
+    display: flex;
+    margin-bottom: 10px;
+  }
+  
+  .seat {
+    width: 30px;
+    height: 30px;
+    margin-right: 5px;
+    background-color: lightgray;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #ccc;
+    cursor: pointer;
+  }
+  
+  .seat.available {
+    background-color: lightgray;
+  }
+  
+  .seat.reserved {
+    background-color: red;
+  }
+  
+  .seat.selected {
+    background-color: #72BE42;
+  }
+  
+  .row {
+    margin-bottom: 10px;
+  }
+  
+  .card{
+    background-color: transparent;
+    border-color: grey;
+    color: white;
+  }
+  
+  .text-green{
+    font-weight: bold;
+    color: #72BE42;
+  }

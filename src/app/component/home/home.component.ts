@@ -33,16 +33,13 @@ export class HomeComponent implements OnInit {
     , private messageService: MessageService
     , private movieService: MovieService
     , private notificationService: NotificationService
-    , private renderer: Renderer2
   ) { }
 
 
   ngOnInit(): void {
-
-    // this.notificationService.showSuccess('Chào bạn đến với NTP Ticket box!');
-    this.loadScript('assets/home.js');
     this.movieService.getMovies().subscribe(data => {
       this.movies = data;
+      console.log(data)
     });
 
     this.movieService.getMovieUpcoming().subscribe(resp => {
@@ -54,8 +51,6 @@ export class HomeComponent implements OnInit {
     });
   }
 
-
-
   /**
    * Lấy chi tiết phim theo id
    */
@@ -65,21 +60,12 @@ export class HomeComponent implements OnInit {
     });
   }
 
-  test() {
-    this.movieService.getMovieUpcoming();
-  }
+  // test() {
+  //   this.movieService.getMovieUpcoming();
+  // }
 
   buyTicket(movieId: number) {
-    alert('a')
+    this.notificationService.showSuccess('Mời bạn chọn suất chiếu và địa điểm!!');
     this.router.navigate(['/booking', movieId]);
-  }
-
-  loadScript(src: string): void {
-    const script = this.renderer.createElement('script');
-    script.src = src;
-    script.type = 'text/javascript';
-    script.async = true;
-    script.defer = true;
-    this.renderer.appendChild(document.body, script);
   }
 }

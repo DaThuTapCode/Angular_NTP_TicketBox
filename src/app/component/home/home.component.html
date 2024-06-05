@@ -24,7 +24,7 @@
         <p class="movie-description">{{ movie.description }}</p>
         <div class="movie-action">
           <p> <button type="button" (click)="buyTicket(movie.id)" class="btn btn-success btn-buy">
-              <i class="fa-solid fa-ticket"></i> Buy ticket
+              <i class="fa-solid fa-ticket"></i> Mua vé
             </button>
             <button (click)="fetchData(movie.id, movie.status)" type="button" class="btn btn-primary btn-detail"
               data-toggle="modal" data-target="#exampleModal">
@@ -129,27 +129,26 @@
             <div class="col-md-4">
               <img [src]="movieDetail.image" alt="{{ movieDetail.title }}" class="img-fluid rounded">
               <p>
-                <button class="btn btn-success btn-buy mt-2" style="background-color: green;"><i
-                    class="fa-solid fa-ticket"></i> Buy Ticket</button>
+                <button (click)="buyTicket(movieDetail.id)" data-dismiss="modal" aria-label="Close" class="btn close btn-success btn-buy mt-2" style="background-color: green;"><i
+                    class="fa-solid fa-ticket"></i>Mua vé</button>
                 <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal2"
                   style="margin-top: 9.9px; ">Xem trailer<i class="fa-solid fa-play"></i></button>
               </p>
             </div>
             <div class="col-md-8 text-white">
               <ul class="list-unstyled">
-                <li><strong>Title:</strong> {{ movieDetail.title }}</li>
-                <li><strong>Description:</strong> {{ movieDetail.description }}</li>
-                <li><strong>Duration:</strong> {{ movieDetail.duration }} minutes</li>
-                <li><strong>Release Date:</strong> {{ movieDetail.releaseDate | date }}</li>
-                <li><strong>Genre:</strong> {{ movieDetail.genre }}</li>
-                <li><strong>Language:</strong> {{ movieDetail.language }}</li>
-                <li><strong>Performers:</strong> {{ movieDetail.performers }}</li>
-                <li><strong>Director:</strong> {{ movieDetail.director }}</li>
+                <li><strong>Tên phim:</strong> {{ movieDetail.title }}</li>
+                <li><strong>Mô tả:</strong> {{ movieDetail.description }}</li>
+                <li><strong>Thời lượng:</strong> {{ movieDetail.duration }} minutes</li>
+                <li><strong>Ngày phát hành:</strong> {{ movieDetail.releaseDate | date }}</li>
+                <li><strong>Thể loại:</strong> {{ movieDetail.genre }}</li>
+                <li><strong>Ngôn ngữ:</strong> {{ movieDetail.language }}</li>
+                <li><strong>Diễn viên:</strong> {{ movieDetail.performers }}</li>
+                <li><strong>Đạo diễn:</strong> {{ movieDetail.director }}</li>
               </ul>
             </div>
           </div>
         </div>
-
       </div>
     </div>
   </div>
@@ -172,7 +171,7 @@
               referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
             
             </div>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <button type="button" class="close btn btn-primary" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true"> <i class="fa-solid fa-arrow-left"></i>Quay lại</span>
             </button>
           </div>

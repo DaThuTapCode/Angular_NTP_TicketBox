@@ -1,0 +1,33 @@
+
+<div class="container">
+
+    <table class="table table-bordered table-dark">
+        <thead>
+            <tr>
+                <th>STT</th>
+                <th>ID Booking</th>
+                <th>Ngày đặt vé</th>
+                <th>Tổng tiền</th>
+                <th>Trạng thái</th>
+                <th>Tên rạp</th>
+                <th>Vị trí</th>
+                <th>Tên phim</th>
+                <th>Chi tiết vé</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let booking of bookingList">
+                <td>{{1}}</td>
+                <td>{{booking.id}}</td>
+                <td>{{booking.bookingDate}}</td>
+                <td>{{booking.totalPrice}}</td>
+                <td>{{booking.status === 'CONFIRMED'? 'Đã thanh toán': ''}}</td>
+                <td>{{booking.bookingdetail}}</td>
+                <td>{{booking.totalPrice}}</td>
+                <td>{{booking.totalPrice}}</td>
+                <td>{{booking.totalPrice}}</td>
+            </tr>
+        </tbody>
+    </table>
+ 
+</div>

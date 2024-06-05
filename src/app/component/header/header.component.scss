@@ -7,6 +7,7 @@
 
 }
 .navbar .container .navbar-brand {
+    width: 180px;
     color: rgb(173, 178, 203);
 }
 
@@ -20,4 +21,11 @@
     background-color: green !important;
     // background-color: rgb(127, 68, 255) !important;
     color: white !important; 
+}
+
+.img-logo-ntp{
+    border-radius: 100px;
+    max-width: 40%;
+    padding: auto;
+    margin: auto;
 }

@@ -25,6 +25,7 @@ import { NotificationService } from '../../service/notification.service';
     RouterModule
   ]
 })
+
 export class TicketingComponent implements OnInit {
   showtimes: ShowTime[] = [];
   groupedShowtimes: { [theaterName: string]: ShowTime[] } = {};
@@ -32,6 +33,7 @@ export class TicketingComponent implements OnInit {
   minDate: Date;
   todayn: Date;
   showdate: Date = new Date();
+  movieId!: number;
 
   constructor(
     private bookingService: BookingService,
@@ -46,10 +48,14 @@ export class TicketingComponent implements OnInit {
   ngOnInit(): void {
     this.route.params.subscribe(params => {
       const movieId = +params['movieid'];
+      if(isNaN(movieId)){
+        this.notificationService.showError('Dữ liệu đầu vào không hợp lệ!');
+        return;
+      }
       if (movieId) {
+        this.movieId =movieId;
         this.getShowTimesByMovieId(movieId, this.showdate);
       }
-      this.notificationService.showSuccess('Mời bạn chọn thời gian và địa điểm mua vé');
     });
   }
 
@@ -59,7 +65,10 @@ export class TicketingComponent implements OnInit {
       (data: ShowTime[]) => {
         this.showtimes = data;
         this.groupShowtimesByTheater();
-        console.log(this.showtimes);
+        if(this.showtimes.length === 0){
+          this.notificationService.showSuccess('Opp! Hôm nay không có lịch chiếu, mời bạn chọn ngày khác nhé!')
+        }
+        //console.log(this.showtimes);
       },
       error => {
         console.error(error);
@@ -83,7 +92,7 @@ export class TicketingComponent implements OnInit {
   onDateChange(event: any) {
     console.log('Ngày được chọn: ', event.value);
     this.showdate = event.value;
-    this.getShowTimesByMovieId(1, this.showdate); // Thay đổi id phim tùy theo trường hợp của bạn
+    this.getShowTimesByMovieId(this.movieId, this.showdate); // Thay đổi id phim tùy theo trường hợp 
   }
 
   // Phương thức để định dạng ngày thành chuỗi yyyy-MM-dd
