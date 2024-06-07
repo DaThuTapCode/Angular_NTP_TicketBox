@@ -13,6 +13,6 @@ export const authGuard: CanActivateFn = (
   if (isLoggedIn) {
     return true;
   } else {
-    return router.createUrlTree(['/login']);
+    return router.createUrlTree(['/login-or-register']);
   }
 };

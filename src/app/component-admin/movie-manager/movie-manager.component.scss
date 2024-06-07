@@ -1,48 +1,53 @@
-/* Đảm bảo form nằm giữa trang */
-form {
-    max-width: 600px;
-    margin: 0 auto;
-}
+// /* Đảm bảo form nằm giữa trang */
+// form {
+//     max-width: 600px;
+//     margin: 0 auto;
+// }
 
-/* Căn giữa tiêu đề */
-h1 {
-    text-align: center;
-}
+// /* Căn giữa tiêu đề */
+// h1 {
+//     text-align: center;
+// }
 
-/* Thay đổi màu chữ của label và thêm khoảng cách dưới cùng */
-label {
-    color: #fff;
-    margin-bottom: 5px;
-}
+// /* Thay đổi màu chữ của label và thêm khoảng cách dưới cùng */
+// label {
+//     color: #fff;
+//     margin-bottom: 5px;
+// }
 
-/* Định dạng input và thêm border-radius */
-input[type="text"],
-input[type="number"],
-input[type="date"],
-input[type="file"] {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    margin-bottom: 10px;
-}
+// /* Định dạng input và thêm border-radius */
+// input[type="text"],
+// input[type="number"],
+// input[type="date"],
+// input[type="file"] {
+//     width: 100%;
+//     padding: 10px;
+//     border: 1px solid #ccc;
+//     border-radius: 5px;
+//     margin-bottom: 10px;
+// }
 
-/* Thay đổi màu của button và border-radius */
-button {
-    background-color: #28a745;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    padding: 10px 20px;
-    cursor: pointer;
-}
+// /* Thay đổi màu của button và border-radius */
+// button {
+//     background-color: #28a745;
+//     color: #fff;
+//     border: none;
+//     border-radius: 5px;
+//     padding: 10px 20px;
+//     cursor: pointer;
+// }
 
-/* Hover effect cho button */
-button:hover {
-    background-color: #218838;
-}
+// /* Hover effect cho button */
+// button:hover {
+//     background-color: #218838;
+// }
 
-/* Thêm khoảng cách giữa các phần tử */
+
 .form-group {
     margin-bottom: 15px;
 }
+
+.text-green{
+    font-weight: bold;
+    color: #72BE42;
+  }

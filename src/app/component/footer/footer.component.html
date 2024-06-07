@@ -1,21 +1,41 @@
 <footer>
     <div class="footer">
         <div class="container">
-            <div class="row movie-description">
+            <div class="row">
                 <div class="col-md-6">
-                    <p>Nguyen Trong Phu</p>
-                    <p>Dự án cá nhân - Phát triển bởi Nguyễn Trọng Phú </p>
-                    <p>Sử dụng Angular phát triển Front-End</p>
-                    <p>Sử dụng Java Spring ResfulAPI phát triển Back-End</p>
+                    <div class="about-me">
+                        <h5 style="color: #72BE42;">Về tôi</h5>
+                        <p>Nguyễn Trọng Phú</p>
+                        <p>Dự án cá nhân - Phát triển bởi Nguyễn Trọng Phú</p>
+                        <p>Sử dụng Angular phát triển Front-End</p>
+                        <p>Sử dụng Java Spring Restful API phát triển Back-End</p>
+                    </div>
                     <div class="social-icons">
-                        <a href="{{this.urlFacebook}}" target="_blank"><i class="fab fa-facebook-square"></i></a>
-                        <a href="{{this.urlGithub}}" target="_blank"><i class="fab fa-github-square"></i></a>
-                        <a href="{{this.urlIns}}" target="_blank"><i class="fab fa-instagram-square"></i></a>
+                        <a href="{{this.urlFacebook}}" target="_blank">
+                            <!-- <i class="fab fa-facebook-square"></i> -->
+                            <img class="img-logo-social" [src]="this.urlLogoFacebook" alt="img-logo-facebook">
+                        </a>
+                        <a href="{{this.urlGithub}}" target="_blank">
+                            <!-- <i class="fab fa-github-square"></i> -->
+                            <img class="img-logo-social" [src]="this.urlLogoGithub" alt="img-logo-github">
+
+                        </a>
+                        <a href="{{this.urlIns}}" target="_blank">
+                            <!-- <i class="fab fa-instagram-square"></i> -->
+                            <img class="img-logo-social" [src]="this.urlLogoIns" alt="img-logo-ins">
+
+                        </a>
                     </div>
                 </div>
                 <div class="col-md-6">
-                    <p class="text-end">Terms of Service | Privacy Policy</p>
-                    <p class="text-end">Email: <a href="mailto:ntpdth2004&#64;gmail.com">ntpdth2004&#64;gmail.com</a></p>
+                    <div class="footer-links text-end">
+                        <h5 style="color: #72BE42;">Liên kết</h5>
+                        <p><a href="#">Điều khoản dịch vụ</a> | <a href="#">Chính sách bảo mật</a></p>
+                        <p>Email: <a href="mailto:ntpdth2004@gmail.com">ntpdth2004&#64;gmail.com</a></p>
+                        <br>
+                        <hr>
+                        <p ><img class="img-logo-ntp" [src]="this.urlLogo" alt="img-logo-ntp"></p>
+                    </div>
                 </div>
             </div>
         </div>

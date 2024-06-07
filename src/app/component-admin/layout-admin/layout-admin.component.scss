@@ -1,0 +1,24 @@
+/* admin-home.component.css */
+.admin-container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+  }
+  
+  .navbar {
+    margin-bottom: 1rem;
+  }
+  
+  .d-flex {
+    flex: 1;
+  }
+  
+  .sidebar {
+    width: 250px;
+  }
+  
+  .main-content {
+    flex: 1;
+    padding: 20px;
+  }
+  

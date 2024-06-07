@@ -12,7 +12,7 @@
     </div>
     <div class="col-md-8">
       <h3  class="color-green">Danh sách rạp có suất chiếu</h3>
-      <div class="text-name-theater" *ngIf="theaterNames.length === 0">*Không có suất chiếu nào cho hôm nay</div>
+      <div class="text-name-theater text-danger" *ngIf="theaterNames.length === 0">*Không có suất chiếu nào cho hôm nay</div>
       <div *ngFor="let theaterName of theaterNames">
         <h4 class="text-center text-white">{{ theaterName }}</h4>
         <table class="table table-sm table-dark">

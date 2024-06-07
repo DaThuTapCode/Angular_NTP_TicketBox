@@ -11,7 +11,7 @@
       <div *ngFor="let row of rows | keyvalue" class="row ">
         <div class="seat-row justify-content-center">
           <h3 class="text-green" style="padding-right: 10px;">{{ row.key }}</h3>
-          <div class="seat" *ngFor="let seat of row.value" (click)="selectSeat(seat)" [ngClass]="seat.status">
+          <div class="seat" *ngFor="let seat of row.value" (click)="selectSeat(seat)" [ngClass]="seat.status" [ngClass]="seat.type">
             <div *ngIf="seat.type === 'STANDARD' ">
               <i class="fa-solid fa-chair"></i>
             </div>

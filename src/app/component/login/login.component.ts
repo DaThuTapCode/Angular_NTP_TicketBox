@@ -24,10 +24,13 @@ export class LoginComponent implements OnInit {
     ) { }
 
   ngOnInit(): void {
-
-    this.loadScript('assets/loginjs.js');
+    
+   this.loadScript('assets/loginjs.js');
   }
 
+
+  urlWall: string = 'assets/img/wall-login.jpg';
+  urlBanner: string = 'assets/img/banner-login.jpg';
 
   /**Hàm đăng ký tài khoản */
   register() {

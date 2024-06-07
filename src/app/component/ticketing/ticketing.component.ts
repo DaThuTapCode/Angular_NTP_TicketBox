@@ -66,7 +66,7 @@ export class TicketingComponent implements OnInit {
         this.showtimes = data;
         this.groupShowtimesByTheater();
         if(this.showtimes.length === 0){
-          this.notificationService.showSuccess('Opp! Hôm nay không có lịch chiếu, mời bạn chọn ngày khác nhé!')
+          this.notificationService.showWarning('Opp! Hôm nay không có lịch chiếu, mời bạn chọn ngày khác nhé!')
         }
         //console.log(this.showtimes);
       },

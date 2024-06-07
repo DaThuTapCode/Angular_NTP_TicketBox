@@ -30,6 +30,10 @@
   .notification.error {
     background-color: #f44336; /* Red */
   }
+  .notification.warning {
+    background-color: #FFC107; /* yellow */
+    color: black;
+  }
   
   .notification .message {
     flex-grow: 1;

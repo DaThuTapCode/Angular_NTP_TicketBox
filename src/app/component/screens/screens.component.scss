@@ -31,6 +31,10 @@
   cursor: pointer;
 }
 
+.seat.NULL {
+  visibility: hidden;
+}
+
 .seat.available {
   background-color: lightgray;
 }

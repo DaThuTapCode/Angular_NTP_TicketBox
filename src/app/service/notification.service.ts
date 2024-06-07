@@ -15,5 +15,9 @@ export class NotificationService {
   showError(message: string) {
     this.notificationSubject.next({ type: 'error', message });
   }
+
+  showWarning(message: string) {
+    this.notificationSubject.next({ type: 'warning', message });
+  }
   constructor() { }
 }

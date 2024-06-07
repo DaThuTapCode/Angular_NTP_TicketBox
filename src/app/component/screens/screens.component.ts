@@ -15,6 +15,7 @@ import { UserBooking } from '../../model/userBooking';
 import { StatusBooking } from '../../enum/status-booking';
 import { SessionloginService } from '../../service/sessionlogin.service';
 import { BookingDetail } from '../../model/bookingdetail';
+import { TypeSeat } from '../../enum/type-seat';
 
 @Component({
   selector: 'app-screens',
@@ -33,33 +34,37 @@ export class ScreensComponent implements OnInit {
     , private router: Router
     , private vnpayService: VnpayService
     , private sessionLoginService: SessionloginService
-  ) { }
+  ) {
+
+  }
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
       const screenId = +params['screenid'];
       const movieId = +params['movieid'];
       const showtimeId = + params['showtimeid'];
-
-      if(isNaN(screenId) || isNaN(movieId) || isNaN(showtimeId)){
+      if (isNaN(screenId) || isNaN(movieId) || isNaN(showtimeId)) {
         this.notificationService.showError('Dữ liệu đầu vào không hợp lệ!');
         return;
       }
 
-      if (showtimeId) {
-        this.getShowTimeById(showtimeId);
-      }
+     
       if (movieId) {
         this.getMovieById(movieId, 1);
       }
       if (screenId) {
         this.getSeatsByScreen(screenId);
       }
+      if (showtimeId) {
+        this.getSeatIsBooked(showtimeId);
+        this.getShowTimeById(showtimeId);
+      }
       this.sessionLoginService.user$.subscribe(user => {
         this.userLg = user;
       });
       this.notificationService.showSuccess('Mời bạn chọn ghế');
     });
+
   }
 
   //Nhóm các ghế được chọn theo loại ghế
@@ -67,6 +72,8 @@ export class ScreensComponent implements OnInit {
 
   seatsL: Seat[] = [];
   seatIsSelected: Seat[] = [];
+  seatIsBooked: Seat[] = [];
+
   rows: { [key: string]: any[] } = {};
   movie!: Movie;
   showtime!: ShowTime;
@@ -82,15 +89,12 @@ export class ScreensComponent implements OnInit {
     status: StatusBooking.PENDING,
     bookingdetail: [] = this.bookingDetailList
   };
-
   totalPrice = 0;
 
 
 
-  // /**Gán giá trị cho bookingDetail */
-  // getBookingDetail(showTime: ShowTime, price: number, seat: Seat): BookingDetail {
-  //   return new BookingDetail(showTime ,price, seat)
-  // }
+
+
 
   /**Lấy phim theo id */
   getMovieById(movieId: number, status: number) {
@@ -119,6 +123,31 @@ export class ScreensComponent implements OnInit {
     })
   }
 
+  /**Lấy ghế đã được đặt */
+  getSeatIsBooked(idshowtime: number) {
+    this.bookingService.getSeatBooked(idshowtime).subscribe({
+      next: (resp: Seat[]) => {
+        this.seatIsBooked = resp;
+        this.updateSeatStatus();
+      }
+    });
+  }
+ /**sửa trạng thái của ghế được dặt */
+  updateSeatStatus(): void {
+    if (this.seatIsBooked.length > 0 && this.seatsL.length > 0) {
+      this.seatIsBooked.forEach(seatB => {
+        this.seatsL.forEach(seatL => {
+          if (seatB.id === seatL.id) {
+            seatL.status = 'reserved';
+          }
+        });
+      });
+    }
+  }
+  
+
+
+
   /**Nhóm các ghế theo hàng */
   groupSeatByRow(): void {
     this.seatsL.forEach(seat => {
@@ -130,26 +159,26 @@ export class ScreensComponent implements OnInit {
   }
 
   /**Trả về giá tiền ghế theo seat.type */
-  getPriceForSeat(type: string): number{
-    if(type === 'STANDARD'){
+  getPriceForSeat(type: string): number {
+    if (type === 'STANDARD') {
       return 90000;
-    }else if( type === 'VIP'){
+    } else if (type === 'VIP') {
       return 100000;
-    }else{
+    } else {
       return 200000;
     }
   }
 
 
   /**Trả về tổng tiền */
-  getTotalPrice(): number{
+  getTotalPrice(): number {
     this.totalPrice = 0;
     this.seatIsSelected.forEach(seat => {
       this.totalPrice += this.getPriceForSeat(seat.type);
     });
     return this.totalPrice;
   }
-  
+
   /**Chọn ghế */
   selectSeat(seat: any) {
     if (seat.status === 'available') {
@@ -193,12 +222,12 @@ export class ScreensComponent implements OnInit {
   createBooking() {
     if (this.userLg.username) {
       this.booking.user.username = this.userLg.username;
-      console.log('Booking: ' + JSON.stringify( this.booking))
+      console.log('Booking: ' + JSON.stringify(this.booking))
       this.bookingService.createBooking(this.booking).subscribe({
         next: ((resp: any) => {
           this.notificationService.showSuccess('Đang chuẩn bị quá trình thanh toán!'),
-          this.booking = resp.data,
-          this.redirectPayment(resp.data.id)
+            this.booking = resp.data,
+            this.redirectPayment(resp.data.id)
         }),
         error: (err: any) => {
           this.notificationService.showError(err.error.message)
@@ -212,13 +241,12 @@ export class ScreensComponent implements OnInit {
   }
 
   /**Chuyển đến url thanh toán */
-  redirectPayment(id_booking: number){
+  redirectPayment(id_booking: number) {
     this.vnpayService.getPayment(this.getTotalPrice(), id_booking).subscribe({
       next: (response: any) => {
         console.log(response.data);
-      //  alert(response.data);
         console.log("URL Payment: " + response.data);
-        window.location.href = response.data; 
+        window.location.href = response.data;
       },
       error: (err: any) => {
         this.notificationService.showError(err.error.message);

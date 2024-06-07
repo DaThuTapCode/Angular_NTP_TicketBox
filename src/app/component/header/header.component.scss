@@ -1,29 +1,28 @@
-.navbar{
-    background-color: rgba(0, 0, 0, 0) !important;
-
+.navbar {
+    background-color: #333 !important;
 }
+
 .navbar .container {
-    background-color: rgba(0, 0, 0, 0) !important;
-
+    background-color: #333 !important;
 }
+
 .navbar .container .navbar-brand {
     width: 180px;
-    color: rgb(173, 178, 203);
+    color: #adb2cb;
 }
 
-.navbar .container .navbar-nav .nav-link{
-    color: rgb(173, 178, 203);
+.navbar .container .navbar-nav .nav-link {
+    color: #adb2cb;
     border-radius: 18px;
-    padding: 8px, 16px;
+    padding: 8px 16px;
 }
 
-.navbar .container .navbar-nav .nav-link.active{
+.navbar .container .navbar-nav .nav-link.active {
     background-color: green !important;
-    // background-color: rgb(127, 68, 255) !important;
     color: white !important; 
 }
 
-.img-logo-ntp{
+.img-logo-ntp {
     border-radius: 100px;
     max-width: 40%;
     padding: auto;

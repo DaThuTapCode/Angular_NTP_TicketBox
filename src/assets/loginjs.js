@@ -10,6 +10,10 @@ registerButton.addEventListener("click", () => {
 loginButton.addEventListener("click", () => {
   container.classList.remove("right-panel-active");
 });
+// src/assets/js/custom.js
+function customFunction() {
+  console.log("Custom function called!");
+}
 
 
 // // Check Register Error

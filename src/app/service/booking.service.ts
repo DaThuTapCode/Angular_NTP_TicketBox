@@ -24,6 +24,8 @@ export class BookingService {
 
   private apiCreateBookingDetail = `${this.apiBase}api/v1/booking/create`;
 
+  private apiGetSeatBooked = `${this.apiBase}api/v1/booking/showtime-seat-is-booked/`
+
 
   constructor(
     private http: HttpClient
@@ -31,12 +33,12 @@ export class BookingService {
 
 
   /**Tạo đặt lịch mới */
-  createBooking(booking: any): Observable<Booking>{
-      return this.http.post<Booking>(this.apiCreateBooking, booking);
+  createBooking(booking: any): Observable<Booking> {
+    return this.http.post<Booking>(this.apiCreateBooking, booking);
   }
 
   /**Tạo đặt lịch chi tiết mới */
-  createBookingDetail(bookingDetail: BookingDetail): Observable<any>{
+  createBookingDetail(bookingDetail: BookingDetail): Observable<any> {
     return this.http.post(this.apiCreateBookingDetail, bookingDetail);
   }
 
@@ -58,6 +60,13 @@ export class BookingService {
   /**Lấy các ghế theo phòng chiếu*/
   getSeatByIdScreen(idscreen: number): Observable<Seat[]> {
     return this.http.get<any>(`${this.apiGetSeatByScreensId}${idscreen}`).pipe(
+      map(resp => resp.data.map((item: any) => new Seat(item)))
+    );
+  }
+
+  /**Lấy ra các gế đã được đặt */
+  getSeatBooked(idshowtime: number): Observable<Seat[]> {
+    return this.http.get<any>(`${this.apiGetSeatBooked}${idshowtime}`).pipe(
       map(resp => resp.data.map((item: any) => new Seat(item)))
     );
   }

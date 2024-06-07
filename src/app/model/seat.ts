@@ -1,3 +1,5 @@
+import { TypeSeat } from "../enum/type-seat";
+
 export class Seat{
     id: number;
 
@@ -5,7 +7,7 @@ export class Seat{
 
     seatnumber: number
 
-    type: string;
+    type: TypeSeat;
 
     status: string;
 
