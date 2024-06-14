@@ -5,17 +5,12 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { NotificationService } from '../../service/notification.service';
 import { Seat } from '../../model/seat';
 import { MovieService } from '../../service/movie.service';
-import { TheaterService } from '../../service/theater.service';
 import { Movie } from '../../model/movies';
-import { ScreensService } from '../../service/screens.service';
 import { ShowTime } from '../../model/showtime';
 import { VnpayService } from '../../service/vnpay.service';
-import { Booking } from '../../model/booking';
-import { UserBooking } from '../../model/userBooking';
 import { StatusBooking } from '../../enum/status-booking';
 import { SessionloginService } from '../../service/sessionlogin.service';
 import { BookingDetail } from '../../model/bookingdetail';
-import { TypeSeat } from '../../enum/type-seat';
 
 @Component({
   selector: 'app-screens',
@@ -48,7 +43,6 @@ export class ScreensComponent implements OnInit {
         return;
       }
 
-     
       if (movieId) {
         this.getMovieById(movieId, 1);
       }
@@ -56,7 +50,8 @@ export class ScreensComponent implements OnInit {
         this.getSeatsByScreen(screenId);
       }
       if (showtimeId) {
-        this.getSeatIsBooked(showtimeId);
+        this._idshowtime = showtimeId;
+        this.getSeatIsBooked(showtimeId, this.seat);
         this.getShowTimeById(showtimeId);
       }
       this.sessionLoginService.user$.subscribe(user => {
@@ -67,12 +62,15 @@ export class ScreensComponent implements OnInit {
 
   }
 
+  _idshowtime!: number;
+
   //Nhóm các ghế được chọn theo loại ghế
   groupSeatByType: { [key: string]: any[] } = {};
 
   seatsL: Seat[] = [];
   seatIsSelected: Seat[] = [];
   seatIsBooked: Seat[] = [];
+  seat!: Seat;
 
   rows: { [key: string]: any[] } = {};
   movie!: Movie;
@@ -124,15 +122,54 @@ export class ScreensComponent implements OnInit {
   }
 
   /**Lấy ghế đã được đặt */
-  getSeatIsBooked(idshowtime: number) {
+  getSeatIsBooked(idshowtime: number, seat: Seat) {
     this.bookingService.getSeatBooked(idshowtime).subscribe({
       next: (resp: Seat[]) => {
         this.seatIsBooked = resp;
         this.updateSeatStatus();
+        if (seat) {
+          if (seat.status === 'available') {
+            if (this.seatIsSelected.length >= 9) {
+              this.notificationService.showError('Bạn chỉ được chọn tối đa 9 ghế!!');
+            } else {
+              seat.status = 'selected';
+              this.seatIsSelected.push(seat);
+              if (!this.groupSeatByType[seat.type]) {
+                this.groupSeatByType[seat.type] = [];
+              }
+              this.groupSeatByType[seat.type].push(seat);
+              this.bookingDetailList.push(new BookingDetail(this.showtime, this.getPriceForSeat(seat.type), seat));
+            }
+          } else if (seat.status === 'selected') {
+            // Xóa seat ra khỏi groupSeatByType khi bỏ chọn
+            if (this.groupSeatByType[seat.type]) {
+              const typeIndex = this.groupSeatByType[seat.type].findIndex(s => s.id === seat.id);
+              if (typeIndex !== -1) {
+                this.groupSeatByType[seat.type].splice(typeIndex, 1);
+              }
+            }
+            // Xóa 1 phần tử trong danh sách hóa đơn khi bỏ chọn ghế
+            if (this.bookingDetailList) {
+              const bookingDetailIndex = this.bookingDetailList.findIndex(b => b.seat.id === seat.id);
+              if (bookingDetailIndex !== -1) {
+                this.bookingDetailList.splice(bookingDetailIndex, 1);
+              }
+            }
+            // Xóa ghế ra khỏi danh sách ghế đã chọn khi  bỏ chọn ghế
+            const index = this.seatIsSelected.findIndex(s => s.id === seat.id);
+            if (index !== -1) {
+              this.seatIsSelected.splice(index, 1);
+            }
+            seat.status = 'available';
+          }
+        }else{
+          
+        }
       }
     });
   }
- /**sửa trạng thái của ghế được dặt */
+
+  /**sửa trạng thái của ghế được dặt */
   updateSeatStatus(): void {
     if (this.seatIsBooked.length > 0 && this.seatsL.length > 0) {
       this.seatIsBooked.forEach(seatB => {
@@ -144,8 +181,6 @@ export class ScreensComponent implements OnInit {
       });
     }
   }
-  
-
 
 
   /**Nhóm các ghế theo hàng */
@@ -169,7 +204,6 @@ export class ScreensComponent implements OnInit {
     }
   }
 
-
   /**Trả về tổng tiền */
   getTotalPrice(): number {
     this.totalPrice = 0;
@@ -181,41 +215,8 @@ export class ScreensComponent implements OnInit {
 
   /**Chọn ghế */
   selectSeat(seat: any) {
-    if (seat.status === 'available') {
-      if (this.seatIsSelected.length >= 9) {
-        this.notificationService.showError('Bạn chỉ được chọn tối đa 9 ghế!!');
-      } else {
-        seat.status = 'selected';
-        this.seatIsSelected.push(seat);
-        if (!this.groupSeatByType[seat.type]) {
-          this.groupSeatByType[seat.type] = [];
-        }
-        this.groupSeatByType[seat.type].push(seat);
-        this.bookingDetailList.push(new BookingDetail(this.showtime, this.getPriceForSeat(seat.type), seat));
-      }
-    } else if (seat.status === 'selected') {
-      // Xóa seat ra khỏi groupSeatByType khi bỏ chọn
-      if (this.groupSeatByType[seat.type]) {
-        const typeIndex = this.groupSeatByType[seat.type].findIndex(s => s.id === seat.id);
-        if (typeIndex !== -1) {
-          this.groupSeatByType[seat.type].splice(typeIndex, 1);
-        }
-      }
-      // Xóa 1 phần tử trong danh sách hóa đơn khi bỏ chọn ghế
-      if (this.bookingDetailList) {
-        const bookingDetailIndex = this.bookingDetailList.findIndex(b => b.seat.id === seat.id);
-        if (bookingDetailIndex !== -1) {
-          this.bookingDetailList.splice(bookingDetailIndex, 1);
-        }
-      }
-      // Xóa ghế ra khỏi danh sách ghế đã chọn khi  bỏ chọn ghế
-      const index = this.seatIsSelected.findIndex(s => s.id === seat.id);
-      if (index !== -1) {
-        this.seatIsSelected.splice(index, 1);
-      }
-      seat.status = 'available';
-    }
-    console.log('Danh sach hoa don detail: ' + JSON.stringify(this.bookingDetailList));
+    this.getSeatIsBooked(this._idshowtime, seat);
+
   }
 
   /**Tạo đặt lịch mới */

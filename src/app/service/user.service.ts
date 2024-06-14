@@ -84,7 +84,11 @@ login(userLogin: UserLogin) {
           this.sessionLogin.setUser(resp.data.userDTO);
           console.log(resp.data.userDTO);
           this.notificationService.showSuccess('Đăng nhập thành công!');
-          this.router.navigate(["/home"])
+          if(resp.data.userDTO.role === 1 || resp.data.userDTO.role === 3){
+            this.router.navigate(["/admin/dashboard"])
+           return;
+          }
+           this.router.navigate(["/home"])
         } catch (error) {
           this.notificationService.showError('Đăng nhập thất bại!');
           console.error('Error parsing response:', error);

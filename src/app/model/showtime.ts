@@ -2,10 +2,10 @@ import { Movie } from "./movies";
 import { Screen } from "./screen";
 
 export class ShowTime{
-    id: number;
-    movie: Movie;
-    screen: Screen;
-    showdate: Date;
+    id: number | null;
+    movie: Movie | null;
+    screen: Screen | null;
+    showdate: Date | null | any;
     showtime: string;
 
     constructor(data: any){

@@ -6,7 +6,6 @@
         <h4>*Các loại ghế</h4>
         <p> <i class="fa-solid fa-chair"></i> : Ghế thường</p>
         <p> <i class="fa-solid fa-couch"></i> : Ghế VIP</p>
-
       </div>
       <div *ngFor="let row of rows | keyvalue" class="row ">
         <div class="seat-row justify-content-center">
@@ -22,11 +21,10 @@
           <h3 class="text-green" style="padding-right: 10px;">{{ row.key }}</h3>
         </div>
       </div>
-
     </div>
     <div class="col-lg-3">
       <div class="card ">
-        <div *ngIf="this.showtime">
+        <div *ngIf="this.showtime && this.showtime.screen && this.showtime.movie">
           <div class="card-header">
             <h4 class="text-green text-center">*Thông tin thanh toán!</h4>
             <p>{{showtime.screen.theater.name}}</p>

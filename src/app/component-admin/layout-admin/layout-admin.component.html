@@ -1,40 +1,55 @@
-<!-- admin-home.component.html -->
 <div class="admin-container">
-    <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <a class="navbar-brand" href="#">Admin Dashboard</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav ml-auto">
-          <li class="nav-item">
-            <a class="nav-link" routerLink="/admin/dashboard">Dashboard</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" routerLink="/admin/movie-manager">Movie Manager</a>
-          </li>
-          <!-- Add more links as needed -->
-        </ul>
-      </div>
-    </nav>
-  
-    <!-- Sidebar and Content -->
-    <div class="d-flex">
-      <!-- Sidebar -->
-      <div class="sidebar bg-light">
-        <ul class="list-group">
-          <li class="list-group-item"><a routerLink="/admin/dashboard">Dashboard</a></li>
-          <li class="list-group-item"><a routerLink="/admin/show-time-manager">Show Time Manager</a></li>
-          <li class="list-group-item"><a routerLink="/admin/movie-manager">Movie Manager</a></li>
-          <!-- Add more links as needed -->
-        </ul>
-      </div>
-  
-      <!-- Main Content -->
-      <div class="main-content p-3">
-        <router-outlet></router-outlet>
-      </div>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">Admin Dashboard</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link" [routerLinkActive]="['active']" routerLink="/admin/dashboard">Dashboard</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" [routerLinkActive]="['active']" routerLink="/admin/movie-manager">Quản lý phim</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" [routerLinkActive]="['active']" routerLink="/admin/show-time-manager">Quản lý suất chiếu</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" [routerLinkActive]="['active']" routerLink="/admin/theater-manager">Quản lý rạp</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" [routerLinkActive]="['active']" routerLink="/admin/screen-manager">Quản lý phòng chiếu</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" [routerLinkActive]="['active']" routerLink="/admin/transaction-manager">Quản lý giao dịch</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" [routerLinkActive]="['active']" routerLink="/admin/user-manager">Quản lý nhân viên</a>
+        </li>
+        <!-- Add more links as needed -->
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Sidebar and Content -->
+  <div class="d-flex">
+    <!-- Sidebar -->
+    <!-- <div class="sidebar bg-dark"> -->
+      <!-- <ul class="list-group"> -->
+        <!-- <li class="list-group-item bg-dark"><a class="text-light" routerLink="/admin/dashboard">Dashboard</a></li> -->
+        <!-- <li class="list-group-item bg-dark"><a class="text-light" routerLink="/admin/show-time-manager">Show Time Manager</a></li> -->
+        <!-- <li class="list-group-item bg-dark"><a class="text-light" routerLink="/admin/movie-manager">Movie Manager</a></li> -->
+        <!-- Add more links as needed -->
+      <!-- </ul> -->
+    <!-- </div> -->
+
+    <!-- Main Content -->
+    <div class="main-content p-3 text-light">
+      <app-notification></app-notification>
+      <router-outlet></router-outlet>
     </div>
   </div>
-  
+  <app-footer></app-footer>
+</div>

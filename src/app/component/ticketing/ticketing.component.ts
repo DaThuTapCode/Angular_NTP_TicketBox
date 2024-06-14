@@ -78,12 +78,17 @@ export class TicketingComponent implements OnInit {
 
   groupShowtimesByTheater(): void {
     this.groupedShowtimes = this.showtimes.reduce((groups: { [theaterName: string]: ShowTime[] }, showtime) => {
-      const theaterName = showtime.screen.theater.name;
+   if(showtime.screen){
+         const theaterName = showtime.screen.theater.name;
       if (!groups[theaterName]) {
         groups[theaterName] = [];
       }
       groups[theaterName].push(showtime);
       return groups;
+   }else{
+    return groups;
+   }
+   
     }, {});
     this.theaterNames = Object.keys(this.groupedShowtimes);
     console.log(this.theaterNames);

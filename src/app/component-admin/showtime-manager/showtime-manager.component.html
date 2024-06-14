@@ -1,1 +1,115 @@
-<p>showtime-manager works!</p>
+<div class="container-fluid  justify-content-center bg-dark">
+    <div class="row ">
+        <!-- Form -->
+        <div class=" bg-light col-md-4 d-flex ">
+            <form class="p-5 rounded shadow-sm">
+                <h1 class="text-center text-green mb-4">Thêm suất chiếu mới</h1>
+                <hr style="color: black;">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="form-group mb-3">
+                            <label  class="text-dark">Chọn rạp</label>
+                            <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" (change)="onTheaterChange($event)">
+                                <option selected>Danh sách rạp chiếu</option>
+                                <option *ngFor="let theater of theaterList" [ngValue]="theater">{{ theater.name }}</option>
+                            </select>                            
+                        </div>
+                    </div>
+                    <div *ngIf="theaterIsSelected">
+                        <div class="col-lg-12">
+                        <div class="form-group mb-3">
+                            <label class="text-dark">Chọn Phòng chiếu</label>
+                            <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" (change)="onScreenChange($event)">
+                                <option selected>{{this.screenList.length === 0 ? 'Chọn rạp chiếu trước hoặc Chọn rạp đã có mà hình':'Danh sách màn hình' }}</option>
+                                <option *ngFor=" let screen of screenList" [ngValue]="screen">{{ screen.name }}</option>
+                            </select>
+                        </div>
+                    </div>
+                  
+                    <div *ngIf="this.screenIsSelected" class="col-lg-12">
+                        <div class="form-group mb-3">
+                            <label for="date" class="text-dark">Ngày chiếu</label>
+                            <input [(ngModel)]="showtimeNew.showdate" [value]="showtimeNew.showdate" (change)="onDateChange($event)" id="date" type="date" name="date" class="form-control" required>
+                        </div>
+                        <div class="col-lg-12">
+                            <div class="form-group mb-3">
+                                <label for="time" class="text-dark">Giờ chiếu</label>
+                                <input [(ngModel)]="showtimeNew.showtime" id="time" type="time" name="time" class="form-control" required>
+                            </div>
+                            <p class="text-warning"><small>*SA từ 00h - 11h59</small></p>
+                            <p class="text-warning"><small>*CH từ 12h - 23h59</small></p>
+                        </div>              
+                        <div class="col-lg-12">
+                            <div class="form-group mb-3">
+                                <label for="title" class="text-dark">Chọn Phim</label>
+                                <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" (change)="onMovieChange($event)">
+                                    <option selected>Danh sách phim</option>
+                                    <option *ngFor="let movie of movieEnableList" [ngValue]="movie">{{ movie.title }}</option>
+                                </select>
+                            </div>
+                        </div>      
+                    </div>
+                
+                    </div>
+                    <div class="justify-content-center">
+                        <button type="submit" class="btn btn-primary btn-block mt-4" (click)="this.createNewShowTime()" [disabled]="!allConditionsMet()">CREATE</button>
+                    </div>
+                    <p *ngIf="! theaterIsSelected || !movieIsSelected || !screenIsSelected || showtimeNew.showdate.length < 5" class="text-danger">*Vui lòng chọn đủ các tham số!</p>
+                </div>
+            </form>
+        </div>
+        <!-- Table -->
+        <div class="col-md-8 bg-light">
+            <h1 class="text-center text-green mt-5 mb-4">Danh sách suất chiếu</h1>
+            <hr style="color: rgb(0, 0, 0);">
+            <span style="color: rgb(255, 0, 0); font-weight: bold;" *ngIf="theaterIsSelected">*Tại: {{this.theaterIsSelected.name}}</span> 
+            <span style="color: rgb(255, 0, 0);" *ngIf="screenIsSelected"> > Phòng chiếu: {{this.screenIsSelected.name}}</span> 
+            <!-- <span style="color: black;" *ngIf="movieIsSelected"> > Phim: {{this.movieIsSelected.title}}</span>  -->
+            <span style="color: rgb(255, 0, 0);" *ngIf="movieIsSelected && theaterIsSelected && screenIsSelected && showtimeNew.showdate "> > Ngày: {{this.showtimeNew.showdate}}</span> 
+            <table class="table table-bordered mt-4 bg-light">
+                <thead>
+                    <tr class="text-center">
+                        <th>ID</th>
+                        <th>Tên phim</th>
+                        <th>Phòng chiếu</th>
+                        <th>Rạp</th>
+                        <th>Ngày chiếu</th>
+                        <th>Giờ chiếu</th>
+                        <th>Thời gian chiếu</th>
+                        <th>Hành động</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let showtime of showTimeList">
+                        <td>{{showtime.id}}</td>
+                        <td>{{showtime.movie?.title}}</td>
+                        <td>{{showtime.screen?.name}}</td>
+                        <td>{{showtime.screen?.theater?.name}}</td>
+                        <td>{{showtime.showdate}}</td>
+                        <td>{{showtime.showtime}}</td>
+                        <td>{{showtime.movie?.duration}} phút</td>
+                        <td><button class="btn btn-primary">Edit</button></td>
+                    </tr>
+                </tbody>
+            </table>
+            <!-- Pagination Buttons -->
+            <!-- <nav aria-label="Page navigation" class="mt-4">
+                <ul class="pagination justify-content-center">
+                    <li class="page-item" [class.disabled]="currentPage === 0">
+                        <a class="page-link" (click)="changePage(currentPage - 1)" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                    <li class="page-item" *ngFor="let page of [].constructor(totalPages); let i = index" [class.active]="i === currentPage">
+                        <a class="page-link" (click)="changePage(i)">{{ i + 1 }}</a>
+                    </li>
+                    <li class="page-item" [class.disabled]="currentPage === totalPages - 1">
+                        <a class="page-link" (click)="changePage(currentPage + 1)" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav> -->
+        </div>
+    </div>
+</div>

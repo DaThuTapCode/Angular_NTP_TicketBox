@@ -28,8 +28,9 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let showtime of groupedShowtimes[theaterName]">
-              <td>{{ showtime.id }}</td>
+            <tr *ngFor="let showtime of groupedShowtimes[theaterName]" >
+              <div *ngIf="this.showtime.screen && this.showtime.movie">
+                  <td>{{ showtime.id }}</td>
               <td>{{ showtime.screen.name }}</td>
               <td>{{ showtime.screen.theater.location }}</td>
               <td>{{ showtime.showtime }}</td>
@@ -40,7 +41,9 @@
                   <i class="fa-solid fa-ticket"></i> Đặt vé
                 </a>
               </td>
-            </tr>
+           
+              </div>
+             </tr>
           </tbody>
         </table>
       </div>

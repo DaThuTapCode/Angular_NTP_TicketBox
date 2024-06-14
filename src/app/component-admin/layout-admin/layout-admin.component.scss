@@ -1,24 +1,65 @@
-/* admin-home.component.css */
 .admin-container {
-    display: flex;
-    flex-direction: column;
-    height: 100vh;
-  }
-  
-  .navbar {
-    margin-bottom: 1rem;
-  }
-  
-  .d-flex {
-    flex: 1;
-  }
-  
-  .sidebar {
-    width: 250px;
-  }
-  
-  .main-content {
-    flex: 1;
-    padding: 20px;
-  }
-  
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.navbar {
+  margin-bottom: 1rem;
+}
+
+.d-flex {
+  flex: 1;
+}
+
+.sidebar {
+  width: 250px;
+}
+
+.main-content {
+  flex: 1;
+  padding: 20px;
+}
+
+.body-content {
+  padding: 20px;
+  background-color: #2E2E2E;
+  color: #f5f5f5;
+}
+
+.navbar-dark .navbar-brand,
+.navbar-dark .navbar-nav .nav-link {
+  color: #f5f5f5;
+}
+
+.sidebar {
+  min-width: 250px;
+  max-width: 250px;
+  height: 100vh;
+}
+
+.list-group-item {
+  border: none;
+}
+
+.list-group-item a {
+  color: #f5f5f5;
+}
+
+.list-group-item a:hover {
+  color: #d1d1d1;
+}
+
+.main-content {
+  flex-grow: 1;
+}
+.navbar  .navbar-nav .nav-link {
+  color: #adb2cb;
+  border-radius: 18px;
+  padding: 8px 16px;
+}
+
+.navbar  .navbar-nav .nav-link.active {
+  background-color: green !important;
+  color: white !important; 
+}

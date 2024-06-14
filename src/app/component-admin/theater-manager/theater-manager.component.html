@@ -1,1 +1,130 @@
-<p>theater-manager works!</p>
+<div class="container-fluid  justify-content-center bg-dark">
+    <!-- <div class="w-100"> -->
+        <div class="row p-5 bg-light rounded shadow-sm ">
+            <h1 class="text-center text-green">Quản lý rạp</h1>
+            <hr style="color: black;">
+            <div class="col-md-6 text-dark">
+                <form action="">
+                    <h1 class="text-center text-green mb-4">Tạo rạp mới</h1>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group mb-3">
+                                <label for="name">Tên rạp</label>
+                                <input [(ngModel)]="theaterNew.name" class="form-control" type="text" name="name" id="name">
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="location">Địa chỉ</label>
+                                <input [(ngModel)]="theaterNew.location" class="form-control" type="text" name="location" id="location">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group mb-3">
+                                <label for="email">Email</label>
+                                <input [(ngModel)]="theaterNew.email" class="form-control" type="text" name="email" id="email">
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="phone">Điện thoại</label>
+                                <input [(ngModel)]="theaterNew.phone" class="form-control" type="text" name="phone" id="phone">
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="description">Mô tả</label>
+                                <textarea [(ngModel)]="theaterNew.description" class="form-control" name="description" id="description"></textarea>
+                            </div>
+
+                        </div>
+                      
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="file">Ảnh</label>
+                                <input type="file" name="file" (change)="hehe($event)" id="file" class="form-control">
+                                <div *ngIf="previewUrl">
+                                    <img [src]="previewUrl" alt="Image Preview" class="img-thumbnail mt-2" style="max-width: 200px;">
+                                </div>
+                            </div>
+                            <button class="btn  btn-success mt-3" (click)="createNewTheater()">Thêm rạp mới</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <!-- Main Content -->
+            <div class="col-md-6">
+                <div class="mb-4">
+                    <h1 class="text-center text-warning mb-4">Danh sách rạp chiếu</h1>
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-hover bg-light text-dark">
+                            <thead>
+                                <tr class="text-center">
+                                    <th>ID</th>
+                                    <th>Tên rạp</th>
+                                    <th>Ảnh</th>
+                                    <th>Địa chỉ</th>
+                                    <th>Email</th>
+                                    <th>Điện thoại</th>
+                                    <th>Mô tả</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let theater of theaters">
+                                    <td>{{theater.id}}</td>
+                                    <td>{{theater.name}}</td>
+                                    <td>
+                                        <img [src]="theater.image" style="max-width: 100%;" alt="anh-rap-phim-ntp">
+                                    </td>
+                                    <td>{{theater.location}}</td>
+                                    <td>{{theater.email}}</td>
+                                    <td>{{theater.phone}}</td>
+                                    <td>{{theater.description}}</td>
+                                    <td>
+                                        <button class="btn btn-primary btn-sm" (click)="editCinema(theater.id)">Edit</button>
+                                        <button class="btn btn-info btn-sm" (click)="manageCinemaDetails(theater.id)">Manage</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<!-- </div> -->
+<!-- Modal -->
+<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="editModalLabel">Edit Cinema</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form (ngSubmit)="onEditSubmit()">
+            <div class="form-group">
+              <label for="name">Tên rạp</label>
+              <input [(ngModel)]="selectedTheater.name" class="form-control" id="name" name="name">
+            </div>
+            <div class="form-group">
+              <label for="location">Địa chỉ</label>
+              <input [(ngModel)]="selectedTheater.location" class="form-control" id="location" name="location">
+            </div>
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input [(ngModel)]="selectedTheater.email" class="form-control" id="email" name="email">
+            </div>
+            <div class="form-group">
+              <label for="phone">Điện thoại</label>
+              <input [(ngModel)]="selectedTheater.phone" class="form-control" id="phone" name="phone">
+            </div>
+            <div class="form-group">
+              <label for="description">Mô tả</label>
+              <textarea [(ngModel)]="selectedTheater.description" class="form-control" id="description" name="description"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Save changes</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>

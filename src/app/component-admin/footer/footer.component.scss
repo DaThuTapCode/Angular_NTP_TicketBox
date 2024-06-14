@@ -1,0 +1,52 @@
+.footer {
+    background-color: #333;
+    color: #fff;
+    padding: 50px 0;
+  }
+  
+  .about-me h5,
+  .footer-links h5 {
+    color: #fff;
+    font-size: 18px;
+    font-weight: bold;
+  }
+  
+  .social-icons a {
+    color: #fff;
+    font-size: 24px;
+    margin-right: 10px;
+  }
+  
+  .text-end {
+    text-align: end;
+    
+  }
+  
+  .footer-links p {
+    margin: 0;
+    font-size: 16px;
+  }
+  
+  .footer-links a {
+    color: #fff;
+    text-decoration: none;
+  }
+  
+  .footer-links a:hover {
+    text-decoration: underline;
+  }
+  .img-logo-ntp {
+    max-width: 15%;
+  }
+  
+  
+  .img-logo-social {
+    max-width: 10%;
+    border-radius: 100px;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5); /* Sáng xung quanh viền ảnh */
+  }
+  
+  .text-green{
+    //font-weight: bold;
+    color: #72BE42;
+  }

@@ -27,6 +27,23 @@ export class SessionloginService {
     this.userSubject.next(null);
   }
 
+  getUserRole(): 'ADMIN' | 'USER' | 'MODERATOR' | null{
+    const user = this.getUser();
+    if(user){
+        switch(user.role){
+          case 1:
+            return 'ADMIN';
+          case 2:
+            return 'USER';
+          case 3: 
+            return 'MODERATOR'
+          default:
+            return null;
+        }
+    }
+    return null;
+  }
+
   private getUserFromStorage(): LoginResponse | null {
     const user = localStorage.getItem(this.USER_KEY);
     return user ? JSON.parse(user) : null;

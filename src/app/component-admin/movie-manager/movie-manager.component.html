@@ -1,58 +1,135 @@
-<div class="container-fluid vh-100 d-flex justify-content-center align-items-center bg-dark">
-    <div class="col-md-8 col-lg-6">
-        <form class="p-5 bg-light rounded shadow-sm">
-            <h1 class="text-center text-green mb-4">Create New Movie</h1>
+<!-- <div class="container-fluid vh-100  justify-content-center  bg-dark"> -->
+    <div class="w100">
+        <form class="p-5 bg-light  rounded shadow-sm">
+            <h1 class="text-center text-green mb-4">Thêm phim mới</h1>
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-4">
                     <div class="form-group mb-3">
-                        <label for="title" class="text-dark">Title</label>
-                        <input [(ngModel)]="movieNew.title" type="text" name="title" id="title" class="form-control" required>
+                        <label for="title" class="text-dark">Tên phim</label>
+                        <input [(ngModel)]="movieNew.title" type="text" name="title" id="title" class="form-control"
+                            required>
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label for="duration" class="text-dark">Thời lượng</label>
+                        <input [(ngModel)]="movieNew.duration" type="number" name="duration" id="duration"
+                            class="form-control" required>
                     </div>
                     <div class="form-group mb-3">
-                        <label for="duration" class="text-dark">Duration</label>
-                        <input [(ngModel)]="movieNew.duration" type="number" name="duration" id="duration" class="form-control" required>
+                        <label for="genre" class="text-dark">Thể loại</label>
+                        <input [(ngModel)]="movieNew.genre" type="text" name="genre" id="genre" class="form-control"
+                            required>
                     </div>
+                </div>
+
+                <div class="col-md-4">
                     <div class="form-group mb-3">
-                        <label for="genre" class="text-dark">Genre</label>
-                        <input [(ngModel)]="movieNew.genre" type="text" name="genre" id="genre" class="form-control" required>
-                    </div>
-                    <div class="form-group mb-3">
-                        <label for="performers" class="text-dark">Performers</label>
-                        <input [(ngModel)]="movieNew.performers" type="text" name="performers" id="performers" class="form-control" required>
+                        <label for="performers" class="text-dark">Diễn viên</label>
+                        <input [(ngModel)]="movieNew.performers" type="text" name="performers" id="performers"
+                            class="form-control" required>
                     </div>
                     <div class="form-group mb-3">
                         <label for="trailer" class="text-dark">Trailer</label>
-                        <input [(ngModel)]="movieNew.trailer" type="text" name="trailer" id="trailer" class="form-control" required>
+                        <input [(ngModel)]="movieNew.trailer" type="text" name="trailer" id="trailer"
+                            class="form-control" required>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label for="releasedate" class="text-dark">Ngày phát hành</label>
+                        <input [(ngModel)]="movieNew.releasedate" type="date" name="releasedate" id="releasedate"
+                            class="form-control" required>
                     </div>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-4">
                     <div class="form-group mb-3">
-                        <label for="descriptions" class="text-dark">Descriptions</label>
-                        <input [(ngModel)]="movieNew.descriptions" type="text" name="description" id="descriptions" class="form-control" required>
+                        <label for="language" class="text-dark">Ngôn ngữ</label>
+                        <input [(ngModel)]="movieNew.language" type="text" name="language" id="language"
+                            class="form-control" required>
                     </div>
                     <div class="form-group mb-3">
-                        <label for="releasedate" class="text-dark">Release Date</label>
-                        <input [(ngModel)]="movieNew.releasedate" type="date" name="releasedate" id="releasedate" class="form-control" required>
+                        <label for="director" class="text-dark">Đạo diễn</label>
+                        <input [(ngModel)]="movieNew.director" type="text" name="director" id="director"
+                            class="form-control" required>
                     </div>
                     <div class="form-group mb-3">
-                        <label for="language" class="text-dark">Language</label>
-                        <input [(ngModel)]="movieNew.language" type="text" name="language" id="language" class="form-control" required>
-                    </div>
-                    <div class="form-group mb-3">
-                        <label for="director" class="text-dark">Director</label>
-                        <input [(ngModel)]="movieNew.director" type="text" name="director" id="director" class="form-control" required>
-                    </div>
-                    <div class="form-group mb-3">
-                        <label for="status" class="text-dark">Status</label>
-                        <input [(ngModel)]="movieNew.status" type="text" name="status" id="status" class="form-control" required>
+                        <label for="status" class="text-dark">Trạng thái</label>
+                        <input [(ngModel)]="movieNew.status" type="text" name="status" id="status" class="form-control"
+                            required>
                     </div>
                 </div>
+                <div class="form-group mb-3">
+                    <label for="descriptions" class="text-dark">Mô tả</label>
+                    <input [(ngModel)]="movieNew.descriptions" type="text-area" name="description" id="descriptions"
+                        class="form-control" required>
+                </div>
+                <div class="form-group mb-3">
+                    <label for="file" class="text-dark">File</label>
+                    <input type="file" name="file" (change)="hehe($event)" class="form-control-file">
+                    <div *ngIf="previewUrl">
+                        <img [src]="previewUrl" alt="Image Preview" class="img-thumbnail mt-2"
+                            style="max-width: 200px;">
+                    </div>
+
+                </div>
+
+                <button type="submit" (click)="createNewMovie()" class="btn btn-primary btn-block mt-4">CREATE</button>
+                <div class="">
+                    <table class="table table-bordered mt-4">
+                        <thead>
+                            <tr class="text-center">
+                                <th>ID</th>
+                                <th>Tên phim</th>
+                                <th>Ảnh</th>
+                                <th>Thời lượng</th>
+                                <th>Thể loại</th>
+                                <th>Diễn viên</th>
+                                <th>Đạo diễn</th>
+                                <th>Ngày phát hành</th>
+                                <th>Ngôn ngữ</th>
+                                <th>Trailer</th>
+                                <th>Trạng thái</th>
+                                <th>Hành động</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let movie of movies">
+                                <td>{{movie.id}}</td>
+                                <td>{{movie.title}}</td>
+                                <td class="text-center">
+                                    <img style="max-width: 100px;" src="{{movie.image}}" alt="">
+                                </td>
+                                <td>{{movie.duration}}</td>
+                                <td>{{movie.genre}}</td>
+                                <td>{{movie.performers}}</td>
+                                <td>{{movie.director}}</td>
+                                <td>{{movie.releaseDate}}</td>
+                                <td>{{movie.language}}</td>
+                                <td>{{movie.trailer}}</td>
+                                <td>{{movie.status == 1 ? "Bình thường" : "Ẩn"}}</td>
+                                <td><button>a</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <!-- Pagination Buttons -->
+                    <nav aria-label="Page navigation" class="mt-4">
+                        <ul class="pagination justify-content-center">
+                            <li class="page-item" [class.disabled]="currentPage === 0">
+                                <a class="page-link" (click)="changePage(currentPage - 1)" aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                </a>
+                            </li>
+                            <li class="page-item" *ngFor="let page of [].constructor(totalPages); let i = index"
+                                [class.active]="i === currentPage">
+                                <a  class="page-link" (click)="changePage(i)">{{ i + 1 }}</a>
+                            </li>
+                            <li class="page-item" [class.disabled]="currentPage === totalPages - 1">
+                                <a class="page-link" (click)="changePage(currentPage + 1)" aria-label="Next">
+                                    <span aria-hidden="true">&raquo;</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
             </div>
-            <div class="form-group mb-3">
-                <label for="file" class="text-dark">File</label>
-                <input type="file" name="file" (change)="hehe($event)" class="form-control-file">
-            </div>
-            <button type="submit" (click)="createNewMovie()" class="btn btn-primary btn-block mt-4">CREATE</button>
         </form>
     </div>
-</div>
+<!-- </div> -->

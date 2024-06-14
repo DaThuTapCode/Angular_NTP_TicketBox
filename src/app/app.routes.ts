@@ -51,7 +51,7 @@ export const routes: Routes = [
             { path: 'event-manager', component: EventManagerComponent, canActivate: [authGuard] },
             { path: 'promotion-manager', component: PromotionManagerComponent, canActivate: [authGuard] },
             { path: 'screen-manager', component: ScreenManagerComponent, canActivate: [authGuard] },
-            { path: 'screen-theater', component: TheaterManagerComponent, canActivate: [authGuard] },
+            { path: 'theater-manager', component: TheaterManagerComponent, canActivate: [authGuard] },
             { path: 'screen-user', component: UserManagerComponent, canActivate: [authGuard] }
         ]
     },

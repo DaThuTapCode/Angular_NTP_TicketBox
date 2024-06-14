@@ -1,3 +1,5 @@
 export class LoginResponse{
-    username!: string
+    username!: string;
+    role!: number;
+    token!: string;
 }
