@@ -1,0 +1,37 @@
+<div class="container">
+    <div class="profile-header">
+      <img [src]="user.image" alt="Profile Picture" class="profile-picture">
+      <h2>{{ user.fullname }}</h2>
+      <h4>{{ user.username }}</h4>
+    </div>
+    <form [formGroup]="userProfileForm"  class="profile-form">
+      <div class="form-group">
+        <label for="fullname">Full Name</label>
+        <input id="fullname" type="text" formControlName="fullname" class="form-control">
+        <div *ngIf="userProfileForm.get('fullname')?.invalid && (userProfileForm.get('fullname')?.dirty || userProfileForm.get('fullname')?.touched)">
+          <small *ngIf="userProfileForm.get('fullname')?.errors">Full name is required.</small>
+          <small *ngIf="userProfileForm.get('fullname')?.errors">Minimum length is 3.</small>
+          <small *ngIf="userProfileForm.get('fullname')?.errors">Maximum length is 100.</small>
+        </div>
+      </div>
+  
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input id="email" type="email" formControlName="email" class="form-control">
+        <div *ngIf="userProfileForm.get('email')?.invalid && (userProfileForm.get('email')?.dirty || userProfileForm.get('email')?.touched)">
+          <small *ngIf="userProfileForm.get('email')?.errors">Email is required.</small>
+          <small *ngIf="userProfileForm.get('email')?.errors">Invalid email.</small>
+        </div>
+      </div>
+  
+      <div class="form-group">
+        <label for="status">Status</label>
+        <select id="status" formControlName="status" class="form-control">
+          <!-- <option *ngFor="let status of StatusUserEnum" [value]="status">{{ status }}</option> -->
+        </select>
+      </div>
+  
+      <button type="submit" class="btn btn-primary">Save</button>
+    </form>
+  </div>
+  

@@ -23,7 +23,6 @@ export class MovieManagerComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-
     this.getAllMovie();
   }
 
@@ -59,6 +58,7 @@ export class MovieManagerComponent implements OnInit {
 
 
   previewUrl: string | ArrayBuffer | null = null;
+  previewUr2: string | ArrayBuffer | null = null;
   errorMessage: string | null = null;
 
 
@@ -71,12 +71,10 @@ export class MovieManagerComponent implements OnInit {
   }
 
   hehe(event: any) {
-   
     const file = event.target.files[0];
     if (file) {
       const fileType = file.type;
       const validImageTypes = ['image/jpeg', 'image/png', 'image/gif'];
-
       if (!validImageTypes.includes(fileType)) {
         this.noti.showError('Chỉ được chọn ảnh (JPEG, PNG, GIF).');
         this.previewUrl = null;
@@ -91,10 +89,35 @@ export class MovieManagerComponent implements OnInit {
       };
       reader.readAsDataURL(file);
     }
-     const fileList: FileList = event.target.files;
+    const fileList: FileList = event.target.files;
     if (fileList.length > 0) {
       const file: File = fileList[0];
       this.movieNew.file = file;
+    }
+  }
+  hehe2(event: any) {
+    const file = event.target.files[0];
+    if (file) {
+      const fileType = file.type;
+      const validImageTypes = ['image/jpeg', 'image/png', 'image/gif'];
+      if (!validImageTypes.includes(fileType)) {
+        this.noti.showError('Chỉ được chọn ảnh (JPEG, PNG, GIF).');
+        this.previewUr2 = null;
+        return;
+      }
+
+      this.errorMessage = null;
+
+      const reader = new FileReader();
+      reader.onload = () => {
+        this.previewUr2 = reader.result as string | ArrayBuffer;
+      };
+      reader.readAsDataURL(file);
+    }
+    const fileList: FileList = event.target.files;
+    if (fileList.length > 0) {
+      const file: File = fileList[0];
+      this.movieUpdate.file = file;
     }
   }
 
@@ -102,7 +125,7 @@ export class MovieManagerComponent implements OnInit {
     title: 'Transformer One',
     descriptions: 'Người máy biến hình 1',
     duration: 180,
-    releasedate: '29/05/2024',
+    releasedate: '',
     genre: 'Viễn Tưởng',
     language: 'Phụ đề',
     performers: 'Trọng Phú ọp tì mớt',
@@ -111,6 +134,55 @@ export class MovieManagerComponent implements OnInit {
     status: 1,
     file: null
   };
+
+  movieUpdate!: MovieRequest;
+
+  idmovieupdate: number = 0;
+  loadDetailMovie(movie: Movie) {
+    this.movieUpdate = {
+      title: movie.title,
+      descriptions: movie.description,
+      duration: movie.duration,
+      releasedate: movie.releaseDate + ``,
+      genre: movie.genre,
+      language: movie.language,
+      performers: movie.performers,
+      director: movie.director,
+      trailer: movie.trailer,
+      status: movie.status,
+      file: null
+    };
+    this.idmovieupdate = movie.id;
+  }
+  updateMovie(){
+    const formData = new FormData();
+    formData.append('title', this.movieUpdate.title);
+    formData.append('descriptions', this.movieUpdate.descriptions);
+    formData.append('duration', this.movieUpdate.duration.toString());
+    formData.append('releasedate', this.movieUpdate.releasedate);
+    formData.append('genre', this.movieUpdate.genre);
+    formData.append('language', this.movieUpdate.language);
+    formData.append('performers', this.movieUpdate.performers);
+    formData.append('director', this.movieUpdate.director);
+    formData.append('trailer', this.movieUpdate.trailer);
+    formData.append('status', this.movieUpdate.status.toString());
+    console.log(this.movieUpdate.releasedate)
+    if (this.movieUpdate.file) {
+      formData.append('file', this.movieUpdate.file, this.movieUpdate.file.name);
+    }
+    this.movieAdminService.updateMovie(formData, this.idmovieupdate)
+      .subscribe({
+        next: (resp: any) => {
+          this.noti.showSuccess(resp.message);
+          this.getAllMovie();
+        }
+        ,
+        error: (err) => {
+          console.error('HTTP error:', err);
+          this.noti.showError(err.error.message)
+        }
+      });
+  }
 
   changePage(page: number): void {
     this.currentPage = page;

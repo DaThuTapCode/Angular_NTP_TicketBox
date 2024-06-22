@@ -1,34 +1,28 @@
 <div class="container">
-    <div class="row">
-      <div class="col-lg-8">
-       hes hes
+  <div class="row justify-content-center">
+    <div class="col-lg-8">
+      <div class="card">
+        <div class="card-header text-center">
+          <h1>Thông tin thanh toán</h1>
         </div>
-      
-      <div class="col-lg-3">
-        <div class="card ">
-          <div *ngIf="this.showtime && this.showtime.screen && this.showtime.movie">
-            <div class="card-header">
-              <p>{{showtime.screen.theater.name}}</p>
-              <small> Địa chỉ:  {{showtime.screen.theater.location}}</small>
-              <p class="text-green">{{showtime.screen.name}}</p>
-              <small>Suất chiếu {{showtime.showtime}} - Ngày: {{showtime.showdate}}</small>
-            </div>
-            <div class="card-body">
-              <p class="">Phim: <small class="text-green">{{showtime.movie.title}}</small> </p>
-              <p><small>Ngôn ngữ: {{showtime.movie.language}}</small></p>
-              <p><small>Thời lượng: {{showtime.movie.duration}}p</small></p>
-              <p><small>Thể loại: {{showtime.movie.genre}}</small></p>
-            </div>
-            <!-- <div  class="card-footer" *ngIf="this.seatIsSelected">
-              <span *ngFor="let seatselect of seatIsSelected">
-                {{seatselect.seatrow}}{{seatselect.seatnumber}}
-              </span>
-            </div> -->
+        <div class="card-body">
+          <h2 class="text-highlight">Mã đặt chỗ: {{bookingId}}</h2>
+          <p><strong>Trạng thái:</strong> {{booking.status}}</p>
+          <p><strong>Đơn giá:</strong> {{booking.totalPrice | currency:'VND':'symbol'}}</p>
+          <p><strong>Nội dung giao dịch:</strong> {{booking.orderinfo}}</p>
+          <p><strong>Mã giao dịch:</strong> {{booking.transactioncode}}</p>
+          <p><strong>Ngày giao dịch:</strong> {{booking.bookingdate | date:'dd/MM/yyyy'}}</p>
+          <div class="booking-detail">
+            <h3>Chi tiết đặt chỗ</h3>
+            <ul class="list-group">
+              Ghế đã đặt
+              <li class="list-group-item" *ngFor="let bkd of booking.bookingdetail">
+                {{bkd.seat.seatrow}}{{bkd.seat.seatnumber}} 
+              </li>
+            </ul>
           </div>
-         
-          <button class="btn btn-primary">Test</button>
-          <button class="btn btn-success">Đặt ghế</button>
         </div>
-  </div>
       </div>
     </div>
+  </div>
+</div>

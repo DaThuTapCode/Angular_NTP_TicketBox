@@ -6,7 +6,6 @@ export class Theater {
     phone: string;
     email: string;
     description: string;
-  value: any;
 
     constructor(data: any){
         this.id = data.id;

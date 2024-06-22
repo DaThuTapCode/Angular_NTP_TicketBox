@@ -17,11 +17,15 @@ export class ScreenManagerService {
 
   apiGetAllScreenByTheater = `${this.apiBase}api/v1/admin/screens/get-by-theater/`;
   apiGetPageScreen = ``;
-  apiCreateScren = ``;
+  apiPostCreateScreen = `${this.apiBase}api/v1/admin/screens/create`;
   apiUpdateScreen = ``;
 
   getAllScreensByTheater(theaterId: number): Observable<Screen[]>{
       return this.http.get<any[]>(`${this.apiGetAllScreenByTheater}${theaterId}`);
   }
 
+  createScreen(screenNew: Screen): Observable<any>{
+      return this.http.post(this.apiPostCreateScreen, screenNew);
+  }
+ 
 }

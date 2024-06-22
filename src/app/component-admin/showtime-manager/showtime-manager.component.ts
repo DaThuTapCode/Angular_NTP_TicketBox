@@ -11,6 +11,7 @@ import { Screen } from '../../model/screen';
 import { MovieManagerService } from '../../service-admin/movie-manager.service';
 import { Movie } from '../../model/movies';
 import { ShowtimeManagerService } from '../../service-admin/showtime-manager.service';
+import moment from 'moment';
 
 @Component({
   selector: 'app-showtime-manager',
@@ -68,11 +69,15 @@ export class ShowtimeManagerComponent implements OnInit {
       }),
       error: (err: any) => {
         console.log(err);
-        this.noti.showError(err.message)
+        this.noti.showError(err.error.message)
       }
     });
+  }
 
-
+  isPastShowtime(showdate: string, showtime: string): boolean {
+    const showDateTime = moment(`${showdate} ${showtime}`, 'YYYY-MM-DD HH:mm');
+    console.log(showDateTime)
+    return moment().isAfter(showDateTime);
   }
 
   loadScreensByTheater(theaterId: number) {
@@ -137,12 +142,20 @@ export class ShowtimeManagerComponent implements OnInit {
         this.loadShowTimeByTheaterScreenShowDate(this.theaterIsSelected.id, this.screenIsSelected.id, this.showtimeNew.showdate);
       }
     } else {
+      this.showTimeList = [];
       this.screenList = [];
       this.theaterIsSelected = null;
       this.screenIsSelected = null;
       this.movieIsSelected = null;
       console.warn('Rạp chiếu không hợp lệ!');
       this.updateUrl();
+    }
+  }
+
+  deleteShowtime(){
+    var check = confirm('Bạn có muốn xóa suất chiếu?')
+    if(check){
+      console.log('delete')
     }
   }
 
@@ -158,6 +171,7 @@ export class ShowtimeManagerComponent implements OnInit {
         this.loadShowTimeByTheaterScreenShowDate(this.theaterIsSelected.id, this.screenIsSelected.id, this.showtimeNew.showdate);
       }
     } else {
+      this.showTimeList = [];
       this.screenIsSelected = null;
       this.updateUrl();
     }

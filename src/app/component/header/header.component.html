@@ -1,53 +1,47 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<nav class="navbar navbar-expand-lg  ">
   <div class="container">
-       <a href="#" class="navbar-brand">
-         <img class="img-logo-ntp" [src]="logoUrl" alt="img-logo-ntp">
-       </a>
-       <button class="navbar-toggler" type="button"
-       data-bs-toggle="collapse" data-bs-target="#navbarNav"
-       aria-controls="navbarNav" aria-expanded="false"
-       aria-label="Toggle navigation">
-     <span class="navbar-toggler-icon"></span>
-     </button>
-     <div class="collapse navbar-collapse" id="navbarNav">
-       <ul class="navbar-nav">
-         <li class="nav-item">
-           <a routerLink="home" class="nav-link" [routerLinkActive]="['active']">Trang chủ</a>
-         </li>
-         <!-- <li class="nav-item">
-           <a routerLink="screen" class="nav-link" [routerLinkActive]="['active']">
-             <i class="fas fa-shopping-cart icon"></i>
-             Phòng chiếu
-           </a>
-         </li> -->
-         <li class="nav-item">
-          <a [routerLinkActive]="['active']" routerLink="about" class="nav-link">About</a>
+    <a routerLink="home" class="navbar-brand">
+      <img class="img-logo-ntp" [src]="logoUrlHeader" alt="img-logo-ntp">
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a routerLink="home" class="nav-link" [routerLinkActive]="['active']">Trang chủ</a>
         </li>
-         <li class="nav-item dropdown">
-           <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-             Dropdown
-           </a>
-           <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
-             <li><a routerLink="theater" class="dropdown-item">Hệ thống rạp chiếu</a></li>
-             <li><a routerLink="#" class="dropdown-item">Lịch chiếu PHIM</a></li>
-             <li *ngIf="user"><a routerLink="transaction-history" class="dropdown-item">Lịch sử giao dịch</a></li>
-           </ul>
-         </li>
-        
-         <li *ngIf="!user" class="nav-item">
+
+        <li class="nav-item">
+          <a routerLink="theater" class="nav-link" [routerLinkActive]="['active']">Hệ thống rạp chiếu</a>
+        </li>
+
+        <li class="nav-item">
+          <a routerLink="movie-schedule" class="nav-link" [routerLinkActive]="['active']">Lịch chiếu phim</a>
+        </li>
+
+        <li class="nav-item" *ngIf="user">
+          <a routerLink="transaction-history" class="nav-link" [routerLinkActive]="['active']">Lịch sử giao dịch</a>
+        </li>
+        <li class="nav-item ">
+          <a routerLink="about" class="nav-link" [routerLinkActive]="['active']">About</a>
+        </li>
+
+        <li *ngIf="!user" class="nav-item">
           <a routerLink="login-or-register" class="nav-link">Đăng nhập</a>
         </li>
         <li *ngIf="user" class="nav-item">
-          <a routerLink="login-or-register" (click)="logout()" class="nav-link">Logout</a>
+          <button class="btn text-white" (click)="logout()">Logout</button>
+          <!-- <a class="btn btn"  class="nav-link"></a> -->
         </li>
         <li class="nav-item" *ngIf="!user">
           <a routerLink="login-or-register" class="nav-link">Đăng ký</a>
         </li>
-       </ul>
-       <div>
-         <span *ngIf="user" class="text-white">{{ user.username }}</span>
-         <span *ngIf="!user">Chưa đăng nhập</span>
-       </div>
-     </div>
+      </ul>
+      <div>
+        <span *ngIf="user" class="text-white">{{ user.username }}</span>
+        <span *ngIf="!user">Chưa đăng nhập</span>
+      </div>
+    </div>
   </div>
 </nav>

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-about',
@@ -9,5 +10,10 @@ import { Component } from '@angular/core';
 })
 export class AboutComponent {
 
-  logoUrl = 'assets/img/_0af58169-9458-4dfb-a1bc-a3f3a07bf1a1.jpg'
+  constructor(     private titleService: Title
+  ){
+    this.titleService.setTitle('About | NTP - Cinema');
+  }
+
+  logoUrl = 'assets/img/logo-brand-ntp-4.jpg'
 }

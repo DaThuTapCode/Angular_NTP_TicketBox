@@ -1,44 +1,98 @@
-<div class="container">
+<div class="container d-flex mt-5">
   <div class="row">
-    <div class="col-lg-8">
-      <div class="screen">Màn hình</div>
-      <div class="text-white">
-        <h4>*Các loại ghế</h4>
-        <p> <i class="fa-solid fa-chair"></i> : Ghế thường</p>
-        <p> <i class="fa-solid fa-couch"></i> : Ghế VIP</p>
-      </div>
-      <div *ngFor="let row of rows | keyvalue" class="row ">
-        <div class="seat-row justify-content-center">
-          <h3 class="text-green" style="padding-right: 10px;">{{ row.key }}</h3>
-          <div class="seat" *ngFor="let seat of row.value" (click)="selectSeat(seat)" [ngClass]="seat.status" [ngClass]="seat.type">
-            <div *ngIf="seat.type === 'STANDARD' ">
-              <i class="fa-solid fa-chair"></i>
+    <div class="col-lg-8 py-5">
+      <div class="table-responsive zone">
+        <div class="screen text-blue">Màn hình</div>
+        <div class="text-white">
+          <h4>*Các loại ghế</h4>
+          <div class="row text-dark">
+            <div class="col-lg-3">
+              <div class="row">
+                <div class="seat"> <i class="fa-solid fa-chair text-dark"></i></div>
+                Ghế thường
+              </div>
             </div>
-            <div *ngIf="seat.type === 'VIP' ">
-              <i class="fa-solid fa-couch"></i>
+            <div class="col-lg-3">
+              <div class="row">
+                <div class="seat reserved"> <i class="fa-solid fa-chair text-dark"></i></div>
+                Ghế đã bán
+              </div>
+            </div>
+            <div class="col-lg-3">
+              <div class="row">
+                <div class="seat available"><i class="fa-solid fa-chair text-dark"></i></div>
+                Ghế có thể chọn
+              </div>
+            </div>
+            <div class="col-lg-3">
+              <div class="row">
+                <div class="seat selected"><i class="fa-solid fa-chair text-dark"></i></div>
+                Ghế đang chọn
+              </div>
             </div>
           </div>
-          <h3 class="text-green" style="padding-right: 10px;">{{ row.key }}</h3>
+
+          <div class="row text-dark">
+            <div class="col-lg-3">
+              <div class="row">
+                <div class="seat"> <i class="fa-solid fa-couch text-dark"></i></div>
+                Ghế VIP
+              </div>
+            </div>
+
+            <div class="col-lg-3">
+              <div class="row">
+                <div class="COUPLE"> <i class="fa-solid fa-couch text-dark"></i> <i
+                    class="fa-solid fa-couch text-dark"></i></div>
+                Ghế đôi
+              </div>
+            </div>
+
+          </div>
+        </div>
+        <div *ngFor="let row of rows | keyvalue" class="row">
+          <div class="seat-row justify-content-center">
+            <h3 class="text-green" style="padding-right: 10px;">{{ row.key }}</h3>
+            <div class="seat" 
+                 *ngFor="let seat of row.value" 
+                 (click)="selectSeat(seat)" 
+                 [ngClass]="[seat.status, seat.type]">
+              <div *ngIf="seat.type === 'STANDARD' ">
+                <i class="fa-solid fa-chair"></i>
+              </div>
+              <div *ngIf="seat.type === 'VIP' ">
+                <i class="fa-solid fa-couch"></i>
+              </div>
+              <div *ngIf="seat.type === 'COUPLE' ">
+                <i class="fa-solid fa-couch"></i>
+                <i class="fa-solid fa-couch"></i>
+              </div>
+            </div>
+            <h3 class="text-green" style="padding-right: 10px;">{{ row.key }}</h3>
+          </div>
         </div>
       </div>
     </div>
+
     <div class="col-lg-3">
       <div class="card ">
         <div *ngIf="this.showtime && this.showtime.screen && this.showtime.movie">
           <div class="card-header">
             <h4 class="text-green text-center">*Thông tin thanh toán!</h4>
-            <p>{{showtime.screen.theater.name}}</p>
-            <small> Địa chỉ: {{showtime.screen.theater.location}}</small>
+            <p class="text-dark">{{showtime.screen.theater.name}}</p>
+            <small class="text-dark"> Địa chỉ: {{showtime.screen.theater.location}}</small>
             <p class="text-green">{{showtime.screen.name}}</p>
-            <small>Suất chiếu {{showtime.showtime}} - Ngày: {{showtime.showdate}}</small>
+            <small class="text-dark">Suất chiếu {{showtime.showtime}} - Ngày: {{showtime.showdate}}</small>
           </div>
           <div class="card-body">
-            <p class="">Phim: <small class="text-green">{{showtime.movie.title}}</small> </p>
-            <p><small>Ngôn ngữ: {{showtime.movie.language}}</small></p>
-            <p><small>Thời lượng: {{showtime.movie.duration}}p</small></p>
-            <p><small>Thể loại: {{showtime.movie.genre}}</small></p>
+            <p class="text-dark">Phim: <small class="text-green">{{showtime.movie.title}}</small> </p>
+            <p class="text-green d-flex justify-content-center"><img style="max-width: 50%; border-radius: 10px;" [src]="showtime.movie.image" [alt]="showtime.movie.description"></p>
+
+            <p><small class="text-dark">Ngôn ngữ: {{showtime.movie.language}}</small></p>
+            <p><small class="text-dark">Thời lượng: {{showtime.movie.duration}}p</small></p>
+            <p><small class="text-dark">Thể loại: {{showtime.movie.genre}}</small></p>
           </div>
-          <div class="card-footer" *ngIf="this.seatIsSelected">
+          <div class="card-footer text-dark" *ngIf="this.seatIsSelected">
             <div *ngFor="let seatType of groupSeatByType | keyvalue">
               <p>Vé {{seatType.key}} x {{ seatType.value .length}} x {{this.getPriceForSeat(seatType.key)}}</p>
               <span *ngFor="let seatselect of seatType.value">
@@ -49,8 +103,9 @@
             <p class="text-green">*Tổng tiền: {{this.getTotalPrice()}} VND</p>
           </div>
         </div>
-        <button class="btn btn-success" (click)="bookSeats()">Đặt ghế</button>
+        <button class="btn btn-success" (click)="bookSeats()"><i class="fa-solid fa-money-bill"></i> Đặt ghế</button>
       </div>
     </div>
   </div>
+  
 </div>

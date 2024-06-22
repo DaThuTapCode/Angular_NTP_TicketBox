@@ -9,6 +9,17 @@
 .container{
     min-height: 800px;
 }
-// .text-name-theater{
-    
-// }
+
+.theater-name{
+    border: solid #72BE42;
+}
+.img-movie{
+    max-width: 15%;
+}
+body{
+    background-color: #aa9f9f;
+    background: url("/assets/img/wall-login.jpg") no-repeat center center fixed;
+    background-size: cover;
+    height: 100vh;
+    margin: 0;
+  }

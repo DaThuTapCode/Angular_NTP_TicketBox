@@ -20,6 +20,8 @@ import { authGuard } from './security-guard/auth-guard';
 import { DashboarComponent } from './component-admin/dashboar/dashboar.component';
 import { LayoutAdminComponent } from './component-admin/layout-admin/layout-admin.component';
 import { LayoutUserComponent } from './component/layout-user/layout-user.component';
+import { NotfoundComponent } from './notfound/notfound.component';
+import { ProfileUserComponent } from './component/profile-user/profile-user.component';
 
 
 export const routes: Routes = [
@@ -27,35 +29,38 @@ export const routes: Routes = [
        path: '',
         component: LayoutUserComponent,
         children: [
-            // { path: '', component: LoginComponent },
+            { path: '', component: HomeComponent },
+            { path: 'movie-schedule', component: HomeComponent },
             { path: 'home', component: HomeComponent },
+            { path: 'profile', component: ProfileUserComponent, canActivate: [authGuard] },
             { path: 'theater', component: TheaterComponent },
             { path: 'login-or-register', component: LoginComponent },
-            { path: 'screen/:movieid/:screenid/:showtimeid', component: ScreensComponent },
-            { path: 'booking/:movieid', component: TicketingComponent },
-            { path: 'payment', component: PaymentComponent },
-            { path: 'transaction-history', component: TransactionHistoryComponent },
-            { path: 'about', component: AboutComponent }
+            { path: 'screen/:movieid/:screenid/:showtimeid', component: ScreensComponent, canActivate: [authGuard] },
+            { path: 'booking/:movieid', component: TicketingComponent, canActivate: [authGuard] },
+            {path: 'payment-result/:bookingId', component: PaymentComponent, canActivate: [authGuard]},
+            { path: 'transaction-history', component: TransactionHistoryComponent , canActivate: [authGuard]},
+            { path: 'about', component: AboutComponent },
         ]
     },
-
-    //routes cho admin
     {
         path: 'admin',
         component: LayoutAdminComponent,
+        canActivate: [authGuard],
+        data: { role: ['ADMIN', 'MODERATOR'] },
         children: [
             { path: 'dashboard', component: DashboarComponent, canActivate: [authGuard] },
             { path: 'show-time-manager', component: ShowtimeManagerComponent, canActivate: [authGuard] },
-            { path: 'movie-manager', component: MovieManagerComponent },
+            { path: 'movie-manager', component: MovieManagerComponent, canActivate: [authGuard]},
             { path: 'booking-manager', component: BookingManagerComponent, canActivate: [authGuard] },
             { path: 'event-manager', component: EventManagerComponent, canActivate: [authGuard] },
             { path: 'promotion-manager', component: PromotionManagerComponent, canActivate: [authGuard] },
-            { path: 'screen-manager', component: ScreenManagerComponent, canActivate: [authGuard] },
+            { path: 'screen-manager/:theaterid', component: ScreenManagerComponent, canActivate: [authGuard] },
             { path: 'theater-manager', component: TheaterManagerComponent, canActivate: [authGuard] },
-            { path: 'screen-user', component: UserManagerComponent, canActivate: [authGuard] }
+            { path: 'screen-user', component: UserManagerComponent, canActivate: [authGuard] },
+        // { path: '**', component: NotfoundComponent }
         ]
     },
 
-    { path: '**', component: HomeComponent }
+    { path: '**', component: NotfoundComponent }
 
 ];

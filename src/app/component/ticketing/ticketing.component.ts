@@ -7,8 +7,10 @@ import { MatInputModule } from '@angular/material/input';
 import { BookingService } from '../../service/booking.service';
 import { ShowTime } from '../../model/showtime';
 import { CommonModule } from '@angular/common';
-import { ActivatedRoute, RouterModule } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { NotificationService } from '../../service/notification.service';
+import { MovieService } from '../../service/movie.service';
+import { Movie } from '../../model/movies';
 
 @Component({
   selector: 'app-ticketing',
@@ -35,10 +37,13 @@ export class TicketingComponent implements OnInit {
   showdate: Date = new Date();
   movieId!: number;
 
+  movie!: Movie;
   constructor(
     private bookingService: BookingService,
+    private movieService: MovieService,
     private route: ActivatedRoute,
-    private notificationService: NotificationService
+    private notificationService: NotificationService,
+    private router: Router
   ) {
     this.todayn = new Date();
     const today = new Date();
@@ -50,19 +55,21 @@ export class TicketingComponent implements OnInit {
       const movieId = +params['movieid'];
       if(isNaN(movieId)){
         this.notificationService.showError('Dữ liệu đầu vào không hợp lệ!');
+        this.router.navigate(['/not-found'])
         return;
       }
       if (movieId) {
         this.movieId =movieId;
         this.getShowTimesByMovieId(movieId, this.showdate);
+        this.getMovieById(movieId);
       }
     });
   }
 
   getShowTimesByMovieId(movieId: number, date: Date): void {
     const formattedDate = this.formatDate(date); // Định dạng ngày
-    this.bookingService.getShowtimeByMovieId(movieId, formattedDate).subscribe(
-      (data: ShowTime[]) => {
+    this.bookingService.getShowtimeByMovieId(movieId, formattedDate).subscribe({
+      next:(data: ShowTime[]) => {
         this.showtimes = data;
         this.groupShowtimesByTheater();
         if(this.showtimes.length === 0){
@@ -70,10 +77,18 @@ export class TicketingComponent implements OnInit {
         }
         //console.log(this.showtimes);
       },
-      error => {
+      error: (error: any) => {
         console.error(error);
       }
-    );
+  });
+  }
+
+  getMovieById(movieId: number){
+      this.movieService.getDetailMovie(movieId, 1).subscribe({
+        next: (value: Movie) =>{
+          this.movie = value;
+        }
+      });
   }
 
   groupShowtimesByTheater(): void {

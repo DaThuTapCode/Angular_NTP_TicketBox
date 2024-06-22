@@ -1,19 +1,20 @@
 .footer {
-  background-color: #333;
+  background-color: #ffffff;
   color: #fff;
   padding: 50px 0;
+  border-top: 6px solid #72BE42;
 }
 
 .about-me h5,
 .footer-links h5 {
-  color: #fff;
+  color: #000000;
   font-size: 18px;
   font-weight: bold;
 }
 
 .social-icons a {
-  color: #fff;
-  font-size: 24px;
+  color: #000000;
+  font-size: 20px;
   margin-right: 10px;
 }
 
@@ -22,14 +23,20 @@
   
 }
 
+.about-me p {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 500;
+}
+
 .footer-links p {
   margin: 0;
   font-size: 16px;
 }
 
 .footer-links a {
-  color: #fff;
+  color: #000000;
   text-decoration: none;
+  font-weight: bold;
 }
 
 .footer-links a:hover {
@@ -47,6 +54,6 @@
 }
 
 .text-green{
-  //font-weight: bold;
+  font-weight: bold;
   color: #72BE42;
 }

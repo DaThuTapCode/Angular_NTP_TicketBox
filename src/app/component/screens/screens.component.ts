@@ -73,6 +73,8 @@ export class ScreensComponent implements OnInit {
   seat!: Seat;
 
   rows: { [key: string]: any[] } = {};
+
+  
   movie!: Movie;
   showtime!: ShowTime;
   screen!: Screen;
@@ -162,8 +164,8 @@ export class ScreensComponent implements OnInit {
             }
             seat.status = 'available';
           }
-        }else{
-          
+        } else {
+
         }
       }
     });
@@ -213,6 +215,7 @@ export class ScreensComponent implements OnInit {
     return this.totalPrice;
   }
 
+
   /**Chọn ghế */
   selectSeat(seat: any) {
     this.getSeatIsBooked(this._idshowtime, seat);
@@ -230,8 +233,11 @@ export class ScreensComponent implements OnInit {
             this.booking = resp.data,
             this.redirectPayment(resp.data.id)
         }),
-        error: (err: any) => {
-          this.notificationService.showError(err.error.message)
+        error: (err: any) => {   
+                 this.notificationService.showError(err.error.message);
+                 setTimeout(() => {
+                  window.location.reload();
+                }, 3000);
           console.error(err);
         }
       });
@@ -261,8 +267,12 @@ export class ScreensComponent implements OnInit {
     if (this.seatIsSelected.length === 0) {
       this.notificationService.showError('Bạn chưa chọn ghế nào!');
     } else {
+      let check = confirm('Hãy kiểm tra kỹ thông tin  trước khi thanh toán!');
+      if(check){
       this.booking.totalPrice = this.getTotalPrice();
       this.createBooking();
+      }
+      
     }
   }
 }

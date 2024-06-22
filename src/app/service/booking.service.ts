@@ -7,6 +7,7 @@ import { environment } from '../enviroment/environment';
 import { Seat } from '../model/seat';
 import { Booking } from '../model/booking';
 import { BookingDetail } from '../model/bookingdetail';
+import { data } from 'jquery';
 
 @Injectable({
   providedIn: 'root'
@@ -25,6 +26,8 @@ export class BookingService {
   private apiCreateBookingDetail = `${this.apiBase}api/v1/booking/create`;
 
   private apiGetSeatBooked = `${this.apiBase}api/v1/booking/showtime-seat-is-booked/`
+
+  private apiGetPaymentResult = `${this.apiBase}api/v1/booking/payment-result/`
 
 
   constructor(
@@ -69,6 +72,11 @@ export class BookingService {
     return this.http.get<any>(`${this.apiGetSeatBooked}${idshowtime}`).pipe(
       map(resp => resp.data.map((item: any) => new Seat(item)))
     );
+  }
+
+  /**Lấy ra kết quả giao dịch */
+  getPaymentResult(id: number): Observable<Booking>{
+     return this.http.get<any>(`${this.apiGetPaymentResult}${id}`);
   }
 
 }

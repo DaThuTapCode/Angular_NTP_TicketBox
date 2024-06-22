@@ -78,8 +78,19 @@
                                     <td>{{theater.phone}}</td>
                                     <td>{{theater.description}}</td>
                                     <td>
-                                        <button class="btn btn-primary btn-sm" (click)="editCinema(theater.id)">Edit</button>
-                                        <button class="btn btn-info btn-sm" (click)="manageCinemaDetails(theater.id)">Manage</button>
+                                        <button data-toggle="modal" data-target="#editModal" class="btn btn-primary btn-sm" (click)="editCinema(theater.id)">
+                                          Edit
+                                        </button>
+                                        <div class="dropdown">
+                                            <a class="btn btn-info dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                                              Manage
+                                            </a>
+                                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                              <li><a class="dropdown-item" routerLink="/admin/screen-manager/{{theater.id}}">Screens</a></li>
+                                              <li><a class="dropdown-item" href="#">Event</a></li>
+                                              <li><a class="dropdown-item" href="#">Promotions</a></li>
+                                            </ul>
+                                          </div>
                                     </td>
                                 </tr>
                             </tbody>
@@ -91,7 +102,7 @@
     </div>
 <!-- </div> -->
 <!-- Modal -->
-<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+<div *ngIf="selectedTheater" class="modal fade text-dark" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
@@ -102,25 +113,29 @@
         </div>
         <div class="modal-body">
           <form (ngSubmit)="onEditSubmit()">
-            <div class="form-group">
+            <div class="form-group py-2">
               <label for="name">Tên rạp</label>
               <input [(ngModel)]="selectedTheater.name" class="form-control" id="name" name="name">
             </div>
-            <div class="form-group">
+            <div class="form-group py-2">
               <label for="location">Địa chỉ</label>
               <input [(ngModel)]="selectedTheater.location" class="form-control" id="location" name="location">
             </div>
-            <div class="form-group">
+            <div class="form-group py-2">
               <label for="email">Email</label>
               <input [(ngModel)]="selectedTheater.email" class="form-control" id="email" name="email">
             </div>
-            <div class="form-group">
+            <div class="form-group py-2">
               <label for="phone">Điện thoại</label>
               <input [(ngModel)]="selectedTheater.phone" class="form-control" id="phone" name="phone">
             </div>
-            <div class="form-group">
+            <div class="form-group py-2">
               <label for="description">Mô tả</label>
               <textarea [(ngModel)]="selectedTheater.description" class="form-control" id="description" name="description"></textarea>
+            </div>
+            <div class="form-group py-2">
+              <label for="file">Ảnh</label>
+              <input class="form-control" (change)="updateImageTheater($event)" type="file" name="file" id="file">
             </div>
             <button type="submit" class="btn btn-primary">Save changes</button>
           </form>

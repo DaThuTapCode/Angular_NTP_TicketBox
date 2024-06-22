@@ -35,6 +35,15 @@ button {
     border-radius: 5px;
     padding: 10px 20px;
     cursor: pointer;
+    // width: 100%;
+}
+
+.button-edit{
+    width: 100%;
+}
+
+.modal-dialog{
+    min-width: 800px;
 }
 
 /* Hover effect cho button */

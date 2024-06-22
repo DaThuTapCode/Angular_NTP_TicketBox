@@ -1,121 +1,116 @@
 
-  .intro-section {
-    text-align: center;
-    color: white;
-    padding: 20px;
-  }
+.main-home{
+  min-height: 800px;
+}
 
-  .search-box {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 20px;
-  }
+.search-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+}
 
 
-  .search-input {
-    width: 300px;
-    background-color: rgb(19, 23, 42);
-    margin-right: 10px;
-    border-color: rgba(255, 255, 255, 1);
-    color: white;
-  }
+.movie-items {
+  width: 90%;
+  height: auto;
+  margin-bottom: 20px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+ // background-color: #1c1c1c;
+  border-radius: 10px;
+  color: white;
+  text-align: center;
+ // box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
 
-  .form-control {
+.movie-items:hover {
+  transform: translateY(-10px);
+  // box-shadow: 0 8px 16px rgba(245, 218, 218, 0.3);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+}
 
-    background-color: transparent;
-    color: white;
-  }
+.movie-image {
+  width: 80%;
+  height: auto;
+  border-radius: 5px;
+  padding: 0px;
+  margin: 0;
+}
 
-  .form-control::placeholder {
-    color: rgba(255, 255, 255, 0.5);
-  }
+.movie-name {
+  display: block;
+  width: 100%;
+  color: #0c0c0c;
 
- 
-  .movie-items {
-    /* Đảm bảo phần tử có kích thước cố định */
-    width: 100%;
-    height: auto;
-    margin-bottom: 20px;
-    padding: 10px;
-    background-color: #222;
-    border-radius: 10px;
-    color: white;
-    text-align: center;
-  }
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-top: 10px;
+  font-size: 18px;
+  font-weight: bold;
+}
 
-  .movie-image {
-    width: 100%;
-    height: auto;
-    border-radius: 5px;
-  }
+.movie-description {
+  font-size: 14px;
+  color: #0c0c0c;
+  margin: 10px 0;
+  display: block;
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.movie-button{
+  width: 100%;
+  padding: 0px;
+}
 
-  .movie-name {
-    /* Giới hạn độ dài của tiêu đề */
-    display: block;
-    width: 100%;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    margin-top: 10px;
-    font-size: 18px;
-    font-weight: bold;
-  }
+.movie-action .btn-buy {
+  background-color: green;
+  width: 55%;
+}
 
-  .movie-description {
-    font-size: 14px;
-    color: #ccc;
-    margin: 10px 0;
-    display: block;
-    width: 100%;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    margin-top: 10px;
+.movie-action .btn-detail {
+  background-color: #007bff;
+  margin-left: 10px;
+  // width: 15%;
+}
 
+.divider {
+  border-color: white;
+  height: 2px;
+}
 
-  }
+.modal-content {
+  background-color: #0D0E14;
+  border: none;
+  border-radius: 10px;
+}
 
+.modal-header {
+  border-bottom: 1px solid #444;
+}
 
+.modal-footer {
+  border-top: 1px solid #444;
+}
 
-  .movie-action .btn-buy {
-    background-color: green;
-    width: 50%;
-  }
+.text-green {
+  color: #60BA45;
+}
 
-  .movie-action .btn-detail {
-    background-color: transparent;
-    margin-left: 10px;
-    width: 15%;
-  }
+.img-fluid {
+  max-width: 100%;
+  height: auto;
+}
 
-  .modal-content {
-    background-color: #0D0E14;
-  }
-
-  /* styles.css */
-  .modal-content {
-    background-color: #0D0E14;
-  }
-
-  .modal-header {
-    border-bottom: 1px solid #444;
-  }
-
-  .modal-footer {
-    border-top: 1px solid #444;
-  }
-
-  .text-green {
-    color: green;
-  }
-
-  .img-fluid {
-    max-width: 100%;
-    height: auto;
-  }
+.list-unstyled li {
+  margin-bottom: 10px;
+}
 
 
-  .list-unstyled li {
-    margin-bottom: 10px;
-  }
+.tab-title{
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}

@@ -15,19 +15,17 @@ export const authGuard: CanActivateFn = (
 
   if (isLoggedIn) {
     const requiredRole = route.data['role'] as 'ADMIN' | 'USER' | 'MODERATOR';
-
     if (requiredRole) {
-      if (userRole === 'ADMIN' || userRole === requiredRole) {
+      if (userRole === 'ADMIN' || userRole === 'MODERATOR' || userRole === requiredRole) {
         return true;
-      } else if (userRole === 'MODERATOR' && requiredRole === 'USER') {
-        // Allow MODERATOR to access USER routes
+      } else if ( requiredRole === 'USER') {
         return true;
       } else {
-        return router.createUrlTree(['/forbidden']); // Redirect to a forbidden page if access is denied
+        return router.createUrlTree(['/not-found']); // Điều hướng đến trang bị cấm nếu quyền truy cập bị từ chối
       }
     }
     return true;
   } else {
-    return router.createUrlTree(['/login-or-register']);
+    return router.createUrlTree(['/not-found']);
   }
 };

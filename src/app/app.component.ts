@@ -12,5 +12,5 @@ import { NotificationComponent } from "./notification/notification.component";
     imports: [RouterOutlet, HeaderComponent, FooterComponent, NotificationComponent]
 })
 export class AppComponent {
-  title = 'aa';
+  title = 'NTP_Ticket-Box';
 }

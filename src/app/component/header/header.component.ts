@@ -15,30 +15,35 @@ import { Router, RouterModule } from '@angular/router';
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss'
 })
-export class HeaderComponent implements OnInit{
+export class HeaderComponent implements OnInit {
 
-  user:any;
-  logoUrl!:string;
+  user: any;
+  logoUrlHeader!: string;
 
   constructor(
     private sessionLogin: SessionloginService
-  , private tokenService: TokenService
-  , private notificationService: NotificationService
-  , private router: Router
-  ){}
+    , private tokenService: TokenService
+    , private notificationService: NotificationService
+    , private router: Router
+  ) { }
 
-  logout(){
-    this.user = null;
-    this.sessionLogin.clearUser();
-    this.tokenService.removeToken();
-    this.notificationService.showSuccess('Logout thành công!');
-    //this.router.navigate(["login-or-register"])
+  logout() {
+
+    let check = confirm('Bạn có muốn logout?');
+    if (check) {
+      this.user = null;
+      this.sessionLogin.clearUser();
+      this.tokenService.removeToken();
+      this.notificationService.showSuccess('Logout thành công!');
+      this.router.navigate(["login-or-register"]);
+    }
+
   }
-  
+
   ngOnInit(): void {
 
-    this.logoUrl = 'assets/img/_0af58169-9458-4dfb-a1bc-a3f3a07bf1a1.jpg';
-    this.sessionLogin.user$.subscribe(user =>{
+    this.logoUrlHeader = 'assets/img/logo-brand-ntp-4.jpg';
+    this.sessionLogin.user$.subscribe(user => {
       this.user = user;
     });
   }

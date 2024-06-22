@@ -25,12 +25,18 @@ export class TheaterManagerService {
 
   apiPostCreateTheater = `${this.apiBase}api/v1/admin/theaters/create`;
 
+  apiGetTheaterById = `${this.apiBase}api/v1/admin/theaters/`;
+
   getPageTheater(page: number, size: number): Observable<Theater[]>{
     return this.http.get<any[]>(`${this.apiGetPageTheater}?page=${page}&size=${size}`);
   }
 
   getAllTheater(): Observable<Theater[]>{
     return this.http.get<any[]>(this.apiGetAllTheater);
+  }
+
+  getTheaterById(id: number): Observable<Theater>{
+    return this.http.get<any>(`${this.apiGetTheaterById}${id}`);
   }
 
   postCreateNewTheater(theater: TheaterRequest){

@@ -3,13 +3,14 @@ import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { NotificationComponent } from "../../notification/notification.component";
 import { FooterComponent } from "../../component/footer/footer.component";
+import { HeaderComponent } from "../header/header.component";
 
 @Component({
     selector: 'app-layout-admin',
     standalone: true,
     templateUrl: './layout-admin.component.html',
     styleUrl: './layout-admin.component.scss',
-    imports: [CommonModule, RouterModule, NotificationComponent, FooterComponent]
+    imports: [CommonModule, RouterModule, NotificationComponent, FooterComponent, HeaderComponent]
 })
 export class LayoutAdminComponent {
     urlFacebook: string = 'https://www.facebook.com/nt.phu.5686';

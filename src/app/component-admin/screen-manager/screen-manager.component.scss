@@ -76,3 +76,80 @@
     font-weight: bold;
     color: #72BE42;
   }
+.modal-dialog{
+    min-width: 800px;
+}
+
+.text-white{
+    margin-left: 100px;
+}
+
+.screen {
+    // background-color: #ccc;
+    color: white;
+    height: 1px;
+    margin: 20px  auto 100px;
+    text-align: center;
+    line-height: 50px;
+    font-weight: bold;
+    border: 3px solid green;
+    border: 3px solid green($color: #000000) ;
+    position: relative;
+    box-shadow: 0 0 20px 5px rgba(0, 128, 0, 0.5);
+  
+  }
+  
+  .seat-row {
+    display: flex;
+    margin-bottom: 10px;
+  }
+  
+  .zone{
+    border-radius: 10px;
+    background-color: rgb(65, 65, 65);
+  }
+  .seat {
+    width: 30px;
+    height: 30px;
+    margin-right: 5px;
+    background-color: lightgray;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #ccc;
+    cursor: pointer;
+  }
+  .COUPLE {
+    width: 60px;
+    height: 30px;
+    margin-right: 5px;
+    background-color: lightgray;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #ccc;
+    cursor: pointer;
+  }
+
+  
+  
+  .seat.available {
+    background-color: lightgray;
+  }
+  .NULL {
+    background-color: white;
+    // filter: blur(1px); 
+    opacity: 0.2;
+  }
+  
+  .seat.reserved {
+    background-color: red;
+  }
+  
+  .seat.selected {
+    background-color: #72BE42;
+  }
+  
+  .row {
+    margin-bottom: 10px;
+  }

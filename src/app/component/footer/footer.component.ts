@@ -13,7 +13,10 @@ export class FooterComponent {
   urlGithub: string = 'https://github.com/DaThuTapCode';
   urlIns: string = 'https://www.instagram.com/nphu_139/';
 
-  urlLogo: string = 'assets/img/_bbac179f-8c31-41c0-92e6-83dd0f318c92.jpg';
+  urlLogoFooter: string = 'assets/img/logo-brand-ntp-1.jpg';
+  urlLogoFooter2: string = 'assets/img/logo-brand-ntp-2.jpg';
+  urlLogoFooter3: string = 'assets/img/logo-brand-ntp-3.jpg';
+  urlLogoFooter4: string = 'assets/img/logo-brand-ntp-4.jpg';
   urlLogoFacebook: string = 'assets/img/logo-facebook.png';
   urlLogoGithub: string = 'assets/img/logo-github.png';
   urlLogoIns: string = 'assets/img/logo-ins.png';

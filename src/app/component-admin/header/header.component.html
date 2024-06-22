@@ -1,1 +1,33 @@
 
+<nav class="navbar navbar-expand-lg">
+    <a class="navbar-brand" routerLink="/admin/dashboard" >Admin Dashboard</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link" [routerLinkActive]="['active']" routerLink="/admin/dashboard">Dashboard</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" [routerLinkActive]="['active']" routerLink="/admin/movie-manager">Quản lý phim</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" [routerLinkActive]="['active']" routerLink="/admin/show-time-manager">Quản lý suất chiếu</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" [routerLinkActive]="['active']" routerLink="/admin/theater-manager">Quản lý rạp</a>
+        </li>
+        <!-- <li class="nav-item">
+          <a class="nav-link" [routerLinkActive]="['active']" routerLink="/admin/screen-manager">Quản lý phòng chiếu</a>
+        </li> -->
+        <li class="nav-item">
+          <a class="nav-link" [routerLinkActive]="['active']" routerLink="/admin/transaction-manager">Quản lý giao dịch</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" [routerLinkActive]="['active']" routerLink="/admin/user-manager">Quản lý nhân viên</a>
+        </li>
+        <!-- Add more links as needed -->
+      </ul>
+    </div>
+  </nav>

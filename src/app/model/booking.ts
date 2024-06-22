@@ -1,4 +1,5 @@
 import { StatusBooking } from "../enum/status-booking";
+import { BookingDetail } from "./bookingdetail";
 import { UserBooking } from "./userBooking";
 
 export class Booking{
@@ -7,6 +8,9 @@ export class Booking{
   bookingdate: Date;
   totalPrice: number;
   status: StatusBooking;
+  orderinfo: string;
+  transactioncode: string;
+  bookingdetail:  BookingDetail[];
 
   constructor(data: any){
     this.id = data.id;
@@ -14,6 +18,9 @@ export class Booking{
     this.bookingdate = data.bookingdate;
     this.totalPrice = data.total_Price;
     this.status = data.status;
+    this.orderinfo = data.orderinfo;
+    this.transactioncode = data.transactioncode;
+    this.bookingdetail = data.bookingdetail;
   }
 
 }

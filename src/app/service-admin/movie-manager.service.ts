@@ -20,20 +20,12 @@ export class MovieManagerService {
 
   private apiCreateNewMovie = `${this.apiUrlBase}api/v1/admin/movies/add`;
 
+  private apiUpdateMovie = `${this.apiUrlBase}api/v1/admin/movies/update/`;
+
   private apiGetAllMovie = `${this.apiUrlBase}api/v1/admin/movies/all`;
 
   private apiGetAllMovieEnable = `${this.apiUrlBase}api/v1/admin/movies/status1`;
 
-
-  // getAllMovies(page: number, size: number): Observable<ResponsePageData<Movie>> {
-  //   return this.http.get<ResponsePageData<Movie>>(`${this.baseUrl}/all?page=${page}&size=${size}`);
-  // }
-
-  // getAllMovies(page: number, size: number): Observable<Movie[]>{
-  //   return this.http.get<any>(`${this.apiGetAllMovie}?page=${page}&size=${size}`).pipe(
-  //     map(data => data.data.map((movieData: any) => new Movie(movieData)))
-  //   );
-  // }
   getAllMovies(page: number, size: number): Observable<Movie[]>{
     return this.http.get<any>(`${this.apiGetAllMovie}?page=${page}&size=${size}`);
   }
@@ -43,6 +35,7 @@ export class MovieManagerService {
   }
 
   createNewMovie(movieNew: MovieRequest) {
+
     const formData: FormData = new FormData();
     formData.append('title', movieNew.title);
     formData.append('descriptions', movieNew.descriptions);
@@ -61,20 +54,16 @@ export class MovieManagerService {
     this.http.post(this.apiCreateNewMovie, formData)
       .subscribe({
         next: (resp: any) => {
-          try {
-            // alert(resp.message);
             this.noti.showSuccess(resp.message);
-          } catch (error) {
-            console.error('Error parsing response:', error);
-            // alert(resp.message);
-            alert(error);
-            this.noti.showError(resp.message);
-          }
-        },
+        }
+        ,
         error: (err) => {
           console.error('HTTP error:', err);
           this.noti.showError(err.error.message)
         }
       });
+  }
+  updateMovie(formData: FormData, id: number) :Observable<any> {
+   return this.http.put(`${this.apiUpdateMovie}${id}`, formData);
   }
 }

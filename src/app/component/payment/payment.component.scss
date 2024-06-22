@@ -1,59 +1,25 @@
-
-.screen {
-    // background-color: #ccc;
-    color: white;
-    height: 1px;
-    margin: 20px  auto 100px;
-    text-align: center;
-    line-height: 50px;
-    font-weight: bold;
-    border: 3px solid green;
-    border: 3px solid green($color: #000000) ;
-    position: relative;
-    box-shadow: 0 0 20px 5px rgba(0, 128, 0, 0.5);
-  
+body {
+    // background-color: #f8f9fa;
+    color: #333;
   }
-  
-  .seat-row {
-    display: flex;
-    margin-bottom: 10px;
+  .container {
+    margin-top: 50px;
   }
-  
-  .seat {
-    width: 30px;
-    height: 30px;
-    margin-right: 5px;
-    background-color: lightgray;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: 1px solid #ccc;
-    cursor: pointer;
+  .card {
+    background: transparent;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   }
-  
-  .seat.available {
-    background-color: lightgray;
-  }
-  
-  .seat.reserved {
-    background-color: red;
-  }
-  
-  .seat.selected {
-    background-color: #72BE42;
-  }
-  
-  .row {
-    margin-bottom: 10px;
-  }
-  
-  .card{
-    background-color: transparent;
-    border-color: grey;
+  .card-body {
+    background: transparent;
     color: white;
   }
-  
-  .text-green{
-    font-weight: bold;
+  .card-header {
+    // background-color: #007bff;
     color: #72BE42;
+  }
+  .text-highlight {
+    color: #007bff;
+  }
+  .booking-detail {
+    margin-top: 20px;
   }

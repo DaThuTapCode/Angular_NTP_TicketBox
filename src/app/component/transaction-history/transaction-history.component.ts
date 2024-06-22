@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { TransactionHistoryService } from '../../service/transaction-history.service';
 import { NotificationService } from '../../service/notification.service';
@@ -8,13 +8,15 @@ import { NotificationService } from '../../service/notification.service';
   standalone: true,
   imports: [CommonModule],
   templateUrl: './transaction-history.component.html',
-  styleUrl: './transaction-history.component.scss'
+  styleUrl: './transaction-history.component.scss',
+  providers: [DatePipe]
 })
 export class TransactionHistoryComponent implements OnInit {
 
   constructor(
     private transactionHistoryService: TransactionHistoryService
     ,private noti: NotificationService
+    , private datePipe: DatePipe
 
   ) { }
 
@@ -22,18 +24,17 @@ export class TransactionHistoryComponent implements OnInit {
     this.getHistoryTransaction();
   }
 
+  formatDate(date: any): string {
+    return this.datePipe.transform(date, 'HH:mm:ss dd-MM-yyyy') || '';
+  }
+
 
   getHistoryTransaction() {
     this.transactionHistoryService.getTransactionHistory().subscribe({
       next: ((resp: any) => {
         console.log(resp.data);
-      
-        // Xóa danh sách cũ trước khi thêm danh sách mới
         this.bookingList = [];
-  
-        // Lặp qua mỗi phần tử trong mảng resp.data
         resp.data.forEach((item: any) => {
-          // Gán các giá trị từ item vào đối tượng booking
           const booking = {
             id: item.id,
             user: {
@@ -44,17 +45,26 @@ export class TransactionHistoryComponent implements OnInit {
             status: item.status,
             bookingdetail: item.bookingdetail
           };
-  
-          // Thêm đối tượng booking vào mảng bookingList
           this.bookingList.push(booking);
         });
-  
-        console.log(this.bookingList); // Kiểm tra danh sách đặt chỗ
+        console.log(this.bookingList); 
       }),
       error: (err: any) =>{
         this.noti.showError(err.message);
       }
     })
+  }
+
+
+  bookingDetailByBookingIdList:  any[] = []
+  bookingDetailByBookingId(bookingId: number){
+      this.bookingList.forEach(booking => {
+        if(booking.id === bookingId){
+          this.bookingDetailByBookingIdList = [];
+          this.bookingDetailByBookingIdList = booking.bookingdetail;
+        }
+      });
+      console.log(this.bookingDetailByBookingIdList);
   }
 
 

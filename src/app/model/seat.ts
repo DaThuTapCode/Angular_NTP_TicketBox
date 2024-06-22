@@ -5,7 +5,9 @@ export class Seat{
 
     seatrow: string;
 
-    seatnumber: number
+    seatnumber: number;
+
+    screenid: number
 
     type: TypeSeat;
 
@@ -17,5 +19,6 @@ export class Seat{
         this.seatnumber = data.seatnumber;
         this.type = data.type;
         this.status = data.status;
+        this.screenid = data.screenid;
     }
 }
