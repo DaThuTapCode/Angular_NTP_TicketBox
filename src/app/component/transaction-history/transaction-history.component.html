@@ -1,80 +1,85 @@
-
 <div class="container">
 
-    <div class="d-flex justify-content-center text-green">
-        <h1>LỊCH SỬ GIAO DỊCH</h1>
-    </div>
+  <div class="d-flex justify-content-center text-green">
+    <h1>LỊCH SỬ GIAO DỊCH</h1>
+  </div>
 
-    <table class="table table-bordered table-hover">
-        <thead>
-          <tr>
-            <th>STT</th>
-            <th>ID Booking</th>
-            <th>Tên phim</th>
-            <th>Ngày đặt vé</th>
-            <th>Tổng tiền</th>
-            <th>Trạng thái</th>
-            <th>Rạp</th>
-            <th>Vị trí</th>
-            <th>Chi tiết vé</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let booking of bookingList; let i = index">
-            <td>{{ i + 1 }}</td>
-            <td>{{ booking.id }}</td>
-            <td>{{ booking.bookingdetail[0].showtime.moviename }} </td>
-            <td>{{ formatDate(booking.bookingDate) }}</td>
-            <td>{{ booking.totalPrice }} VND</td>
-            <td>{{ booking.status === 'CONFIRMED' ? 'Đã thanh toán' : 'Chưa thanh toán' }}</td>
-            <td>{{ booking.bookingdetail[0].theater.name }}</td>
-            <td>{{ booking.bookingdetail[0].theater.location }}</td>
-            <td>
-              <button type="button" (click)="bookingDetailByBookingId(booking.id)" class="btn btn-primary" data-toggle="modal" data-target="#detail-transaction">
-                Chi tiết
-              </button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-      
- <!-- Button trigger modal -->
+  <table class="table table-bordered table-hover">
+    <thead>
+      <tr>
+        <th>STT</th>
+        <th>ID Booking</th>
+        <th>Mã giao dịch</th>
+        <th>Tên phim</th>
+        <th>Ngày đặt vé</th>
+        <th>Tổng tiền</th>
+        <th>Trạng thái</th>
+        <th>Rạp</th>
+        <th>Phòng chiếu</th>
+        <th>Vị trí</th>
+        <th>Chi tiết vé</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let booking of bookingList; let i = index">
+        <td>{{ i + 1 }}</td>
+        <td>{{ booking.id }}</td>
+        <td>{{ booking.transactioncode}}</td>
+        <td>{{ booking.bookingdetail[0].showtime.movie.title }} </td>
+        <td>{{ formatDate(booking.bookingDate) }}</td>
+        <td>{{ booking.totalPrice | currency: 'VND': 'symbol' }} </td>
+        <td>{{ booking.status === 'CONFIRMED' ? 'Đã thanh toán' : 'Chưa thanh toán' }}</td>
+        <td>{{ booking.bookingdetail[0].theater.name }}</td>
+        <td>{{ booking.bookingdetail[0].showtime.screenname }}</td>
+        <td>{{ booking.bookingdetail[0].theater.location }}</td>
+        <td>
+          <button type="button" (click)="bookingDetailByBookingId(booking.id)" class="btn btn-primary"
+            data-toggle="modal" data-target="#detail-transaction">
+            Chi tiết
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
 
-<!-- Modal -->
-<div *ngIf="this.bookingDetailByBookingIdList" class="modal fade" id="detail-transaction" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLongTitle">Chi tiết giao dịch</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <table class="table table-bordered table-hover">
-          <thead>
-            <tr>
-              <th>STT</th>
-              <th>Ghế</th>
-              <th>Loại ghế</th>
-              <th>Giá tiền</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let bookingDetail of bookingDetailByBookingIdList; let i = index">
-              <td>{{ i + 1 }}</td>
-              <td>{{ bookingDetail.seat.seatrow }}{{ bookingDetail.seat.seatnumber }}  </td>
-              <td>{{ bookingDetail.seat.type }}</td>
-              <td>{{ bookingDetail.price }} VND</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+  <!-- Button trigger modal -->
+
+  <!-- Modal -->
+  <div *ngIf="this.bookingDetailByBookingIdList" class="modal fade" id="detail-transaction" tabindex="-1" role="dialog"
+    aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title text-dark" id="exampleModalLongTitle ">Chi tiết giao dịch</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <table class="table table-bordered table-hover">
+            <thead>
+              <tr>
+                <th>STT</th>
+                <th>Ghế</th>
+                <th>Loại ghế</th>
+                <th>Giá tiền</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let bookingDetail of bookingDetailByBookingIdList; let i = index">
+                <td>{{ i + 1 }}</td>
+                <td>{{ bookingDetail.seat.seatrow }}{{ bookingDetail.seat.seatnumber }} </td>
+                <td>{{ bookingDetail.seat.type }}</td>
+                <td>{{ bookingDetail.price | currency: 'VND'}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <!-- <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div> -->
       </div>
     </div>
   </div>
-</div>
 </div>

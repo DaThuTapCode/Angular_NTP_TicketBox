@@ -1,28 +1,56 @@
-<div class="container">
-  <div class="row justify-content-center">
-    <div class="col-lg-8">
-      <div class="card">
-        <div class="card-header text-center">
-          <h1>Thông tin thanh toán</h1>
+<body>
+  <div class="container-fluid mb-5 text-light">
+    <div class="container">
+      <div class="row">
+        <div class="col text-center">
+          <h1 class="display-4 text-green">THÔNG TIN THANH TOÁN <img [src]="this.logoUrl" alt="Project Logo"
+              class="img-fluid project-logo">
+          </h1>
+          <!-- <p class="lead">Dự án web bán vé xem phim trực tuyến được phát triển bởi Nguyễn Trọng Phú.</p>
+        <p class="lead">Lên ý tưởng và triển khai  (15/5/2024 - Nay) - Các tài nguyên sử dụng cho mục đích học tập!</p> -->
         </div>
-        <div class="card-body">
-          <h2 class="text-highlight">Mã đặt chỗ: {{bookingId}}</h2>
-          <p><strong>Trạng thái:</strong> {{booking.status}}</p>
-          <p><strong>Đơn giá:</strong> {{booking.totalPrice | currency:'VND':'symbol'}}</p>
-          <p><strong>Nội dung giao dịch:</strong> {{booking.orderinfo}}</p>
-          <p><strong>Mã giao dịch:</strong> {{booking.transactioncode}}</p>
-          <p><strong>Ngày giao dịch:</strong> {{booking.bookingdate | date:'dd/MM/yyyy'}}</p>
-          <div class="booking-detail">
-            <h3>Chi tiết đặt chỗ</h3>
-            <ul class="list-group">
-              Ghế đã đặt
-              <li class="list-group-item" *ngFor="let bkd of booking.bookingdetail">
-                {{bkd.seat.seatrow}}{{bkd.seat.seatnumber}} 
-              </li>
-            </ul>
+        <div class="container mb-5">
+          <div class="row justify-content-center">
+            <div class="col-lg-8">
+              <div class="card">
+                <!-- <div class="card-header">
+                <h1 class="text-color-brand">Thông tin thanh toán</h1>
+              </div> -->
+                <div class="card-body">
+                  <h2 class="text-highlight text-center">Mã đặt chỗ: {{ bookingId }}</h2>
+                  <p><strong>Trạng thái:</strong> {{ booking.status }} <i class="fas fa-check-circle"
+                      style="color: #28a745;"></i></p>
+                  <p><strong>Tổng tiền:</strong> {{ booking.totalPrice | currency: 'VND' }}</p>
+                  <p><strong>Người đặt:</strong> {{ booking.user.username }}</p>
+                  <p><strong>Mã giao dịch:</strong> {{ booking.transactioncode }}</p>
+                  <p><strong>Nội dung giao dịch:</strong> {{ booking.orderinfo }}</p>
+                  <p><strong>Ngày giao dịch:</strong> {{ booking.bookingdate | date:'hh:mm:ss dd/MM/yyyy' }}</p>
+                  <div class="booking-detail">
+                    <h3>Chi tiết đặt chỗ</h3>
+                    <ul class="list-group">
+                      <p><strong>Rạp:</strong> {{ booking.bookingdetail[0].theater.name }}</p>
+                      <p><strong>Vị trí:</strong> {{ booking.bookingdetail[0].theater.location }}</p>
+                      <p><strong>Phòng chiếu:</strong> {{ screenName}}</p>
+
+                      <li class="list-group-item" *ngFor="let bkd of booking.bookingdetail">
+                        Ghế đã đặt: {{ bkd.seat.seatrow }}{{ bkd.seat.seatnumber }}
+                        | Loại ghế: {{ bkd.seat.type }} | Giá: {{ bkd.price }}
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
+
+
     </div>
+
   </div>
-</div>
+
+
+
+
+</body>

@@ -34,34 +34,8 @@ export class MovieManagerService {
     return this.http.get<any[]>(this.apiGetAllMovieEnable);
   }
 
-  createNewMovie(movieNew: MovieRequest) {
-
-    const formData: FormData = new FormData();
-    formData.append('title', movieNew.title);
-    formData.append('descriptions', movieNew.descriptions);
-    formData.append('duration', movieNew.duration.toString());
-    formData.append('releasedate', movieNew.releasedate);
-    formData.append('genre', movieNew.genre);
-    formData.append('language', movieNew.language);
-    formData.append('performers', movieNew.performers);
-    formData.append('director', movieNew.director);
-    formData.append('trailer', movieNew.trailer);
-    formData.append('status', movieNew.status.toString());
-    console.log(movieNew.releasedate)
-    if (movieNew.file) {
-      formData.append('file', movieNew.file, movieNew.file.name);
-    }
-    this.http.post(this.apiCreateNewMovie, formData)
-      .subscribe({
-        next: (resp: any) => {
-            this.noti.showSuccess(resp.message);
-        }
-        ,
-        error: (err) => {
-          console.error('HTTP error:', err);
-          this.noti.showError(err.error.message)
-        }
-      });
+  createNewMovie(formData: FormData): Observable<any>{
+    return this.http.post(this.apiCreateNewMovie, formData);
   }
   updateMovie(formData: FormData, id: number) :Observable<any> {
    return this.http.put(`${this.apiUpdateMovie}${id}`, formData);

@@ -16,7 +16,7 @@ export class Booking{
     this.id = data.id;
     this.user = data.user;
     this.bookingdate = data.bookingdate;
-    this.totalPrice = data.total_Price;
+    this.totalPrice = data.totalPrice;
     this.status = data.status;
     this.orderinfo = data.orderinfo;
     this.transactioncode = data.transactioncode;

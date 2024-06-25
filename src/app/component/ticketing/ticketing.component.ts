@@ -115,7 +115,6 @@ export class TicketingComponent implements OnInit {
     this.getShowTimesByMovieId(this.movieId, this.showdate); // Thay đổi id phim tùy theo trường hợp 
   }
 
-  // Phương thức để định dạng ngày thành chuỗi yyyy-MM-dd
   formatDate(date: Date): string {
     const year = date.getFullYear();
     const month = date.getMonth() + 1;
@@ -123,7 +122,6 @@ export class TicketingComponent implements OnInit {
     return `${year}-${this.pad(month, 2)}-${this.pad(day, 2)}`;
   }
 
-  // Phương thức để thêm số 0 vào trước các số < 10
   pad(num: number, size: number): string {
     let s = num + "";
     while (s.length < size) s = "0" + s;

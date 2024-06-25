@@ -2,6 +2,7 @@ import { CommonModule, DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { TransactionHistoryService } from '../../service/transaction-history.service';
 import { NotificationService } from '../../service/notification.service';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-transaction-history',
@@ -15,12 +16,14 @@ export class TransactionHistoryComponent implements OnInit {
 
   constructor(
     private transactionHistoryService: TransactionHistoryService
-    ,private noti: NotificationService
+    , private noti: NotificationService
     , private datePipe: DatePipe
+    , private title: Title
 
   ) { }
 
   ngOnInit(): void {
+    this.title.setTitle('TransacHistory | NTP - Cinema');
     this.getHistoryTransaction();
   }
 
@@ -32,7 +35,6 @@ export class TransactionHistoryComponent implements OnInit {
   getHistoryTransaction() {
     this.transactionHistoryService.getTransactionHistory().subscribe({
       next: ((resp: any) => {
-        console.log(resp.data);
         this.bookingList = [];
         resp.data.forEach((item: any) => {
           const booking = {
@@ -43,28 +45,28 @@ export class TransactionHistoryComponent implements OnInit {
             bookingDate: item.bookingdate,
             totalPrice: item.totalPrice,
             status: item.status,
-            bookingdetail: item.bookingdetail
+            bookingdetail: item.bookingdetail,
+            transactioncode: item.transactioncode,
+            orderinfo: item.orderinfo
           };
           this.bookingList.push(booking);
         });
-        console.log(this.bookingList); 
-      }),
-      error: (err: any) =>{
+     }),
+      error: (err: any) => {
         this.noti.showError(err.message);
       }
     })
   }
 
 
-  bookingDetailByBookingIdList:  any[] = []
-  bookingDetailByBookingId(bookingId: number){
-      this.bookingList.forEach(booking => {
-        if(booking.id === bookingId){
-          this.bookingDetailByBookingIdList = [];
-          this.bookingDetailByBookingIdList = booking.bookingdetail;
-        }
-      });
-      console.log(this.bookingDetailByBookingIdList);
+  bookingDetailByBookingIdList: any[] = []
+  bookingDetailByBookingId(bookingId: number) {
+    this.bookingList.forEach(booking => {
+      if (booking.id === bookingId) {
+        this.bookingDetailByBookingIdList = [];
+        this.bookingDetailByBookingIdList = booking.bookingdetail;
+      }
+    });
   }
 
 
@@ -79,7 +81,9 @@ export class TransactionHistoryComponent implements OnInit {
     bookingDate: new Date(),
     totalPrice: 0,
     status: '',
-    bookingdetail: [] = []
+    bookingdetail: [] = [],
+    transactioncode: '',
+    orderinfo: ''
   };
 
 

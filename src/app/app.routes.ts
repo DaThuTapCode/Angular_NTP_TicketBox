@@ -22,6 +22,7 @@ import { LayoutAdminComponent } from './component-admin/layout-admin/layout-admi
 import { LayoutUserComponent } from './component/layout-user/layout-user.component';
 import { NotfoundComponent } from './notfound/notfound.component';
 import { ProfileUserComponent } from './component/profile-user/profile-user.component';
+import { TestExcelComponent } from './test-excel/test-excel.component';
 
 
 export const routes: Routes = [
@@ -40,6 +41,7 @@ export const routes: Routes = [
             {path: 'payment-result/:bookingId', component: PaymentComponent, canActivate: [authGuard]},
             { path: 'transaction-history', component: TransactionHistoryComponent , canActivate: [authGuard]},
             { path: 'about', component: AboutComponent },
+            { path: 'test-excel', component: TestExcelComponent },
         ]
     },
     {
@@ -48,15 +50,19 @@ export const routes: Routes = [
         canActivate: [authGuard],
         data: { role: ['ADMIN', 'MODERATOR'] },
         children: [
-            { path: 'dashboard', component: DashboarComponent, canActivate: [authGuard] },
-            { path: 'show-time-manager', component: ShowtimeManagerComponent, canActivate: [authGuard] },
-            { path: 'movie-manager', component: MovieManagerComponent, canActivate: [authGuard]},
-            { path: 'booking-manager', component: BookingManagerComponent, canActivate: [authGuard] },
-            { path: 'event-manager', component: EventManagerComponent, canActivate: [authGuard] },
-            { path: 'promotion-manager', component: PromotionManagerComponent, canActivate: [authGuard] },
-            { path: 'screen-manager/:theaterid', component: ScreenManagerComponent, canActivate: [authGuard] },
-            { path: 'theater-manager', component: TheaterManagerComponent, canActivate: [authGuard] },
-            { path: 'screen-user', component: UserManagerComponent, canActivate: [authGuard] },
+            { path: 'dashboard', component: DashboarComponent, canActivate: [authGuard], title: 'Dash-Board | NTP - Cinema'},
+            { path: 'show-time-manager', component: ShowtimeManagerComponent, canActivate: [authGuard], title: 'ShowTime MGR | NTP - Cinema'},
+            { path: 'movie-manager', component: MovieManagerComponent, canActivate: [authGuard], title: 'Movie MGR | NTP - Cinema'},
+            { path: 'booking-manager', component: BookingManagerComponent, canActivate: [authGuard], title: 'Booking MGR | NTP - Cinema' },
+            { path: 'event-manager', component: EventManagerComponent, canActivate: [authGuard], title: 'Event MGR | NTP - Cinema' },
+            { path: 'promotion-manager', component: PromotionManagerComponent, canActivate: [authGuard], title: 'Promotion MGR | NTP - Cinema' },
+            { path: 'screen-manager/:theaterid', component: ScreenManagerComponent, canActivate: [authGuard], title: 'Screen MGR | NTP - Cinema' },
+            { path: 'theater-manager', component: TheaterManagerComponent, canActivate: [authGuard], title: 'Theater MGR | NTP - Cinema' },
+            { path: 'user-manager', component: UserManagerComponent, canActivate: [authGuard], title: 'User MGR | NTP - Cinema' },
+            { path: 'about', component: AboutComponent, canActivate: [authGuard], title: 'About MGR | NTP - Cinema' },
+            { path: 'profile', component: ProfileUserComponent, canActivate: [authGuard], title: 'Profile MGR | NTP - Cinema'},
+
+
         // { path: '**', component: NotfoundComponent }
         ]
     },

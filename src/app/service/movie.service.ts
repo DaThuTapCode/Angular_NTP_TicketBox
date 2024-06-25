@@ -18,8 +18,6 @@ export class MovieService {
 
   private apiGetDetailMovie = `${this.apiUrlBase}api/v1/movies/detail-movie/`;
 
-  
-
   constructor(private http: HttpClient) { }
   getMovies(): Observable<Movie[]> {
     return this.http.get<any>(this.apiGetAllMovieIsShowing).pipe(

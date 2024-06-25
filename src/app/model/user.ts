@@ -4,6 +4,7 @@ export class User {
     email!: string;
     password!: string;
     status!: string;
+    image!: string;
     facebookacountid!: number;
     googleacountid!: number;
     retypepassword!: string;

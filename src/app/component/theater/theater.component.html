@@ -1,30 +1,53 @@
-
 <div class="container">
-    <div class="row">
-        <h3 class="text-center" style="color: white;">Hệ thống rạp</h3>
-        <div class="col-lg-3 col-md-6" *ngFor="let theater of theaters">
-          <div class="theater-items">
-            <!-- <button (click)="fetchData(movie.id, movie.status)" type="button" class="btn" data-toggle="modal"
-              data-target="#exampleModal">
-            </button> -->
-            <img src="{{ theater.image }}" alt="Movie image" class="theater-image">
-
-            <h3 class="theater">{{ theater.name}}</h3>
-            <p class="theater">{{ theater.description }}</p>
-            <div class="theater-action">
-              <p>
-                <button (click)="fetchData(theater.id)" type="button" class="btn btn-primary btn-detail"
-                  data-toggle="modal" data-target="#exampleModal">
-                  <i class="fa-solid fa-circle-exclamation"></i> Thông tin chi tiết
-                </button>
-              </p>
-            </div>
-  
-          </div>
+  <div class="row">
+    <h3 class="text-center" style="color: white;">Hệ thống rạp</h3>
+    <div class="col-lg-3 col-md-6" *ngFor="let theater of theaters">
+      <div class="theater-items">
+        <img src="{{ theater.image }}" alt="Movie image" class="theater-image">
+        <h3 class="theater">{{ theater.name }}</h3>
+        <h6 class="theater">Vị trí: {{ theater.location }}</h6>
+        <p class="theater">{{ theater.description }}</p>
+        <div class="theater-action">
+          <p>
+            <button (click)="fetchData(theater.id)" type="button" class="btn btn-primary btn-detail" data-toggle="modal" data-target="#exampleModalCenter">
+              <i class="fa-solid fa-circle-exclamation"></i> Thông tin chi tiết
+            </button>
+          </p>
         </div>
+      </div>
+    </div>
+  </div>
 </div>
 
 
+<!-- Modal -->
+<div *ngIf="theaterIsSelected" class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Chi tiết rạp</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-lg-4">
+            <img style="max-width: 100%;" [src]="theaterIsSelected.image" [alt]="theaterIsSelected.description">
+          </div>
+          <div class="col-lg-8">
+            <ul class="list-unstyled">
+              <li><strong>Tên rạp:</strong> {{ theaterIsSelected.name }}</li>
+              <li><strong>Mô tả:</strong> {{ theaterIsSelected.description }}</li>
+              <li><strong>Vị trí:</strong> {{ theaterIsSelected.location }} </li>
+              <li><strong>Thông tin liên hệ</strong></li>
+              <li><strong>Email: </strong> {{ theaterIsSelected.email }}</li>
+              <li><strong>Điện thoại: </strong> {{ theaterIsSelected.phone }}</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
-
-<!-- <button (click)="test()">test</button> -->

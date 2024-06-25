@@ -36,8 +36,8 @@
                                 <label for="time" class="text-dark">Giờ chiếu</label>
                                 <input [(ngModel)]="showtimeNew.showtime" id="time" type="time" name="time" class="form-control" required>
                             </div>
-                            <p class="text-warning"><small>*SA từ 00h - 11h59</small></p>
-                            <p class="text-warning"><small>*CH từ 12h - 23h59</small></p>
+                            <!-- <p class="text-warning"><small>*SA từ 00h - 11h59</small></p>
+                            <p class="text-warning"><small>*CH từ 12h - 23h59</small></p> -->
                         </div>              
                         <div class="col-lg-12">
                             <div class="form-group mb-3">
@@ -54,9 +54,9 @@
                     <div class="justify-content-center">
                         <button type="submit" class="btn btn-primary btn-block mt-4" (click)="this.createNewShowTime()" [disabled]="!allConditionsMet()">CREATE</button>
                     </div>
-                    <p *ngIf="! theaterIsSelected || !movieIsSelected || !screenIsSelected || showtimeNew.showdate.length < 5" class="text-danger">*Vui lòng chọn đủ các tham số!</p>
+                    <!-- <p *ngIf="! theaterIsSelected || !movieIsSelected || !screenIsSelected || showtimeNew.showdate.length < 5" class="text-danger">*Vui lòng chọn đủ các tham số!</p> -->
                 </div>
-                <span class="text-dark"><i class="fa-solid fa-circle text-danger"></i> Viền đỏ là suất chiếu đã qua hoặc đã bắt đầu chiếu!</span>
+                <!-- <span class="text-dark"><i class="fa-solid fa-circle text-danger"></i> Viền đỏ là suất chiếu đã qua hoặc đã bắt đầu chiếu!</span> -->
             </form>
         </div>
         
@@ -94,9 +94,9 @@
                             <button class="btn btn-edit" data-toggle="modal" data-target="#modalUpdateShowtime">
                                 <i class="fa-solid fa-pen-to-square"></i> Edit
                             </button>
-                            <button class="btn btn-danger" (click)="deleteShowtime()">
+                            <!-- <button class="btn btn-danger" (click)="deleteShowtime()">
                                 <i class="fa-solid fa-trash"></i> Delete
-                            </button>
+                            </button> -->
                         </td>
                     </tr>
                 </tbody>

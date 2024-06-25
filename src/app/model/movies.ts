@@ -32,7 +32,6 @@ apiBase = environment.apiUrl;
       this.performers = data.performers;
       this.director = data.director;
       this.trailer = data.trailer;
-      
       this.image = `${this.apiBase}api/v1/movies/images/${data.image}`;
       this.status = data.status;
     }

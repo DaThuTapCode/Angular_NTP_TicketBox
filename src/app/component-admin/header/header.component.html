@@ -18,16 +18,41 @@
         <li class="nav-item">
           <a class="nav-link" [routerLinkActive]="['active']" routerLink="/admin/theater-manager">Quản lý rạp</a>
         </li>
-        <!-- <li class="nav-item">
-          <a class="nav-link" [routerLinkActive]="['active']" routerLink="/admin/screen-manager">Quản lý phòng chiếu</a>
-        </li> -->
+        <li class="nav-item">
+          <a class="nav-link" [routerLinkActive]="['active']" routerLink="/admin/user-manager">Quản lý User</a>
+        </li>
+        <li class="nav-item ">
+          <a routerLink="about" class="nav-link" [routerLinkActive]="['active']">About</a>
+        </li>
+
+        <li *ngIf="!user" class="nav-item">
+          <a routerLink="login-or-register" class="nav-link">Đăng nhập</a>
+        </li>
+        <li *ngIf="user" class="nav-item">
+          <button class="btn text-white" (click)="logout()">|   Logout</button>
+          <!-- <a class="btn btn"  class="nav-link"></a> -->
+        </li>
+        <li class="nav-item" *ngIf="!user">
+          <a routerLink="login-or-register" class="nav-link">Đăng ký</a>
+        </li>
+<!--        
         <li class="nav-item">
           <a class="nav-link" [routerLinkActive]="['active']" routerLink="/admin/transaction-manager">Quản lý giao dịch</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" [routerLinkActive]="['active']" routerLink="/admin/user-manager">Quản lý nhân viên</a>
-        </li>
-        <!-- Add more links as needed -->
+        </li> -->
       </ul>
+      <div>
+        <span *ngIf="user" class="text-white">Xin chào: {{ user.username }}
+          <a *ngIf="user.image" routerLink="profile">
+            <img class="img-user" [src]="user.image" alt="img-user">
+          </a>
+          <a *ngIf="!user.image" routerLink="profile">
+            <img class="img-user" [src]="userImgEmpty" alt="">
+          </a>
+        </span>
+        <span *ngIf="!user">Chưa đăng nhập</span>
+      </div>
     </div>
   </nav>

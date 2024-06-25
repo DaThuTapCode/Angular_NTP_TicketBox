@@ -5,6 +5,7 @@ import { NotificationService } from '../../service/notification.service';
 import { CommonModule } from '@angular/common';
 import { map } from 'rxjs';
 import { error } from 'jquery';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-theater',
@@ -14,13 +15,26 @@ import { error } from 'jquery';
   styleUrl: './theater.component.scss'
 })
 export class TheaterComponent implements OnInit {
-  fetchData(arg0: number) {
-    throw new Error('Method not implemented.');
-  }
-  theaters: Theater[] = [];
 
-  constructor(private theaterService: TheaterService, private noti: NotificationService) { }
+
+  theaters: Theater[] = [];
+   theaterIsSelected: any;
+
+   fetchData(theaterId: number) {
+    this.theaters.forEach(theater => {
+      if(theater.id === theaterId){
+        this.theaterIsSelected = theater;
+      }
+    })
+  }
+
+  constructor(
+    private theaterService: TheaterService
+    , private noti: NotificationService
+    , private title: Title
+  ) { }
   ngOnInit(): void {
+    this.title.setTitle("Sys Theater | NTP - Cinema");
     this.test();
   }
   test() {

@@ -1,0 +1,21 @@
+<p>test-excel works!</p>
+<div class="container">
+<input type="file"(change)="readExcel($event)">
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>STT</th>
+                <th>Name</th>
+                <th>Role</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let d of this.excelData">
+                <td>{{d.STT}}</td>
+                <td>{{d.Name}}</td>
+                <td>{{d.Role}}</td>
+            </tr>
+        </tbody>
+    </table>
+
+</div>

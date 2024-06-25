@@ -27,6 +27,8 @@ export class TheaterManagerService {
 
   apiGetTheaterById = `${this.apiBase}api/v1/admin/theaters/`;
 
+  apiPutUpdateTheater = `${this.apiBase}api/v1/admin/theaters/update/`
+
   getPageTheater(page: number, size: number): Observable<Theater[]>{
     return this.http.get<any[]>(`${this.apiGetPageTheater}?page=${page}&size=${size}`);
   }
@@ -39,33 +41,13 @@ export class TheaterManagerService {
     return this.http.get<any>(`${this.apiGetTheaterById}${id}`);
   }
 
-  postCreateNewTheater(theater: TheaterRequest){
-    const formData: FormData = new FormData();
-    formData.append('name', theater.name);
-    formData.append('email', theater.email);
-    formData.append('phone', theater.phone);
-    formData.append('location', theater.location);
-    formData.append('description', theater.description);
-    formData.append('image', theater.image);
-    if(theater.file){
-      formData.append('file', theater.file, theater.file.name);
-    }
-    this.http.post(this.apiPostCreateTheater, formData).subscribe({
-      next: ((resp: any) => {
-        try{
-          this.noti.showSuccess(resp.message);
-        }catch(error){
-          console.error('Error parsing response:', error);
-          this.noti.showError(resp.message);
-        }
-      }),
-      error: (error) => {
-        console.error('HTTP error:', error);
-        this.noti.showError(error.error.message);
-      }
-    });
-    
-   
+  updateTheater(theaterId: number, formData: FormData):Observable<any>{
+    return this.http.put(`${this.apiPutUpdateTheater}${theaterId}`, formData);
+  }
+
+  postCreateNewTheater(formData: FormData): Observable<any>{
+   return  this.http.post(this.apiPostCreateTheater, formData);
+  
   }
 
 }

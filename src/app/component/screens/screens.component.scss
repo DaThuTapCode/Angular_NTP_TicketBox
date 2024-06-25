@@ -1,4 +1,3 @@
-.container{}
 
 .screen {
   // background-color: #ccc;
@@ -93,4 +92,13 @@
 .zone{
   border-radius: 10px;
   background-color: rgb(240, 240, 240)  transparent;
+}
+
+body{
+  background-color: #aa9f9f;
+  background: url("/assets/img/wall-login.jpg") no-repeat center center fixed;
+  background-size: cover;
+  // width: auto;
+  // height: 100vh;
+  margin: 0;
 }

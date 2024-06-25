@@ -173,7 +173,13 @@ export class ScreenManagerComponent implements OnInit {
       next: (value: any) => {
         this.loadAllScreens(this.theater.id);
       }, error: (error: any) => {
-        this.noti.showError(error.error.message);
+        console.log(error);
+        if (error.error.message) {
+          this.noti.showError(error.error.message);
+        }
+        if (error.message) {
+          this.noti.showError(error.message);
+        }
       }
     })
   }
@@ -201,17 +207,22 @@ export class ScreenManagerComponent implements OnInit {
 
 
   deleteSeat(seatid: number) {
+    const closeModal = document.getElementById('modalUpdateTypeSeat') as HTMLButtonElement;
+
     let check: boolean = confirm('Bạn có muốn xóa ghế này?');
     if (check) {
+      if (closeModal) {
+        closeModal.click();
+      }
       this.seatAdminService.deleteStatusSeat(seatid).subscribe({
         next: (value: any) => {
           this.noti.showSuccess(value.message);
           this.loadSeatList(this.screenIsSelectd.id);
         },
         error: (error: any) => {
-          console.log(error)
-          this.noti.showError(error.message);
-          // this.noti.showError('Ghế này đã phát sinh hóa đơn không thể xóa');
+          // console.log(error)
+          // this.noti.showError(error.message);
+          this.noti.showError('Ghế này đã phát sinh hóa đơn không thể xóa');
         }
       });
     }

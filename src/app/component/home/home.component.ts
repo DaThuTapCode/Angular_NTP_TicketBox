@@ -19,6 +19,7 @@ import { DomSanitizer, SafeResourceUrl, Title } from '@angular/platform-browser'
   imports: [HeaderComponent, FooterComponent, CommonModule]
 })
 export class HomeComponent implements OnInit {
+
   
   logoUrl = 'assets/img/_0af58169-9458-4dfb-a1bc-a3f3a07bf1a1.jpg';
   message: string = '';
@@ -33,6 +34,8 @@ export class HomeComponent implements OnInit {
 
   safeUrl!: SafeResourceUrl;
 
+  modalTrailer = false;
+
   constructor(
     private router: Router
     , private messageService: MessageService
@@ -43,19 +46,33 @@ export class HomeComponent implements OnInit {
     , private titleService: Title
   ) { }
 
+
+
   ngOnInit(): void {
-   
     this.loadMovies();
-
     this.loadMoviesUpComing();
-
     this.loadMessageCheckHealth();
-   
-
     this.fetchData(1, 1);
     this.titleService.setTitle('Home | NTP - Cinema');
   }
 
+  closeModalTrailer(): void {
+    const closeModal = document.getElementById('close-modal-update') as HTMLButtonElement;
+    if (closeModal) {
+      closeModal.click();
+    }
+  }
+
+
+  handleDivClick(event: Event): void {
+    console.log('Div clicked!', event);
+    // Xử lý sự kiện click tại đây
+    this.modalTrailer = false;
+  }
+
+  openModalTrailer() {
+    this.modalTrailer = true;
+  }
 
   loadMessageCheckHealth(){
     this.messageService.getMessage().subscribe(resp => {
@@ -100,4 +117,5 @@ export class HomeComponent implements OnInit {
     }
 
   }
+  
 }

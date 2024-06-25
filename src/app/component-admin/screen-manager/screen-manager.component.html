@@ -1,7 +1,7 @@
 <div class="container-fluid  justify-content-center bg-dark">
   <!-- <div class="w-100"> -->
   <div class="row p-5 bg-light rounded shadow-sm ">
-    <h1 *ngIf="theater" class="text-center text-green">Quản lý phòng chiếu {{theater.name}}</h1>
+    <h1 *ngIf="theater" class="text-center text-green">Quản lý phòng chiếu | <span class="text-warning"> {{theater.name}}</span></h1>
     <hr style="color: black;">
     <div class="col-lg-4 text-dark">
       <form action="">
@@ -20,6 +20,29 @@
         </div>
         <button class="btn btn-success" (click)="createScreen()">Create</button>
       </form>
+      <table class="table table-bordered table-hover text-center">
+        <thead>
+          <tr>
+            <th>STT</th>
+            <th>Tên phòng chiếu</th>
+            <th>Hành động</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let sc of screensList; let i = index">
+            <td>{{i + 1}}</td>
+            <td>{{ sc.name }}</td>
+            <td> 
+              <button
+               type="button" class="btn btn-primary button-edit" 
+               data-toggle="modal" 
+               data-target="#exampleModalCenter">
+              <i class="fa-solid fa-pen-to-square"></i> Edit
+          </button>
+        </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
     <div class="col-lg-8">
       <div class="col-md-12">
@@ -90,8 +113,6 @@
                     Ghế Bị ẩn ở phía người dùng
                   </div>
                 </div>
-
-
               </div>
             </div>
 

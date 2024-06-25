@@ -1,3 +1,4 @@
+
 <div class="main-home">
   <div class="container mt-5">
     <div class="d-flex justify-content-center">
@@ -16,11 +17,10 @@
     <div class="tab-content" id="movieTabsContent">
       <div class="tab-pane fade show active" id="now-showing" role="tabpanel" aria-labelledby="now-showing-tab">
         <div class="row mt-3">
-          <h4 class="text-center text-dark mb-3"><small><i class="fa-regular fa-star"></i><i
-            class="fa-regular fa-star"></i><i class="fa-solid fa-grip-lines"></i><i class="fa-solid fa-grip-lines"></i>
-          PHIM</small> <small class="text-warning"> ĐANG CHIẾU </small> <small> <i class="fa-solid fa-grip-lines"></i><i
-            class="fa-solid fa-grip-lines"></i><i class="fa-regular fa-star"></i><i
-            class="fa-regular fa-star"></i></small></h4>
+          <h4 class="text-center text-dark mb-3"><small>
+       
+          PHIM</small> <small class="text-warning"> ĐANG CHIẾU </small> </h4>
+          <h1 class="text-center display-4" *ngIf="movies.length === 0">Xin lỗi hiện tại không có phim nào đang được chiếu </h1>
           <div class="col-lg-3 col-md-6" *ngFor="let movie of movies">
             <div class="movie-items">
               <button title="Chi tiết" (click)="fetchData(movie.id, movie.status)" type="button"
@@ -47,19 +47,14 @@
         <div class="row mt-3">
           <h4 class="text-center text-dark mb-3">
             <small>
-              <i class="fa-regular fa-star"></i>
-              <i class="fa-regular fa-star"></i>
-              <i class="fa-solid fa-grip-lines"></i>
+             
               PHIM
             </small>
             <small class="text-warning">
               SẮP CHIẾU
             </small>
-            <small>
-              <i class="fa-solid fa-grip-lines"></i>
-              <i class="fa-regular fa-star"></i>
-              <i class="fa-regular fa-star"></i>
-            </small>
+            <h1 class="text-center display-4" *ngIf="moviesUpcomings.length === 0">Xin lỗi hiện tại không có phim nào đang sắp chiếu </h1>
+
           </h4>
           <div class="col-lg-3 col-md-6" *ngFor="let movieUpcoming of moviesUpcomings">
             <div class="movie-items">
@@ -68,8 +63,8 @@
                 <img src="{{ movieUpcoming.image }}" alt="Movie image" class="movie-image">
               </button>
               <h3 class="movie-name">{{ movieUpcoming.title }}</h3>
-              <p class="movie-description">{{ movieUpcoming.description }}</p>
-              <p class="movie-description">Khởi chiếu: {{ movieUpcoming.releaseDate }}</p>
+              <!-- <p class="movie-description">{{ movieUpcoming.description }}</p> -->
+              <p class="movie-description">Khởi chiếu: {{ movieUpcoming.releaseDate | date: "dd-MM-YYYY"}} </p>
               <div class="movie-action">
                 <button style="width: 85%;" (click)="fetchData(movieUpcoming.id, movieUpcoming.status)" type="button"
                         class="btn btn-primary btn-detail" data-toggle="modal" data-target="#exampleModal">
@@ -111,7 +106,7 @@
                   <!-- <button (click)="buyTicket(movieDetail.id)" data-dismiss="modal" aria-label="Close" class="btn btn-success btn-buy mt-2">
                     <i class="fa-solid fa-ticket"></i> Mua vé
                   </button> -->
-                  <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal2"
+                  <button (click)="openModalTrailer()" type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal2"
                     style="margin-top: 9.9px;">
                     <i class="fa-solid fa-play"></i> Xem trailer
                   </button>
@@ -135,8 +130,8 @@
       </div>
     </div>
     <!-- Modal trailer movie -->
-    <div class="modal fade custom-modal" id="exampleModal2" tabindex="-1" role="dialog"
-      aria-labelledby="exampleModalLabel2" aria-hidden="true">
+    <div *ngIf="modalTrailer" class="modal fade custom-modal" id="exampleModal2" tabindex="-1" role="dialog"
+      aria-labelledby="exampleModalLabel2" aria-hidden="true" (click)="handleDivClick($event)">
       <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
         <div class="modal-content">
           <div class="modal-header">
@@ -150,7 +145,7 @@
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                   referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
               </div>
-              <button type="button" class="close btn btn-primary" data-dismiss="modal" aria-label="Close">
+              <button type="button" id="" class="close btn btn-primary" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true"><i class="fa-solid fa-arrow-left"></i>Quay lại </span>
               </button>
             </div>

@@ -1,1 +1,109 @@
-<p>user-manager works!</p>
+<div class="container-fluid  justify-content-center bg-dark">
+    <!-- <div class="w-100"> -->
+        <div class="row p-5 bg-light rounded shadow-sm ">
+            <!-- <h1 class="text-center text-green">Quản lý rạp</h1> -->
+            <hr style="color: black;">
+            <div class="col-md-6 text-dark">
+                 <form action="">
+                    <h1 class="text-center text-green mb-4">Chi tiết người dùng</h1>
+                    <div class="profile-header text-dark">
+                        <!-- <input type="file" #fileInput (change)="onFileSelected($event)" style="display: none;"> -->
+                        <img class="img-user" src="http://localhost:4200/assets/img/user-img-null.png" alt="">
+                    </div>
+                     <div class="row" *ngIf="this.userDetail">
+                        <div class="col-md-12">
+                            <div class="form-group mb-3">
+                            <label for="name">Tên</label>    <input [(ngModel)]="userDetail.fullname" class="form-control" type="text" name="fullname">
+                            </div>
+                            <div class="form-group mb-3">
+                              <label for="email">Email</label>      <input [(ngModel)]="userDetail.email" class="form-control" type="text" name="email">
+                            </div>
+                            <div class="form-group mb-3">
+                              <label for="role">Chức vụ</label>    <input [(ngModel)]="userDetail.role.name" class="form-control" type="text" name="role">
+                            </div>
+                            <button class="btn btn-danger">Cấm người dùng</button>
+                        </div>
+                    </div>
+                </form> 
+            </div>
+            <!-- Main Content -->
+            <div class="col-md-6">
+                <div class="mb-4">
+                    <h1 class="text-center text-green mb-4">Danh sách user</h1>
+                    <div class="table-responsive">
+                        <table class="table table-hover bg-light text-dark">
+                            <thead>
+                                <tr class="text-center">
+                                    <th>User name</th>
+                                    <th>Họ và tên</th>
+                                    <th>Email</th>
+                                    <th>Ảnh</th>
+                                    <th>Chức vụ</th>
+                                    <th>Hành động</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                              <tr *ngFor="let u of userList" (click)="loadDetail(u.username)">
+                                  <td>{{u.username}}</td>
+                                  <td>{{u.fullname}}</td>
+                                  <td>{{u.email}}</td>
+                                  <td>{{u.image}}</td>
+                                  <td>{{u.username}}</td>
+                                  <td>{{u.username}}</td>
+                              </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<!-- </div> -->
+<!-- Modal -->
+<div *ngIf="" class="modal fade text-dark" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="editModalLabel">Edit Cinema</h5>
+          <button type="button" id="close-modal-update" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <!-- <form (ngSubmit)="onEditSubmit()">
+            <div class="form-group py-2">
+              <label for="name">Tên rạp</label>
+              <input [(ngModel)]="selectedTheater.name" class="form-control" id="name" name="name">
+            </div>
+            <div class="form-group py-2">
+              <label for="location">Địa chỉ</label>
+              <input [(ngModel)]="selectedTheater.location" class="form-control" id="location" name="location">
+            </div>
+            <div class="form-group py-2">
+              <label for="email">Email</label>
+              <input [(ngModel)]="selectedTheater.email" class="form-control" id="email" name="email">
+            </div>
+            <div class="form-group py-2">
+              <label for="phone">Điện thoại</label>
+              <input [(ngModel)]="selectedTheater.phone" class="form-control" id="phone" name="phone">
+            </div>
+            <div class="form-group py-2">
+              <label for="description">Mô tả</label>
+              <textarea [(ngModel)]="selectedTheater.description" class="form-control" id="description" name="description"></textarea>
+            </div>
+            <div class="form-group py-2">
+              <label for="file">Ảnh</label>
+              <input class="form-control" (change)="updateImageTheater($event)" type="file" name="file" id="file">
+              <div *ngIf="previewUrlUpdate">
+                <img [src]="previewUrlUpdate" alt="Image Preview" class="img-thumbnail mt-2" style="max-width: 200px;">
+            </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary" (click)="saveChanges()">Save changes</button>
+            <button type="button" class="btn btn-primary" id="logButton" (click)="logChange()">Log change</button> -->
+            
+          <!-- </form> -->
+        </div>
+      </div>
+    </div>
+  </div>

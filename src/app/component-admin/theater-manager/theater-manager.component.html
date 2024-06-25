@@ -5,7 +5,7 @@
             <hr style="color: black;">
             <div class="col-md-6 text-dark">
                 <form action="">
-                    <h1 class="text-center text-green mb-4">Tạo rạp mới</h1>
+                    <h1 class="text-center display-6  mb-4 ">Tạo rạp mới</h1>
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group mb-3">
@@ -51,9 +51,9 @@
             <!-- Main Content -->
             <div class="col-md-6">
                 <div class="mb-4">
-                    <h1 class="text-center text-warning mb-4">Danh sách rạp chiếu</h1>
+                    <h1 class="text-center  mb-4 display-6">Danh sách rạp chiếu</h1>
                     <div class="table-responsive">
-                        <table class="table table-bordered table-hover bg-light text-dark">
+                        <table class="table table-hover bg-light text-dark">
                             <thead>
                                 <tr class="text-center">
                                     <th>ID</th>
@@ -79,7 +79,7 @@
                                     <td>{{theater.description}}</td>
                                     <td>
                                         <button data-toggle="modal" data-target="#editModal" class="btn btn-primary btn-sm" (click)="editCinema(theater.id)">
-                                          Edit
+                                          <i class="fa-solid fa-pen-to-square"></i>   Edit
                                         </button>
                                         <div class="dropdown">
                                             <a class="btn btn-info dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
@@ -107,12 +107,12 @@
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="editModalLabel">Edit Cinema</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <button type="button" id="close-modal-update" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
         <div class="modal-body">
-          <form (ngSubmit)="onEditSubmit()">
+          <form>
             <div class="form-group py-2">
               <label for="name">Tên rạp</label>
               <input [(ngModel)]="selectedTheater.name" class="form-control" id="name" name="name">
@@ -136,8 +136,14 @@
             <div class="form-group py-2">
               <label for="file">Ảnh</label>
               <input class="form-control" (change)="updateImageTheater($event)" type="file" name="file" id="file">
+              <div *ngIf="previewUrlUpdate">
+                <img [src]="previewUrlUpdate" alt="Image Preview" class="img-thumbnail mt-2" style="max-width: 200px;">
             </div>
-            <button type="submit" class="btn btn-primary">Save changes</button>
+            </div>
+
+            <button type="submit" class="btn btn-primary" (click)="saveChanges()">Save changes</button>
+            <!-- <button type="button" class="btn btn-primary" id="logButton" (click)="logChange()">Log change</button> -->
+            
           </form>
         </div>
       </div>

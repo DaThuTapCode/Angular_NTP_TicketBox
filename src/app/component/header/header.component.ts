@@ -19,6 +19,7 @@ export class HeaderComponent implements OnInit {
 
   user: any;
   logoUrlHeader!: string;
+  userImgEmpty = '/assets/img/user-img-null.png'
 
   constructor(
     private sessionLogin: SessionloginService

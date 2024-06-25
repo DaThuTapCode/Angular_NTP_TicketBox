@@ -8,25 +8,23 @@ import { TokenService } from './token.service';
 import { HttpUtilService } from './http.util.service';
 import { SessionloginService } from './sessionlogin.service';
 import { NotificationService } from './notification.service';
+import { FormGroup } from '@angular/forms';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class  UserService {
-  private apiServer: string = environment.apiUrl;
+  private apiBase: string = environment.apiUrl;
 
-  private apiRegister:string = this.apiServer + 'api/v1/users/register';
+  private apiRegister: string = `${this.apiBase}api/v1/users/register`;
   
-  private apiLogin:string = this.apiServer + 'api/v1/users/login';
+  private apiLogin: string = `${this.apiBase}api/v1/users/login`;
 
+  private apiChangePassword: string = `${this.apiBase}api/v1/users/change-password`;
 
- 
-  private apiConfig = {
-    headers: this.httpUtilService.createHeaders(),
-  }
+  private apiChangeInfo: string = `${this.apiBase}api/v1/users/change-info`;
 
-
-  
 
   constructor(
     private http: HttpClient
@@ -37,16 +35,10 @@ export class  UserService {
   ,private notificationService: NotificationService
 ) { }
 
-    
-
-
 
   private createHeaders(): HttpHeaders {
      return new HttpHeaders({'Content-Type': 'application/json'})
   }
-
-
-
 
 register(userRegister: User) {
   const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
@@ -70,6 +62,12 @@ register(userRegister: User) {
     });
 }
 
+changePassword(form: FormGroup): Observable<any>{  
+  return this.http.put<any>(this.apiChangePassword, form.value);
+}
+changeInfo(form: FormGroup): Observable<any>{  
+  return this.http.put<any>(this.apiChangeInfo, form.value);
+}
 
 
 login(userLogin: UserLogin) {
@@ -88,7 +86,7 @@ login(userLogin: UserLogin) {
             this.router.navigate(["/admin/dashboard"])
            return;
           }
-           this.router.navigate(["/home"])
+           this.router.navigate(["/home"]);
         } catch (error) {
           this.notificationService.showError('Đăng nhập thất bại!');
           console.error('Error parsing response:', error);

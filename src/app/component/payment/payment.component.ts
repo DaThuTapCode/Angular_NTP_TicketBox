@@ -18,6 +18,9 @@ export class PaymentComponent implements OnInit{
   bookingId!: number;
   booking!: Booking;
 
+  screenName =  '';
+  logoUrl = 'assets/img/logo-brand-ntp-4.jpg'
+
   constructor(
     private bookingService: BookingService
     , private route: ActivatedRoute
@@ -37,12 +40,13 @@ export class PaymentComponent implements OnInit{
   loadPaymentResult(bookingId: number){
     this.bookingService.getPaymentResult(bookingId).subscribe({
       next: ((value: any) => {
-       this.booking = value.data;
-        console.log(this.booking);
+       this.booking = new Booking(value.data);
+      //  console.log(value.data);
+        // console.log(this.booking);
+       this.screenName = value.data.bookingdetail[0].showtime.screenname;
       }),
       error: (err: any) => {
         console.error(err);
-        //this.noti.showError(err.error.mesage);
         this.router.navigate(['/not-found']);
       } 
     })

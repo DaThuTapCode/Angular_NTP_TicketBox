@@ -1,37 +1,100 @@
 <div class="container">
-    <div class="profile-header">
-      <img [src]="user.image" alt="Profile Picture" class="profile-picture">
-      <h2>{{ user.fullname }}</h2>
-      <h4>{{ user.username }}</h4>
+  <div class="row">
+    <div class="col-lg-8">
+      <h2 class="text-color-brand">Tài khoản |</h2>
+      <div class="profile-header text-dark">
+        <input type="file" #fileInput (change)="onFileSelected($event)" style="display: none;">
+        <img 
+            *ngIf="user?.image"
+            [src]="user?.image"
+            alt="Profile Picture"
+            class="profile-picture"
+            (click)="fileInput.click()">
+        <img 
+            *ngIf="!user?.image"
+            [src]="userImgEmpty"
+            alt="Profile Picture"
+            class="profile-picture"
+            (click)="fileInput.click()">
+        <h2>{{ user?.fullname }}</h2>
     </div>
-    <form [formGroup]="userProfileForm"  class="profile-form">
-      <div class="form-group">
-        <label for="fullname">Full Name</label>
-        <input id="fullname" type="text" formControlName="fullname" class="form-control">
-        <div *ngIf="userProfileForm.get('fullname')?.invalid && (userProfileForm.get('fullname')?.dirty || userProfileForm.get('fullname')?.touched)">
-          <small *ngIf="userProfileForm.get('fullname')?.errors">Full name is required.</small>
-          <small *ngIf="userProfileForm.get('fullname')?.errors">Minimum length is 3.</small>
-          <small *ngIf="userProfileForm.get('fullname')?.errors">Maximum length is 100.</small>
+    <form [formGroup]="userProfileForm" class="profile-form text-dark" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+            <label for="fullname">Full Name</label>
+            <input id="fullname" type="text" formControlName="fullname" class="form-control">
+            <div *ngIf="userProfileForm.get('fullname')?.invalid && (userProfileForm.get('fullname')?.dirty || userProfileForm.get('fullname')?.touched)">
+                <!-- <small *ngIf="userProfileForm.get('fullname')?.errors?.required">Full name is required.</small>
+                <small *ngIf="userProfileForm.get('fullname')?.errors?.minlength">Minimum length is 3.</small>
+                <small *ngIf="userProfileForm.get('fullname')?.errors?.maxlength">Maximum length is 100.</small> -->
+            </div>
         </div>
-      </div>
-  
-      <div class="form-group">
-        <label for="email">Email</label>
-        <input id="email" type="email" formControlName="email" class="form-control">
-        <div *ngIf="userProfileForm.get('email')?.invalid && (userProfileForm.get('email')?.dirty || userProfileForm.get('email')?.touched)">
-          <small *ngIf="userProfileForm.get('email')?.errors">Email is required.</small>
-          <small *ngIf="userProfileForm.get('email')?.errors">Invalid email.</small>
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input id="email" type="email" formControlName="email" class="form-control">
+            <div *ngIf="userProfileForm.get('email')?.invalid && (userProfileForm.get('email')?.dirty || userProfileForm.get('email')?.touched)">
+                <!-- <small *ngIf="userProfileForm.get('email')?.errors?.required">Email is required.</small>
+                <small *ngIf="userProfileForm.get('email')?.errors?.email">Invalid email.</small> -->
+            </div>
         </div>
-      </div>
-  
-      <div class="form-group">
-        <label for="status">Status</label>
-        <select id="status" formControlName="status" class="form-control">
-          <!-- <option *ngFor="let status of StatusUserEnum" [value]="status">{{ status }}</option> -->
-        </select>
-      </div>
-  
-      <button type="submit" class="btn btn-primary">Save</button>
+        <button type="submit" class="btn btn-primary">Sửa thông tin</button>
     </form>
+    
+    </div>
+
+    <div class="col-lg-4">
+      <div class="card">
+        <div class="card-header text-center text-color-brand">
+          <h5>Đổi mật khẩu</h5>
+          
+        </div>
+        <div class="card-body">
+          <form [formGroup]="changePasswordForm" (ngSubmit)="onSubmitChangePassword()">
+            <div class="form-group">
+              <label for="passwordCurrent">Mật khẩu hiện tại</label>
+              <div class="input-group">
+                <input class="form-control" [type]="showPassword['passwordCurrent'] ? 'text' : 'password'" formControlName="passwordCurrent" id="passwordCurrent">
+                <div class="input-group-append">
+                  <!-- <button type="button" class="btn btn-outline-secondary" (click)="togglePasswordVisibility('passwordCurrent')">
+                    <i class="fa" [ngClass]="showPassword['passwordCurrent'] ? 'fa-eye-slash' : 'fa-eye'"></i>
+                  </button> -->
+                </div>
+              </div>
+            </div>
+            <div *ngIf="changePasswordForm.get('passwordCurrent')?.invalid && changePasswordForm.get('passwordCurrent')?.touched">
+              <small class="text-danger" *ngIf="changePasswordForm.get('passwordCurrent')?.errors?.['required']">Mật khẩu hiện tại là bắt buộc</small>
+            </div>
+            
+            <div class="form-group">
+              <label for="passwordNew">Mật khẩu mới</label>
+              <div class="input-group">
+                <input class="form-control" [type]="showPassword['passwordNew'] ? 'text' : 'password'" formControlName="passwordNew" id="passwordNew">
+                <div class="input-group-append">
+                  <!-- <button type="button" class="btn btn-outline-secondary" (click)="togglePasswordVisibility('passwordNew')">
+                    <i class="fa" [ngClass]="showPassword['passwordNew'] ? 'fa-eye-slash' : 'fa-eye'"></i>
+                  </button> -->
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="passwordConfirm">Nhập lại mật khẩu</label>
+              <div class="input-group">
+                <input class="form-control" [type]="showPassword['passwordConfirm'] ? 'text' : 'password'" formControlName="passwordConfirm" id="passwordConfirm">
+                <div class="input-group-append">
+                  <!-- <button type="button" class="btn btn-outline-secondary" (click)="togglePasswordVisibility('passwordConfirm')">
+                    <i class="fa" [ngClass]="showPassword['passwordConfirm'] ? 'fa-eye-slash' : 'fa-eye'"></i>
+                  </button> -->
+                </div>
+              </div>
+            </div>
+            <button class="btn btn-success" type="submit" [disabled]="!this.changePasswordForm.valid">Đổi mật khẩu!</button>
+          </form>
+        </div>
+        
+      </div>
+    </div>
   </div>
-  
+<div class="mt-5">
+    <app-transaction-history></app-transaction-history>
+
+</div>
+</div>

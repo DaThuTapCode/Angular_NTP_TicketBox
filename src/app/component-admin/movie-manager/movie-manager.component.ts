@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Movie } from '../../model/movies';
 import { MovieRequest } from '../../request-model/movie/movie-request';
-import { MovieService } from '../../service/movie.service';
 import { FormsModule } from '@angular/forms';
 import { MovieManagerService } from '../../service-admin/movie-manager.service';
 import { NotificationService } from '../../service/notification.service';
@@ -17,6 +16,36 @@ import { map } from 'rxjs';
 })
 export class MovieManagerComponent implements OnInit {
 
+
+  movies: Movie[] = [];
+  currentPage: number = 0;
+  pageSize: number = 3;
+  totalItems: number = 0;
+
+  movieNew: MovieRequest = {
+    title: 'Transformer One',
+    descriptions: 'Người máy biến hình 1',
+    duration: 180,
+    releasedate: '',
+    genre: 'Viễn Tưởng',
+    language: 'Phụ đề',
+    performers: 'Trọng Phú ọp tì mớt',
+    director: 'Trọng Phú',
+    trailer: 'Trai lơ',
+    status: 1,
+    file: null
+  };
+
+  movieUpdate!: MovieRequest;
+
+  idmovieupdate: number = 0;
+
+  previewUrl: string | ArrayBuffer | null = null;
+  previewUr2: string | ArrayBuffer | null = null;
+
+  errorMessage: string | null = null;
+
+
   constructor(
     private movieAdminService: MovieManagerService
     , private noti: NotificationService
@@ -26,26 +55,16 @@ export class MovieManagerComponent implements OnInit {
     this.getAllMovie();
   }
 
-  movies: Movie[] = [];
-  currentPage: number = 0;
-  pageSize: number = 3;
-  totalItems: number = 0;
-
-  /**Lấy ra toàn bộ phim */
-  /** Lấy ra toàn bộ phim */
   getAllMovie() {
     this.movieAdminService.getAllMovies(this.currentPage, this.pageSize).pipe(
       map((data: any) => {
-        // Trích xuất totalItems từ dữ liệu trả về
         this.totalItems = data.totalItems;
         console.log(data)
-        // Chuyển đổi dữ liệu phim thành các đối tượng Movie
         return data.data.map((movieData: any) => new Movie(movieData));
       })
     )
       .subscribe({
         next: (resp: Movie[]) => {
-          // Gán dữ liệu phim vào mảng movies
           this.movies = resp;
           console.log(resp);
         },
@@ -55,19 +74,35 @@ export class MovieManagerComponent implements OnInit {
       });
   }
 
-
-
-  previewUrl: string | ArrayBuffer | null = null;
-  previewUr2: string | ArrayBuffer | null = null;
-  errorMessage: string | null = null;
-
-
-
   /**Tạo phim mới */
   createNewMovie() {
-    this.movieAdminService.createNewMovie(this.movieNew);
-    this.getAllMovie();
-    this.totalPages;
+    const formData: FormData = new FormData();
+    formData.append('title', this.movieNew.title);
+    formData.append('descriptions', this.movieNew.descriptions);
+    formData.append('duration', this.movieNew.duration.toString());
+    formData.append('releasedate', this.movieNew.releasedate);
+    formData.append('genre', this.movieNew.genre);
+    formData.append('language', this.movieNew.language);
+    formData.append('performers', this.movieNew.performers);
+    formData.append('director', this.movieNew.director);
+    formData.append('trailer', this.movieNew.trailer);
+    formData.append('status', this.movieNew.status.toString());
+    console.log(this.movieNew.releasedate)
+    if (this.movieNew.file) {
+      formData.append('file', this.movieNew.file, this.movieNew.file.name);
+    }
+    this.movieAdminService.createNewMovie(formData).subscribe({
+      next: (resp: any) => {
+        this.noti.showSuccess(resp.message);
+        this.getAllMovie();
+        this.totalPages;
+      }
+      ,
+      error: (err) => {
+        console.error('HTTP error:', err);
+        this.noti.showError(err.error.message)
+      }
+    });;
   }
 
   hehe(event: any) {
@@ -95,6 +130,7 @@ export class MovieManagerComponent implements OnInit {
       this.movieNew.file = file;
     }
   }
+
   hehe2(event: any) {
     const file = event.target.files[0];
     if (file) {
@@ -105,9 +141,7 @@ export class MovieManagerComponent implements OnInit {
         this.previewUr2 = null;
         return;
       }
-
       this.errorMessage = null;
-
       const reader = new FileReader();
       reader.onload = () => {
         this.previewUr2 = reader.result as string | ArrayBuffer;
@@ -121,23 +155,7 @@ export class MovieManagerComponent implements OnInit {
     }
   }
 
-  movieNew: MovieRequest = {
-    title: 'Transformer One',
-    descriptions: 'Người máy biến hình 1',
-    duration: 180,
-    releasedate: '',
-    genre: 'Viễn Tưởng',
-    language: 'Phụ đề',
-    performers: 'Trọng Phú ọp tì mớt',
-    director: 'Trọng Phú',
-    trailer: 'Trai lơ',
-    status: 1,
-    file: null
-  };
 
-  movieUpdate!: MovieRequest;
-
-  idmovieupdate: number = 0;
   loadDetailMovie(movie: Movie) {
     this.movieUpdate = {
       title: movie.title,
@@ -152,36 +170,48 @@ export class MovieManagerComponent implements OnInit {
       status: movie.status,
       file: null
     };
+    this.previewUr2 = movie.image;
     this.idmovieupdate = movie.id;
   }
-  updateMovie(){
-    const formData = new FormData();
-    formData.append('title', this.movieUpdate.title);
-    formData.append('descriptions', this.movieUpdate.descriptions);
-    formData.append('duration', this.movieUpdate.duration.toString());
-    formData.append('releasedate', this.movieUpdate.releasedate);
-    formData.append('genre', this.movieUpdate.genre);
-    formData.append('language', this.movieUpdate.language);
-    formData.append('performers', this.movieUpdate.performers);
-    formData.append('director', this.movieUpdate.director);
-    formData.append('trailer', this.movieUpdate.trailer);
-    formData.append('status', this.movieUpdate.status.toString());
-    console.log(this.movieUpdate.releasedate)
-    if (this.movieUpdate.file) {
-      formData.append('file', this.movieUpdate.file, this.movieUpdate.file.name);
+
+
+  
+
+  updateMovie() {
+    let check = confirm('Bạn có muốn update?');
+    if (check) {
+      const formData = new FormData();
+      formData.append('title', this.movieUpdate.title);
+      formData.append('descriptions', this.movieUpdate.descriptions);
+      formData.append('duration', this.movieUpdate.duration.toString());
+      formData.append('releasedate', this.movieUpdate.releasedate);
+      formData.append('genre', this.movieUpdate.genre);
+      formData.append('language', this.movieUpdate.language);
+      formData.append('performers', this.movieUpdate.performers);
+      formData.append('director', this.movieUpdate.director);
+      formData.append('trailer', this.movieUpdate.trailer);
+      formData.append('status', this.movieUpdate.status.toString());
+      console.log(this.movieUpdate.releasedate)
+      if (this.movieUpdate.file) {
+        formData.append('file', this.movieUpdate.file, this.movieUpdate.file.name);
+      }
+      this.movieAdminService.updateMovie(formData, this.idmovieupdate)
+        .subscribe({
+          next: (resp: any) => {
+            this.noti.showSuccess(resp.message);
+            this.getAllMovie();
+            const closeModalUpdate = document.getElementById('exampleModalCenter');
+            if(closeModalUpdate){
+              closeModalUpdate.click();
+            }
+          }
+          ,
+          error: (err) => {
+            console.error('HTTP error:', err);
+            this.noti.showError(err.error.message)
+          }
+        });
     }
-    this.movieAdminService.updateMovie(formData, this.idmovieupdate)
-      .subscribe({
-        next: (resp: any) => {
-          this.noti.showSuccess(resp.message);
-          this.getAllMovie();
-        }
-        ,
-        error: (err) => {
-          console.error('HTTP error:', err);
-          this.noti.showError(err.error.message)
-        }
-      });
   }
 
   changePage(page: number): void {

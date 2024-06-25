@@ -3,7 +3,7 @@
   <div class="container" id="container">
     <div class="form-container register-container">
       <form #registerForm="ngForm">
-        <h1>Register here</h1>
+        <h1>Đăng ký</h1>
         <div class="form-control">
           <input [(ngModel)]="userRegister.username" name="username" (focus)="registerForm.form.markAllAsTouched" (input)="changeUserName()" type="text" id="username" placeholder="User name" required/>
           <small class="text-danger" *ngIf="usernameError.length > 2" id="username-error">{{ usernameError }}</small>
@@ -31,21 +31,21 @@
           <!-- <span></span> -->
         </div>
         <button (click)="register()" type="submit" value="submit">Register</button>
-        <span>or use your account</span>
+        <!-- <span>or use your account</span>
         <div class="social-container">
           <a href="#" class="social"
             ><i class="fa-brands fa-facebook-f"></i
           ></a>
           <a href="#" class="social"><i class="fa-brands fa-google"></i></a>
           <a href="#" class="social"><i class="fa-brands fa-tiktok"></i></a>
-        </div>
+        </div> -->
       </form>
     </div>
     
 
     <div class="form-container login-container">
       <form #loginForm="ngForm" class="form-lg" method="post">
-        <h1>Login here.</h1>
+        <h1>Đăng nhập.</h1>
         <div class="form-control2">
           <input [(ngModel)]="this.userLogin.username" name="username" type="text" class="email-2" placeholder="User Name" />
           <small *ngIf="this.usernameLoginError.length > 1" class="email-error-2">{{ this.usernameLoginError }}</small>
@@ -60,21 +60,21 @@
         <div class="content">
           <div class="checkbox">
             <input type="checkbox" name="checkbox" id="checkbox" />
-            <label for="">Remember me</label>
+            <label for="">Nhớ mật khẩu</label>
           </div>
           <div class="pass-link">
-            <a href="#">Forgot password</a>
+            <a href="#">Quên mật khẩu</a>
           </div>
         </div>
         <button (click)="this.login()" type="submit" value="submit">Login</button>
-        <span>Or use your account</span>
+        <!-- <span>Or use your account</span>
         <div class="social-container">
           <a href="#" class="social"
             ><i class="fa-brands fa-facebook-f"></i
           ></a>
           <a href="#" class="social"><i class="fa-brands fa-google"></i></a>
           <a href="#" class="social"><i class="fa-brands fa-tiktok"></i></a>
-        </div>
+        </div> -->
       </form>
     </div>
 
@@ -82,10 +82,10 @@
       <div class="overlay">
         <div class="overlay-panel overlay-left">
           <h1 class="title">
-            Hello <br />
-            friends
+            NTP Ticket Box <br />
+            Xin chào!
           </h1>
-          <p>If you have an account, login here and have fun</p>
+          <!-- <p>If you have an account, login here and have fun</p> -->
           <button class="ghost" id="login">
             Login
             <i class="fa-solid fa-arrow-left"></i>
@@ -94,14 +94,14 @@
 
         <div class="overlay-panel overlay-right">
           <h1 class="title">
-            Start your <br />
-            journey now
+            NTP Ticket Box <br />
+           Xin chào!
           </h1>
-          <p>
+          <!-- <p>
             If you don'n have an account yet, join us and start your journey
-          </p>
+          </p> -->
           <button class="ghost" id="register">
-            Register
+            Đăng ký
             <i class="fa-solid fa-arrow-right"></i>
           </button>
         </div>

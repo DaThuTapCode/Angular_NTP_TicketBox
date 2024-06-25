@@ -2,6 +2,7 @@
   <div class="container">
     <a routerLink="home" class="navbar-brand">
       <img class="img-logo-ntp" [src]="logoUrlHeader" alt="img-logo-ntp">
+      NTP-Ticket Box
     </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -16,30 +17,37 @@
           <a routerLink="theater" class="nav-link" [routerLinkActive]="['active']">Hệ thống rạp chiếu</a>
         </li>
 
-        <li class="nav-item">
+        <!-- <li class="nav-item">
           <a routerLink="movie-schedule" class="nav-link" [routerLinkActive]="['active']">Lịch chiếu phim</a>
-        </li>
-
+        </li> -->
+<!-- 
         <li class="nav-item" *ngIf="user">
           <a routerLink="transaction-history" class="nav-link" [routerLinkActive]="['active']">Lịch sử giao dịch</a>
-        </li>
+        </li> -->
         <li class="nav-item ">
           <a routerLink="about" class="nav-link" [routerLinkActive]="['active']">About</a>
         </li>
 
         <li *ngIf="!user" class="nav-item">
-          <a routerLink="login-or-register" class="nav-link">Đăng nhập</a>
+          <a routerLink="login-or-register"  class="nav-link" [routerLinkActive]="['active']">Đăng nhập</a>
         </li>
         <li *ngIf="user" class="nav-item">
-          <button class="btn text-white" (click)="logout()">Logout</button>
+          <button class="btn text-white" (click)="logout()">|   Logout</button>
           <!-- <a class="btn btn"  class="nav-link"></a> -->
         </li>
-        <li class="nav-item" *ngIf="!user">
+        <!-- <li class="nav-item" *ngIf="!user">
           <a routerLink="login-or-register" class="nav-link">Đăng ký</a>
-        </li>
+        </li> -->
       </ul>
       <div>
-        <span *ngIf="user" class="text-white">{{ user.username }}</span>
+        <span *ngIf="user" class="text-white">Xin chào: {{ user.username }}
+          <a *ngIf="user.image" routerLink="profile">
+            <img class="img-user" [src]="user.image" alt="img-user">
+          </a>
+          <a *ngIf="!user.image" routerLink="profile">
+            <img class="img-user" [src]="userImgEmpty" alt="">
+          </a>
+        </span>
         <span *ngIf="!user">Chưa đăng nhập</span>
       </div>
     </div>

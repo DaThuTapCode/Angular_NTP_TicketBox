@@ -4,18 +4,18 @@
 //     margin: 0 auto;
 // }
 
-/* Căn giữa tiêu đề */
 h1 {
     text-align: center;
 }
 
-/* Thay đổi màu chữ của label và thêm khoảng cách dưới cùng */
 label {
     color: #fff;
     margin-bottom: 5px;
 }
+.main-content{
+    min-height: 150vh;
+}
 
-/* Định dạng input và thêm border-radius */
 input[type="text"],
 input[type="number"],
 input[type="date"],
@@ -27,7 +27,6 @@ input[type="file"] {
     margin-bottom: 10px;
 }
 
-/* Thay đổi màu của button và border-radius */
 button {
     background-color: #28a745;
     color: #fff;

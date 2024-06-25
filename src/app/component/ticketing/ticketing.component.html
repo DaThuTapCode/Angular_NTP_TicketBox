@@ -12,7 +12,7 @@
     <div class="row">
       <div class="col-md-11 mt-2">
         <small><img style="border-radius: 10px; box-shadow: 5px 10px;" class="img-movie mb-2" [src]="movie.image" [alt]="movie.description"></small>
-        <h5 *ngIf="this.movie" class="text-dark ">Phim: {{movie.title}} <br> Ngày: {{formatDate(this.showdate)}}</h5>
+        <h5 *ngIf="this.movie" class="text-dark ">Phim: {{movie.title}} <br> Ngày: {{ this.showdate | date: 'dd-MM-yyyy'}}</h5>
       </div>
     </div>
     <h3 class="color-green mt-3">Danh sách rạp có suất chiếu</h3>
@@ -32,7 +32,7 @@
           <table class="table table-sm table-dark theater-name">
             <thead>
               <tr>
-                <th>ID Show time</th>
+                <!-- <th>ID Show time</th> -->
                 <th>Screen</th>
                 <th>Địa chỉ rạp</th>
                 <th>Giờ chiếu</th>
@@ -43,11 +43,11 @@
             </thead>
             <tbody>
               <tr *ngFor="let showtime of groupedShowtimes[theaterName]">
-                <td>{{ showtime.id }}</td>
+                <!-- <td>{{ showtime.id }}</td> -->
                 <td>{{ showtime.screen?.name }}</td>
                 <td>{{ showtime.screen?.theater?.location }}</td>
                 <td>{{ showtime.showtime }}</td>
-                <td>{{ showtime.showdate }}</td>
+                <td>{{ showtime.showdate | date: 'dd-MM-yyyy' }}</td>
                 <td>{{ showtime.movie?.title }}</td>
                 <td>
                   <a class="btn btn-success"
