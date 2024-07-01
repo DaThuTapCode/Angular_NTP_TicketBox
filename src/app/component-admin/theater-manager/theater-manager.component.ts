@@ -33,7 +33,7 @@ export class TheaterManagerComponent {
     image: 'hehe',
     phone: '0123456',
     email: 'ntp@123456',
-    description: 'Ơ ớ',
+    description: 'Mô tả',
     file: null
   }
 

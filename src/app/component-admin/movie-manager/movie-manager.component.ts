@@ -213,6 +213,7 @@ export class MovieManagerComponent implements OnInit {
         });
     }
   }
+  
 
   changePage(page: number): void {
     this.currentPage = page;

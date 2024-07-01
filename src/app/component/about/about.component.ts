@@ -16,4 +16,8 @@ export class AboutComponent {
   }
 
   logoUrl = 'assets/img/logo-brand-ntp-4.jpg'
+  logoVNPAYUrl = 'assets/img/logo.svg'
+  logoAngularUrl = 'assets/img/logo-nav@2x.png'
+  logoJavaUrl = 'assets/img/Java_programming_language_logo.svg'
+  logoJavaSpringUrl = 'assets/img/spring.png'
 }

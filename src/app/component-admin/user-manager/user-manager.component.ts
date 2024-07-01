@@ -15,7 +15,14 @@ import { NotificationService } from '../../service/notification.service';
 })
 export class UserManagerComponent implements OnInit{
 
-  userDetail: any;
+  userDetail: any = {
+    username: '',
+    fullname: '',
+    email: '',
+    role: {
+      name: ''
+    }
+  };
 
   userList: any[] =[];
 

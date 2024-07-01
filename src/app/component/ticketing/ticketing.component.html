@@ -12,7 +12,7 @@
     <div class="row">
       <div class="col-md-11 mt-2">
         <small><img style="border-radius: 10px; box-shadow: 5px 10px;" class="img-movie mb-2" [src]="movie.image" [alt]="movie.description"></small>
-        <h5 *ngIf="this.movie" class="text-dark ">Phim: {{movie.title}} <br> Ngày: {{ this.showdate | date: 'dd-MM-yyyy'}}</h5>
+        <h5 *ngIf="this.movie" class="text-dark ">Phim: {{movie.title}} <br> Ngày: {{ this.showdate | date: 'dd-MM-yyyy'}} <br> Thời lượng phim: {{ movie.duration }} phút</h5>
       </div>
     </div>
     <h3 class="color-green mt-3">Danh sách rạp có suất chiếu</h3>
@@ -50,6 +50,9 @@
                 <td>{{ showtime.showdate | date: 'dd-MM-yyyy' }}</td>
                 <td>{{ showtime.movie?.title }}</td>
                 <td>
+                  <!-- <button class="btn btn-success"(click)="redirectToScreens(showtime)">
+                    <i class="fa-solid fa-ticket"></i> Đặt vé
+                  </button> -->
                   <a class="btn btn-success"
                     [routerLink]="['/screen', showtime.movie?.id, showtime.screen?.id, showtime.id]">
                     <i class="fa-solid fa-ticket"></i> Đặt vé

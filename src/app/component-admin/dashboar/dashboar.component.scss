@@ -79,3 +79,22 @@
 .form-select{
     border: solid 4px #000000;
 }
+.bg-dark {
+    background-color: #343a40 !important;
+    color: #f8f9fa !important;
+}
+.text-green {
+    font-weight: bold;
+    color: #72BE42;
+}
+.form-control, .form-select {
+    border: none;
+    border-bottom: solid 2px #72BE42;
+}
+.card {
+    margin-bottom: 1.5rem;
+}
+.chart-container {
+    position: relative;
+    height: 40vh;
+}

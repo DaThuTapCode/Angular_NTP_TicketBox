@@ -87,7 +87,7 @@
                         <td>{{showtime.movie?.title}}</td>
                         <td>{{showtime.screen?.name}}</td>
                         <td>{{showtime.screen?.theater?.name}}</td>
-                        <td>{{showtime.showdate}}</td>
+                        <td>{{showtime.showdate | date: 'dd-MM-yyyy'}}</td>
                         <td>{{showtime.showtime}}</td>
                         <td>{{showtime.movie?.duration}} phút</td>
                         <td>

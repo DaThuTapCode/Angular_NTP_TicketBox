@@ -39,7 +39,7 @@ body {
   }
 
   img.project-logo {
-    max-width: 200px;
+    max-width: 40%px;
     margin-top: 20px;
     border-radius: 50%;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
@@ -56,4 +56,23 @@ body {
   .text-white {
     color: #FFFFFF;
   }
+
+  .project-logo {
+    width: 100px;  
+    height: 100px; 
+    // object-fit: cover; /* Để đảm bảo ảnh không bị méo khi thay đổi kích thước */
 }
+  .project-logo-springapi {
+    width: 200px;  
+    // height: 100px; 
+    // object-fit: cover; /* Để đảm bảo ảnh không bị méo khi thay đổi kích thước */
+}
+  .project-logo-angular {
+    width: 200px; 
+    background-color: #454545;
+
+}
+
+}
+
+

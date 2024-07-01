@@ -7,6 +7,8 @@ import { FormsModule } from '@angular/forms';
 import { Theater } from '../../model/theater';
 import { TheaterManagerService } from '../../service-admin/theater-manager.service';
 import { map } from 'rxjs';
+import { environment } from '../../enviroment/environment';
+import { Booking } from '../../model/booking';
 
 @Component({
   selector: 'app-dashboar',
@@ -17,6 +19,7 @@ import { map } from 'rxjs';
 })
 export class DashboarComponent implements OnInit {
 
+  apiBase = environment.apiUrl;
 
   user!: any;
 
@@ -36,24 +39,40 @@ export class DashboarComponent implements OnInit {
 
   currentYear = this.dateee.getFullYear();
 
+  listRevenueMovie: any[] = [];
+
   theaterList: Theater[] = [];
+
+  bookingList: any[] = [];
+
+  bookingIselected: any;
+
+  //Phân trang
+  currentPage: number = 0;
+  pageSize: number = 10;
+  totalItems: number = 0;
+
+  changePage(page: number): void {
+    this.currentPage = page;
+    this.loadBookingList();
+  }
+
+
+
+  get totalPages(): number {
+    return Math.ceil(this.totalItems / this.pageSize);
+  }
+
+
   ngOnInit(): void {
     this.loadDailyRevenue(this.currentDate);
     this.loadMonthlyRevenue();
     this.loadWeeklyRevenue();
     this.loadYearlyRevenue();
     this.loadListTheater();
+    this.loadListRevenueMovie();
+    this.loadBookingList();
     this.user = this.sessionLogin.getUser();
-  }
-
-  loadData(){
-    if(this.theaterIsSelected){
- this.loadDailyRevenue(this.currentDate);
-    this.loadMonthlyRevenue();
-    this.loadWeeklyRevenue();
-    this.loadYearlyRevenue();
-    this.loadListTheater();
-    }
   }
 
   constructor(
@@ -62,6 +81,36 @@ export class DashboarComponent implements OnInit {
     , private theaterAdminService: TheaterManagerService
   ) { }
 
+  loadData() {
+    if (this.theaterIsSelected) {
+      this.loadDailyRevenue(this.currentDate);
+      this.loadMonthlyRevenue();
+      this.loadWeeklyRevenue();
+      this.loadYearlyRevenue();
+      this.loadListTheater();
+      this.loadBookingList();
+
+    }
+  }
+
+  avgRevenueShowtime(revenue: number, totalShowtime: number): number {
+    if (totalShowtime != 0) {
+      return revenue / totalShowtime;
+    }
+    return 0;
+  }
+
+  loadListRevenueMovie() {
+    this.statisticalService.getRevenueMovie('').subscribe({
+      next: (value: any) => {
+        this.listRevenueMovie = value.data;
+        this.listRevenueMovie.forEach(rm => {
+          rm.image = `${this.apiBase}api/v1/movies/images/${rm.image}`;
+        })
+        console.log(value.data);
+      }
+    })
+  }
 
   formatDate(date: Date): string {
     const day = ('0' + date.getDate()).slice(-2);
@@ -79,22 +128,22 @@ export class DashboarComponent implements OnInit {
   }
   //  map(resp => resp.data.map((movieUpcoming: any) => new Movie(movieUpcoming)))
   loadDailyRevenue(currentDate: string) {
-    if(this.theaterIsSelected){
+    if (this.theaterIsSelected) {
       this.statisticalService.getDailyRevenueByTheater(currentDate, this.theaterIsSelected.id).subscribe({
         next: (value: any) => {
           this.dailyRevenue = value.data == null ? 0 : value.data;
           console.log(value);
         }
       })
-    }else{
-       this.statisticalService.getDailyRevenue(currentDate).subscribe({
-      next: (value: any) => {
-        this.dailyRevenue = value.data == null ? 0 : value.data;
-        console.log(value);
-      }
-    })
+    } else {
+      this.statisticalService.getDailyRevenue(currentDate).subscribe({
+        next: (value: any) => {
+          this.dailyRevenue = value.data == null ? 0 : value.data;
+          console.log(value);
+        }
+      })
     }
-   
+
   }
   onChangeDay(event: any) {
     this.loadDailyRevenue(this.currentDate);
@@ -110,33 +159,33 @@ export class DashboarComponent implements OnInit {
   }
 
   loadMonthlyRevenue() {
-    if(this.theaterIsSelected){
+    if (this.theaterIsSelected) {
       this.statisticalService.getMRevenueByTheater(this.theaterIsSelected.id).subscribe({
         next: (value: any) => {
           this.monthlyRevenue = value.data == null ? 0 : value.data;
           console.log(value);
         }
       })
-    }else{
-       this.statisticalService.getMRevenue().subscribe({
-      next: (value: any) => {
-        this.monthlyRevenue = value.data == null ? 0 : value.data;
-        console.log(value);
-      }
-    })
+    } else {
+      this.statisticalService.getMRevenue().subscribe({
+        next: (value: any) => {
+          this.monthlyRevenue = value.data == null ? 0 : value.data;
+          console.log(value);
+        }
+      })
     }
-   
+
   }
 
   loadYearlyRevenue() {
-    if(this.theaterIsSelected){
+    if (this.theaterIsSelected) {
       this.statisticalService.getYRevenueByTheater(this.theaterIsSelected.id).subscribe({
         next: (value: any) => {
           this.yearlyRevenue = value.data == null ? 0 : value.data;
           console.log(value);
         }
       })
-    }else{
+    } else {
       this.statisticalService.getYRevenue().subscribe({
         next: (value: any) => {
           this.yearlyRevenue = value.data == null ? 0 : value.data;
@@ -144,23 +193,54 @@ export class DashboarComponent implements OnInit {
         }
       })
     }
-   
+
+  }
+
+  loadBookingList() {
+    if (this.theaterIsSelected) {
+      this.statisticalService.getPageBookingByTheaterId(this.currentPage, this.pageSize, this.theaterIsSelected.id).subscribe({
+        next: (value: any) => {
+          this.bookingList = value.data;
+          console.log(value.data);
+          this.totalItems = value.totalItems;
+
+        }
+      })
+    } else {
+      this.statisticalService.getPageBookingAll(this.currentPage, this.pageSize).subscribe({
+        next: (value: any) => {
+          this.bookingList = value.data;
+          console.log(value.data);
+          this.totalItems = value.totalItems;
+          console.log(this.totalItems);
+        }
+      })
+    }
+  }
+
+
+  loadBookingIsSelected(bookingid: number){
+    this.bookingList.forEach(b => {
+      if(b.id === bookingid){
+        this.bookingIselected = b;
+      }
+    });
   }
 
   theaterIsSelected: any;
 
   onChangeTheater(event: any) {
     const elementSelected = event.target.selectedIndex;
-    if(elementSelected > 0){
-       this.theaterIsSelected = this.theaterList[elementSelected - 1];
-    console.log(this.theaterIsSelected);
-    }else{
+    if (elementSelected > 0) {
+      this.theaterIsSelected = this.theaterList[elementSelected - 1];
+      console.log(this.theaterIsSelected);
+    } else {
       this.theaterIsSelected = null;
       console.log(this.theaterIsSelected);
     }
-       this.loadDailyRevenue(this.currentDate);
-       this.loadMonthlyRevenue();
-       this.loadYearlyRevenue();
-
+    this.loadDailyRevenue(this.currentDate);
+    this.loadMonthlyRevenue();
+    this.loadYearlyRevenue();
+    this.loadBookingList();
   }
 }
